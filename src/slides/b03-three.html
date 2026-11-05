@@ -1,0 +1,29 @@
+<section class="slide light" id="three" data-steps="2" data-section="1 · The problem" data-time="2" data-title="At ten million files, three things go wrong">
+  <div class="hd">
+    <div class="eyebrow">The problem</div>
+    <h2>At ten million files, three things go wrong</h2>
+  </div>
+  <div class="abs card pf-tr" style="left:120px;top:236px;width:540px;height:660px">
+    <div class="pf-tr-d" id="pf-tr1"></div>
+    <i>1</i><h3>The shared filesystem slows down for everyone</h3>
+    <p>One metadata entry per file. Listing the dataset folder takes minutes.</p>
+  </div>
+  <div class="abs card pf-tr" data-s="1" style="left:690px;top:236px;width:540px;height:660px">
+    <div class="pf-tr-d" id="pf-tr2"></div>
+    <i>2</i><h3>The object store limits requests, not bytes</h3>
+    <p>About 5,500 requests per second per prefix, against about ten million requests in a run.</p>
+  </div>
+  <div class="abs card pf-tr" data-s="2" style="left:1260px;top:236px;width:540px;height:660px">
+    <div class="pf-tr-d" id="pf-tr3"></div>
+    <i>3</i><h3>Processes on one machine repeat each other's work</h3>
+    <p>Training, a data job and a notebook each fetch their own copy.</p>
+  </div>
+  <div class="src">Source: Patram-FS engineering post. The drawings are illustrative.</div>
+  <aside class="notes">
+    <p>At ten million files, three things go wrong, and they are three different problems.</p>
+    <p>First, the shared filesystem. It keeps a metadata entry for every file, and it slows down with the number of files, whatever their size. At ten million files, just listing the dataset folder takes minutes. Worse, this is shared: the metadata load slows every other machine and every other team on the cluster.</p>
+    <p data-step="1">So move the data to the object store. It has plenty of room, but it limits requests, not bytes. S3 allows roughly 5,500 requests per second for each prefix. A run that fetches samples one at a time makes about ten million requests against that limit. Small files are the worst case, because you pay for one request per file however few bytes it holds.</p>
+    <p data-step="2">The third one is easy to miss. A machine runs several processes that read the same data: training, a data job, someone's notebook. They know nothing about each other, so each one fetches its own copy. That wastes the network, the disk and the memory.</p>
+    <p>Patram-FS solves these in order. Too many files is the first one, and that takes us to shards.</p>
+  </aside>
+</section>

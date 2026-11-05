@@ -1,0 +1,21 @@
+<section class="slide light" id="ytbytes" data-steps="2" data-section="3 · The daemon" data-time="1.2" data-title="Where shard bytes travel on one machine">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Where shard bytes travel on one machine</h2>
+  </div>
+  <div class="abs card" id="pf-ar" style="left:120px;top:236px;width:1040px;height:660px"></div>
+  <div class="abs pf-side" style="left:1200px;top:236px;width:600px">
+    <p class="pf-ctxp">Every process already talks to the daemon. A run makes <b>millions of reads</b>, and asks about each shard <b>only once</b>.</p>
+    <div data-s="1" class="pf-q sm">Should the daemon read the file and pass the bytes to each process?</div>
+    <div data-s="1" class="card pf-opt2"><i>A</i><span>Yes. Every read goes through the daemon.</span></div>
+    <div data-s="1" class="card pf-opt2 ok"><i>B</i><span>No. The daemon gives the location, and the process reads the file itself.</span></div>
+    <div data-s="2" class="pf-ans2">We chose B. The daemon cannot become a bandwidth bottleneck, and restarting it cannot break a read in progress.</div>
+  </div>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Here are the pieces on one machine so far. Three processes, the socket, the daemon, the local drive, and the object store outside. The dashed lines are questions: ensure_shard, once per shard. The orange line is the download. I have left something out on purpose: how do the bytes get from the drive to the process?</p>
+    <p data-step="1">Every process already talks to the daemon, so the tempting design is to route everything through it. The daemon reads the file and passes the bytes along, like a small server. The other option is that the daemon only says where the file is, and the process reads it directly. Which would you choose? Remember the ratio: millions of reads, and one question per shard.</p>
+    <p data-step="2">We chose B, and the green line shows it. The daemon never handles the data. It answers "is this shard on the local disk, and where?", and the process reads the bytes on its own. Two things follow. The daemon cannot become a bandwidth bottleneck, because no data passes through it. And restarting it cannot break a read in progress, because each reader holds its own open file.</p>
+    <p>There is also a bonus to having one daemon per machine: every machine-wide question has one place to be answered. How hard are we hitting the object store, what is cached, how many bytes were downloaded today? Each daemon publishes those as Prometheus metrics, so the whole cluster reads as one Grafana dashboard.</p>
+  </aside>
+</section>

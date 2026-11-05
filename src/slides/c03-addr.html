@@ -1,0 +1,25 @@
+<section class="slide light" id="addr" data-steps="0" data-section="2 · Shards" data-time="1.2" data-title="Every sample has a fixed byte address">
+  <div class="hd">
+    <div class="eyebrow">Addresses</div>
+    <h2>Every sample has a fixed byte address</h2>
+  </div>
+  <div class="abs card pf-ad" style="left:120px;top:236px;width:1680px;height:600px">
+    <div class="pf-ad-l">shard_0042.tar · 10 GiB · one file</div>
+    <div class="pf-ad-s" id="pf-ad-s" data-noclick></div>
+    <div class="pf-ad-head" id="pf-ad-h"><span>seek here, then read</span></div>
+    <dl class="pf-ad-r">
+      <div><dt>shard</dt><dd>shard_0042.tar</dd></div>
+      <div><dt>offset</dt><dd class="o" id="pf-ad-o"></dd></div>
+      <div><dt>length</dt><dd class="l" id="pf-ad-len"></dd></div>
+    </dl>
+    <div class="pf-ad-u" id="pf-ad-u"></div>
+  </div>
+  <p class="abs t" style="left:120px;top:862px;width:1680px;font-size:29px">The address holds everything needed to read the sample, so no index is loaded and no service is asked.</p>
+  <div class="abs" id="pf-ad-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative offsets and lengths. Click a sample to select it.</div>
+  <aside class="notes">
+    <p>So every sample has an address: the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.</p>
+    <p>We write that address as a short link, which you see at the bottom: patram, colon, slash slash, image id, then the shard, offset and length. It contains everything needed to read the sample. No index has to be loaded and no service has to be asked. So an address can go anywhere a file path used to go: a list of samples, a config file, a column in a table.</p>
+    <p>That last point turns out to matter a lot, as the next slide shows.</p>
+  </aside>
+</section>

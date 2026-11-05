@@ -1,0 +1,21 @@
+<section class="slide light" id="rdcode" data-steps="0" data-section="2 · Shards" data-time="0.8" data-title="Only the read call changes">
+  <div class="hd">
+    <div class="eyebrow">Existing code</div>
+    <h2>Only the read call changes</h2>
+  </div>
+  <div class="abs code pf-cd" style="left:120px;top:236px;width:1680px"><span class="c"># before: each sample is its own file</span>
+img = cv2.imread(<span class="s">f"{root}/img_000123.jpg"</span>)
+ann = json.loads(open(<span class="s">f"{root}/img_000123.json"</span>).read())</div>
+  <div class="abs code pf-cd" style="left:120px;top:486px;width:1680px"><span class="c"># after: each sample has an address</span>
+<span class="k">from</span> patram_fs <span class="k">import</span> read_image, read_annotation
+
+img = read_image(uri=<span class="s">"patram://img/000123?shard=...&amp;offset=...&amp;length=..."</span>)
+ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&amp;offset=...&amp;length=..."</span>)</div>
+  <p class="abs t" style="left:120px;top:820px;width:1680px;font-size:29px"><code class="pf-ic">read_image</code> and <code class="pf-ic">read_annotation</code> are the whole client interface, and the rest of the calling code stays the same.</p>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Here is why the address matters. Our data pipelines, training loops and evaluation scripts were all written for one assumption: each sample is a file at a path. If you give each sample an address instead of a path, that code keeps its assumption. Only the read call changes.</p>
+    <p>At the top is the old code. At the bottom is the new code. These two functions, read_image and read_annotation, are the whole client interface, because an image plus a JSON record is the shape of all our training data. The library also has build_uri and parse_uri for making and checking addresses when you build a dataset.</p>
+    <p>The promise behind those two calls is simple: you read an address as if the shard were already a file on the machine's local drive. Of course it is not there yet. Making that promise true is the job of the next part.</p>
+  </aside>
+</section>

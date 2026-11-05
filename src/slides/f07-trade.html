@@ -1,0 +1,32 @@
+<section class="slide light" id="trade" data-steps="0" data-section="5 · In production" data-time="1" data-title="Where it fits, and the trade-offs we chose">
+  <div class="hd">
+    <div class="eyebrow">Trade-offs</div>
+    <h2>Where it fits, and the trade-offs we chose</h2>
+  </div>
+  <div class="abs pf-ft" style="left:120px;top:236px;width:1680px">
+    <span class="lb">Works well for</span>
+    <span class="c">Many unrelated processes reading the same data</span>
+    <span class="c">Code written for "each sample has its own path"</span>
+    <span class="c">Reads at the speed of the local drive</span>
+    <span class="c">Any object store</span>
+  </div>
+  <div class="abs card pf-to" style="left:120px;top:400px;width:540px;height:490px">
+    <div class="d" id="pf-to1"></div>
+    <h4>It is not a filesystem</h4><p>You cannot list the dataset with <code class="pf-ic">ls</code>, and code reads by address through two functions.</p>
+  </div>
+  <div class="abs card pf-to" style="left:690px;top:400px;width:540px;height:490px">
+    <div class="d" id="pf-to2"></div>
+    <h4>Sampling needs shard locality</h4><p>A sampler that jumps across every shard can pull down another 10 GiB shard on each read. A shard-aware order keeps it cheap.</p>
+  </div>
+  <div class="abs card pf-to" style="left:1260px;top:400px;width:540px;height:490px">
+    <div class="d" id="pf-to3"></div>
+    <h4>It is one more program to run</h4><p>If a daemon stops, shards already on the disk stay readable, but no new shard arrives until it is back.</p>
+  </div>
+  <div class="src">Source: Patram-FS engineering post. The icons are illustrative.</div>
+  <aside class="notes">
+    <p>So where does this fit? It works well when many unrelated processes on one machine read the same data, when your code was written for "each sample has its own path", when you want reads at the speed of the local drive, and when you want to be free to change object store, behind one replaceable download routine.</p>
+    <p>And here is what we gave up on purpose. First, it is not a filesystem. You cannot list the dataset with ls, and code reads samples by address through two functions instead of opening paths.</p>
+    <p>Second, sampling needs some shard locality. This one is important. A sampler that jumps uniformly across every shard defeats the cache: each read can pull down another 10 gibibyte shard and push out one that is still in use. Reading in a shard-aware order keeps it cheap. The little animation shows the difference: a read head that stays within a shard, against one that jumps. Patram-FS does not enforce this for you, so the caller has to choose a sensible order.</p>
+    <p>Third, it is one more program to run. If a daemon stops, every process on that machine can still read every shard already on its disk, but no new shard arrives until the daemon is back. We accept that, and the daemon restarts itself and has alerts on it.</p>
+  </aside>
+</section>

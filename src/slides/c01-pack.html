@@ -1,0 +1,21 @@
+<section class="slide light" id="pack" data-steps="0" data-section="2 · Shards" data-time="1.2" data-title="Packing samples into a few large shards">
+  <div class="hd">
+    <div class="eyebrow">Fewer, larger files</div>
+    <h2>Packing samples into a few large shards</h2>
+  </div>
+  <div class="abs" id="pf-pk" style="left:120px;top:226px;width:1680px;height:430px"></div>
+  <div class="abs card pf-cmp" style="left:120px;top:672px;width:1680px">
+    <div class="h">For one training run</div><div class="h">One file per sample</div><div class="h">Packed into shards</div>
+    <div>Files in storage</div><div class="bad">~10,000,000</div><div class="good">~200</div>
+    <div>Requests to the object store</div><div class="bad">~10,000,000</div><div class="good">~200</div>
+    <div>Listing the dataset folder</div><div class="bad">minutes</div><div class="good">milliseconds</div>
+  </div>
+  <div class="abs" id="pf-pk-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing is not to scale.</div>
+  <aside class="notes">
+    <p>A shard is simply a large archive file holding many samples. We pack images into TAR files of about 10 gibibytes each, and annotations into JSONL files of about 1 gibibyte each. JSONL is one JSON record per line.</p>
+    <p>Watch the small files move into the bars. A dataset of tens of millions of samples becomes about two hundred shards.</p>
+    <p>Now read the table. Files in storage go from about ten million to about two hundred, so the shared filesystem has almost nothing to keep track of. Requests to the object store go from about ten million to about two hundred, because we fetch a whole shard in one request. And listing the folder goes from minutes to milliseconds. That is the first problem, and most of the second, solved by one idea.</p>
+    <p>But we have created a new problem. Training wants one image, and that image is now somewhere inside a 10 gibibyte file. How we pack it decides how expensive that is. Which brings us to a question for you.</p>
+  </aside>
+</section>

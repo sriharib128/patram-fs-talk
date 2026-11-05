@@ -1,0 +1,25 @@
+<section class="slide light" id="agenda" data-steps="0" data-section="Introduction" data-time="0.7" data-title="What we will talk about today">
+  <div class="hd">
+    <div class="eyebrow">Agenda</div>
+    <h2>What we will talk about today</h2>
+  </div>
+  <div class="abs card pf-ag" style="left:120px;top:236px;width:1000px;height:640px">
+    <ol>
+      <li><i>1</i><div><b>The problem</b><span>Why one file per sample stops working at ten million files</span></div></li>
+      <li><i>2</i><div><b>Shards</b><span>Packing samples together, and keeping each sample's address</span></div></li>
+      <li><i>3</i><div><b>The daemon</b><span>A small program on each machine, and one download per shard</span></div></li>
+      <li><i>4</i><div><b>Reads and memory</b><span>Reading without asking anyone, with one copy in memory</span></div></li>
+      <li><i>5</i><div><b>In production</b><span>Disk space, other tools, Patram 1.5 and the trade-offs</span></div></li>
+    </ol>
+  </div>
+  <div class="abs card pf-ag2" style="left:1160px;top:236px;width:640px;height:640px">
+    <small>The picture we will build</small>
+    <div id="pf-agd"></div>
+  </div>
+  <p class="abs t" style="left:120px;top:900px;width:1680px;font-size:29px">Please stop us with questions at any time. Four slides will ask you for an answer.</p>
+  <aside class="notes">
+    <p>Here is the plan for the next half hour. There are five parts.</p>
+    <p>First the problem: why the simplest design, one file per sample, stops working at ten million files. Then shards, which is how we pack samples together while keeping each one individually readable. Then the daemon, a small program on each machine that makes sure a shard is downloaded only once. Then reads and memory: how a read stays as cheap as reading a local file, and how a hundred processes can share one copy of a file in memory. And finally how it runs in production: keeping the disk from filling up, why we did not use an existing tool, how Patram 1.5 was trained on it, and what we gave up.</p>
+    <p>On the right is the picture we will end up with. It will not mean much yet, and that is fine: we will build it one box at a time. Please interrupt at any time. Four slides will stop and ask you for an answer, so stay ready. Let us begin.</p>
+  </aside>
+</section>

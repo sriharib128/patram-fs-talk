@@ -1,0 +1,20 @@
+<section class="slide light" id="cache" data-steps="0" data-section="3 · The daemon" data-time="1.2" data-title="Each machine caches shards on its local disk">
+  <div class="hd">
+    <div class="eyebrow">Local cache</div>
+    <h2>Each machine caches shards on its local disk</h2>
+  </div>
+  <div class="abs" id="pf-ca" style="left:120px;top:226px;width:1680px;height:560px"></div>
+  <div class="abs pf-cnt" style="left:120px;top:800px;width:1680px">
+    <div class="g"><b id="pf-ca-r">0</b><span>samples read from the local disk</span></div>
+    <div class="o"><b id="pf-ca-d">0</b><span>downloads from the object store</span></div>
+    <p>A download goes to a temporary file and is renamed into place when complete, so a reader never sees a partial shard.</p>
+  </div>
+  <div class="abs" id="pf-ca-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: counts and timing are simulated.</div>
+  <aside class="notes">
+    <p>Every machine in our cluster has a 30 terabyte NVMe drive attached directly to it. So the first time a machine needs a shard, it downloads the whole shard from the object store onto that drive. From then on, every sample in that shard is a local read.</p>
+    <p>Watch the two counters. Downloads tick up slowly, one per shard, and then stop. Reads keep climbing, and they are all coming from the local disk. A few big requests, then millions of small local reads. Compare that with the ten million requests we started from.</p>
+    <p>One detail: a download is written to a temporary file and renamed into place only when it is complete. A rename is a single step, so a reader never sees a half-downloaded shard.</p>
+    <p>This creates the next problem. A machine does not run one process. It runs eight training processes, one per GPU, each with several readers, and often a data job or a notebook beside them. They start at the same moment, they read the same shards, and they know nothing about each other. If each one downloads a shard whenever it finds it missing, the machine downloads the same 10 gibibyte shard many times over.</p>
+  </aside>
+</section>

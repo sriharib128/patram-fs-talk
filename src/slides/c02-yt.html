@@ -1,0 +1,28 @@
+<section class="slide light" id="ytcomp" data-steps="2" data-section="2 · Shards" data-time="1" data-title="Compressing the shards">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Compressing the shards</h2>
+  </div>
+  <div class="abs card pf-ctx" style="left:120px;top:236px;width:1680px">
+    <div class="pf-ctx-i"><b>10 GiB</b><span>one image shard</span></div>
+    <div class="pf-ctx-i"><b>JPEG</b><span>the images are already compressed</span></div>
+    <div class="pf-ctx-i"><b>One image</b><span>is what a reader wants at a time</span></div>
+  </div>
+  <div class="abs pf-q" data-s="1" style="left:120px;top:400px;width:1680px">Should the shard file be compressed?</div>
+  <div class="abs card pf-opt" data-s="1" style="left:120px;top:480px;width:820px;height:400px">
+    <i>A</i><h4>Compress the whole shard</h4>
+    <div class="pf-strip gz" aria-hidden="true"><u></u></div>
+    <em data-s="2" class="pf-ans bad">Reaching a sample means decompressing the bytes before it. JPEGs save only 0 to 2%.</em>
+  </div>
+  <div class="abs card pf-opt ok" data-s="1" style="left:980px;top:480px;width:820px;height:400px">
+    <i>B</i><h4>Store it uncompressed</h4>
+    <div class="pf-strip" aria-hidden="true"><b></b><b></b><b></b><b class="me"></b><b></b><b></b><b></b><b></b></div>
+    <em data-s="2" class="pf-ans good">Each image sits at a fixed byte position: one seek and one read. Building a shard is plain copying, at 1 to 2 GB per second.</em>
+  </div>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Here is the situation. We have a 10 gibibyte image shard. The images inside are JPEGs, so they are already compressed. And a reader wants one image at a time, out of tens of thousands in the shard.</p>
+    <p data-step="1">So here is the question. Should we compress the shard file? Option A: compress the whole shard, as you normally would with an archive. Option B: store it uncompressed. Take a moment, and tell me which you would pick and why.</p>
+    <p data-step="2">We chose B, for two reasons. First, compression barely helps: the images are already JPEGs, and compressing them again saves 0 to 2 percent. Second, and this is the important one, in an uncompressed TAR file every image sits at a fixed byte position. So reading one image is one seek and one read, with nothing to unpack. And as a bonus, building a shard is plain copying, at 1 to 2 gigabytes per second. That fixed position is the idea the rest of the design rests on.</p>
+  </aside>
+</section>

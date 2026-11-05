@@ -1,0 +1,29 @@
+<section class="slide light" id="ytwarm" data-steps="2" data-section="4 · Reads and memory" data-time="1.2" data-title="Warming records and warming images">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Warming records and warming images</h2>
+  </div>
+  <div class="abs card pf-bm" style="left:120px;top:236px;width:820px;height:370px">
+    <small>JSONL file, 1 GiB · median time to read one record</small>
+    <div class="pf-bm-r"><label>Not warmed</label><div class="tr"><i class="o" style="width:100%"></i></div><b>297.6 µs</b></div>
+    <div class="pf-bm-r"><label>Warmed</label><div class="tr"><i class="g" style="width:9%"></i></div><b>26.7 µs</b></div>
+    <p><b class="pf-bx">11×</b> faster per read once the file is in memory</p>
+  </div>
+  <div class="abs card pf-bm" data-s="2" style="left:980px;top:236px;width:820px;height:370px">
+    <small>Image shard, 10 GiB · random reads, warm-up included</small>
+    <div class="pf-bm-r"><label>Not warmed</label><div class="tr"><i class="o" style="width:100%"></i></div><b>509 s</b></div>
+    <div class="pf-bm-r"><label>Warmed</label><div class="tr"><i class="g" style="width:98.5%"></i></div><b>501 s</b></div>
+    <p><b class="pf-bx">1.5%</b> apart: a read takes about 15 ms, nearly all of it decoding the JPEG</p>
+  </div>
+  <div class="abs pf-q" data-s="1" style="left:120px;top:636px;width:1680px">Should image shards be warmed as well?</div>
+  <div class="abs card pf-opt2" data-s="1" style="left:120px;top:716px;width:820px"><i>A</i><span>Yes. The same step should help images too.</span></div>
+  <div class="abs card pf-opt2 ok" data-s="1" style="left:980px;top:716px;width:820px"><i>B</i><span>No. Image reads are not waiting on the drive.</span></div>
+  <div class="abs pf-ans2" data-s="2" style="left:120px;top:840px;width:1680px">Annotation shards are always warmed and image shards never are. Warming a 10 GiB shard also takes about 5 seconds.</div>
+  <div class="src">Source: Patram-FS benchmarks, as reported in the engineering post</div>
+  <aside class="notes">
+    <p>Here is what warming did for annotations. Reading one record from a 1 gibibyte JSONL file took a median of 297.6 microseconds before warming, and 26.7 microseconds after. That is 11 times faster per read. Over a full pass of random reads, with the half-second warm-up counted in, total time fell from 8.58 to 3.33 seconds. And with 8 workers reading at once, throughput rose from 19,846 to 28,060 reads per second, because the workers no longer queue on the drive.</p>
+    <p data-step="1">So you have a tool that made reads eleven times faster. You also have image shards. Should you warm those as well? Think about what an image read actually does before you answer.</p>
+    <p data-step="2">No. We measured it, and every warming setting landed within 1.5 percent of not warming at all: 509 seconds against 501. Reading an image takes about 15 milliseconds, and nearly all of that is spent decoding the JPEG, not waiting on the drive. Warming a 10 gibibyte shard also takes about 5 seconds. So the daemon uses opposite settings for the two kinds of shard: annotation shards are always warmed, and image shards never are. This is also why 10 gibibyte image shards are fine: they only need to sit on the drive, never in memory.</p>
+    <p>The lesson is the one to take away from this part. The same step gave very different results on two kinds of data, and only measuring told us which was which.</p>
+  </aside>
+</section>

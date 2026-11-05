@@ -1,0 +1,23 @@
+<section class="slide light" id="dedup" data-steps="1" data-section="3 · The daemon" data-time="1.8" data-title="Identical requests become one download">
+  <div class="hd">
+    <div class="eyebrow">Deduplication</div>
+    <h2>Identical requests become one download</h2>
+  </div>
+  <div class="abs card pf-dd" id="pf-dd-a" style="left:120px;top:226px;width:825px;height:560px"></div>
+  <div class="abs card pf-dd" id="pf-dd-b" style="left:975px;top:226px;width:825px;height:560px"></div>
+  <div class="abs pf-log" id="pf-dd-l" data-h="1" style="left:120px;top:800px;width:1680px"></div>
+  <div class="abs card pf-mz" data-s="1" style="left:120px;top:800px;width:1680px">
+    <small>Measured</small>
+    <div><b>20</b><span>processes ask for the same missing 1 GiB shard</span></div>
+    <div><b>1</b><span>download</span></div>
+    <div><b>2.16 s</b><span>until all 20 have it, the time one process takes alone</span></div>
+    <div><b>&lt; 100 µs</b><span>when the shard is already on the disk</span></div>
+  </div>
+  <div class="abs" id="pf-dd-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustration: 8 processes and one 10 GiB shard.</div>
+  <aside class="notes">
+    <p>Here is the same moment, played twice: eight processes need the same shard at the same instant. On the left there is no daemon, and each process finds the shard missing and downloads it for itself. That is 8 downloads and 80 gibibytes pulled from the object store. This is not hypothetical: an earlier design of ours did exactly that, and 16 reader processes missing the same shard caused 16 separate downloads.</p>
+    <p>On the right is the same moment with the daemon. All eight processes send their request to it. The daemon sees eight requests for the same shard and merges them into one download. Any process that asks while the download is running simply waits for that same download, and they all continue together when it finishes. One download, 10 gibibytes, one copy on the disk, shared by all eight.</p>
+    <p data-step="1">And here is the measurement. We had 20 processes ask for the same missing 1 gibibyte shard at the same instant. The daemon made one download, and all 20 processes had the shard in 2.16 seconds, the time a single process takes on its own. Asking for a shard that is already on the disk takes under 100 microseconds.</p>
+  </aside>
+</section>

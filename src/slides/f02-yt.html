@@ -1,0 +1,21 @@
+<section class="slide light" id="ytdel" data-steps="2" data-section="5 · In production" data-time="1" data-title="Deleting a shard that is being read">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Deleting a shard that is being read</h2>
+  </div>
+  <div class="abs card" id="pf-dl" style="left:120px;top:236px;width:1000px;height:650px"></div>
+  <div class="abs pf-side" style="left:1160px;top:236px;width:640px">
+    <p class="pf-ctxp">Process A is in the middle of shard 3. The shard is now the least recently asked for, and the daemon deletes it.</p>
+    <div data-s="1" class="pf-q sm">What happens to Process A?</div>
+    <div data-s="1" class="card pf-opt2"><i>A</i><span>Its next read fails.</span></div>
+    <div data-s="1" class="card pf-opt2"><i>B</i><span>The daemon waits until it closes the file.</span></div>
+    <div data-s="1" class="card pf-opt2 ok"><i>C</i><span>It finishes normally.</span></div>
+    <div data-s="2" class="pf-ans2">Linux removes the name at once. The data stays until the last process with the file open closes it.</div>
+  </div>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Here is a shard on the disk. A file on Linux is really two things: a name in a folder, and the data the name points to. Process A has this shard open and is in the middle of reading it. Now the budget goes over its mark, and this shard is the least recently asked for, so the daemon deletes it.</p>
+    <p data-step="1">What happens to process A? Does its next read fail? Does the daemon have to wait until it is done, which would mean tracking every reader? Or does it finish normally? Take a guess.</p>
+    <p data-step="2">It finishes normally, and the daemon does not have to track anyone. On Linux, deleting a file removes its name at once, but its data stays until the last process that has it open closes it. So a process in the middle of a shard carries on. A process that opens the shard afterwards finds it missing, gets FileNotFoundError, and asks the daemon again. That is simply the normal path for any missing shard. We did not need to build anything for this case: it is the same miss path you saw earlier.</p>
+  </aside>
+</section>

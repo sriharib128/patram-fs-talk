@@ -1,0 +1,30 @@
+<section data-nobrand class="slide dark" id="close" data-steps="0" data-section="5 · In production" data-time="1" data-title="Key takeaways">
+  <div class="abs" style="left:120px;top:90px;width:1680px">
+    <div class="eyebrow">Summary</div>
+    <h2>Key takeaways</h2>
+  </div>
+  <ol class="abs pf-tk" style="left:120px;top:236px;width:1120px">
+    <li><i>1</i><div><b>Pack small samples into large uncompressed shards</b><span>and keep a byte address per sample.</span></div></li>
+    <li><i>2</i><div><b>Put machine-wide coordination in one process</b><span>and keep it off the data path.</span></div></li>
+    <li><i>3</i><div><b>Ask only on a miss</b><span>Try the local file first.</span></div></li>
+    <li><i>4</i><div><b>Use the page cache as shared memory</b><span>Warm once, and every process reads one copy.</span></div></li>
+    <li><i>5</i><div><b>Measure each kind of data before choosing defaults</b><span>Warming made annotation reads 11 times faster, and did nothing for images.</span></div></li>
+  </ol>
+  <div class="abs" style="left:1320px;top:360px;width:480px">
+    <div style="font-family:Sora,sans-serif;font-weight:700;font-size:92px;line-height:1.05">Thank you</div>
+    <div style="font-size:38px;color:#C7D6F3;margin-top:26px">Questions</div>
+  </div>
+  <div class="abs" style="right:120px;bottom:50px;display:flex;gap:28px;align-items:center;background:#fff;border-radius:18px;padding:16px 30px">
+    <img src="assets/bharatgen_logo_crop.png" style="height:66px" alt="BharatGen">
+  </div>
+  <aside class="notes">
+    <p>Let me leave you with five ideas, because they apply well beyond this system.</p>
+    <p>Pack small samples into large uncompressed shards, and keep a byte address per sample. The address is what lets existing code keep working with a one-line change.</p>
+    <p>Put machine-wide coordination in one process, and keep it off the data path. A daemon that never carries data cannot slow reads down, and one daemon per machine turns de-duplication, rate limits and monitoring into local problems.</p>
+    <p>Ask only on a miss. Try the local file first. Once a shard is on the disk, a read is an ordinary local read.</p>
+    <p>Use the page cache as shared memory. Warm a file once and every process on the machine reads it from memory, one copy for all, with no sharing layer of your own.</p>
+    <p>And measure each kind of data before choosing defaults. The same warming step made annotation reads 11 times faster and made no difference for images.</p>
+    <p>That is Patram-FS. Thank you, and we are happy to take questions.</p>
+    <p><b>Likely questions.</b> Why a Unix socket and not shared memory? Shared memory is about fifty times faster, but the daemon is asked once per shard, and the kernel handles framing and clean-up after a crashed client. Why Go and not Python or Rust? Python would put downloads, socket handling and kernel calls on one core because of the global interpreter lock, and Rust costs more time to write and maintain, for garbage-collection pauses that are invisible next to a download. The daemon is about 2,500 lines of Go. How are cached shards named? With percent-encoding of the object's location, which is reversible, so two locations can never collide; a hash could silently serve the wrong images. How do lookups batch without a timer? The daemon keeps up to 8 queries in flight, so a lone request goes out at once in about 1 millisecond, and requests arriving while all slots are busy go out together when one frees: 128 lookups resolve in two or three DB round trips.</p>
+  </aside>
+</section>

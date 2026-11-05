@@ -1,0 +1,8 @@
+<section class="slide dark" id="dv3" data-section="3 · The daemon" data-time="0.2" data-title="Part 3 · The daemon">
+  <div class="dv-num">3</div>
+  <div class="dv-eb">Part 3</div>
+  <div class="dv-h">The daemon</div>
+  <div class="dv-line"></div>
+  <div class="dv-q">What happens when many processes want the same shard?</div>
+  <aside class="notes"><p>Shards fixed the file count. But fetching from the object store on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the next problem.</p></aside>
+</section>

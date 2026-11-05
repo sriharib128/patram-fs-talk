@@ -1,0 +1,19 @@
+<section class="slide light" id="daemon" data-steps="0" data-section="3 · The daemon" data-time="1" data-title="One small daemon runs on each machine">
+  <div class="hd">
+    <div class="eyebrow">The daemon</div>
+    <h2>One small daemon runs on each machine</h2>
+  </div>
+  <div class="abs card" id="pf-dm" style="left:120px;top:236px;width:1100px;height:640px"></div>
+  <div class="abs pf-st" style="left:1260px;top:236px;width:540px">
+    <div class="card"><b>74 µs</b><span>median round trip through the socket, from Python</span></div>
+    <div class="card"><b>124,000</b><span>requests per second through it, from 20 processes together</span></div>
+    <div class="card pf-st-t"><span>A background program written in Go. It runs all the time, and every process on the machine talks to the same one.</span></div>
+  </div>
+  <div class="src">Source: Patram-FS benchmarks, as reported in the engineering post</div>
+  <aside class="notes">
+    <p>The fix is one small program on each machine. We call it the Patram-FS daemon. It is a background program written in Go that runs all the time. Every process on the machine, whether training, a data job or a notebook, talks to that same daemon.</p>
+    <p>They talk through a Unix domain socket. That is a channel between processes on one machine that goes only through the kernel, with no network in the way. It is quick: from Python, a round trip takes a median of 74 microseconds, and 20 processes together pushed 124,000 requests per second through it.</p>
+    <p>The main request is called ensure_shard. A process sends it when a shard it needs is not on the local disk. The daemon checks the disk, and starts a download only if the shard is not there and is not already downloading. It answers one question: is this shard on the local disk, and where?</p>
+    <p>Why a socket and not shared memory, which is about fifty times faster? Because the daemon is asked once per shard, not once per sample, so a few microseconds is nothing. And the kernel cleans up after a crashed client, which is worth more to us. If anyone wants more detail on that, or on why Go, ask at the end.</p>
+  </aside>
+</section>

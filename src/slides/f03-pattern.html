@@ -1,0 +1,15 @@
+<section class="slide light" id="pattern" data-steps="0" data-section="5 · In production" data-time="1" data-title="A daemon per machine is a general pattern">
+  <div class="hd">
+    <div class="eyebrow">A general pattern</div>
+    <h2>A daemon per machine is a general pattern</h2>
+  </div>
+  <div class="abs" id="pf-pt" style="left:120px;top:226px;width:1680px;height:600px"></div>
+  <p class="abs t" style="left:120px;top:850px;width:1680px;font-size:29px">Every process asks its local daemon, and only the daemon talks to the shared services.</p>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Let us step back from shards. On a busy machine, many processes that know nothing about each other need the same shared things: files from the object store, rows from a database, space on the drive, memory. Left alone, each process fetches, queries and caches for itself, and every shared service sees dozens of separate clients from every machine. Making them coordinate directly would mean each one knowing about all the others.</p>
+    <p>A daemon on each machine avoids both. Each process asks its local daemon, and only the daemon talks to the shared service. Because every request on the machine passes through one place, the daemon can merge identical requests, batch the rest into one query, keep one cache, and limit how hard the machine hits the service. So the machine looks like one client.</p>
+    <p>Patram-FS uses this pattern three times. Requests for the same shard become one download. Record lookups from every process become one batched database query. And the drive and page cache hold one copy of each shard, under one budget.</p>
+    <p>It is also not tied to images. Nothing outside the daemon knows where shards come from: "the object store" means one download routine that calls rclone, an open-source tool that works with every major object store. And the daemon does not care what is in a shard. It can hold text, speech audio or video frames; a new reader function decides how to turn the bytes into a sample. What keeps it safe is the same rule as before: the daemon coordinates, and the data goes directly from the drive to the process.</p>
+  </aside>
+</section>

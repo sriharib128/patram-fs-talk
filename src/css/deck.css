@@ -1,0 +1,152 @@
+/* ───────────── Patram-FS talk · base styles ─────────────
+   Palette and type follow the BharatGen "Patram Infra" deck so the two can sit side by side. */
+:root{
+  --navy:#0E1A3A; --navy-2:#16264F; --ink:#0E1A3A; --body:#42506B; --muted:#5B6785; --faint:#6B7690;
+  --orange:#F28C28; --orange-deep:#B85C0A; --peach:#FCE6CF; --orange-on-blue:#FFC078;
+  --blue:#1F4FA8; --blue-mid:#2A63C9; --blue-pale:#E4ECFA; --blue-soft:#9DB3DC;
+  --bg-a:#F4F6FA; --bg-b:#E6EEFB; --card:#FDFDFE; --line:#DCE2EE; --grid:#E3E8F1;
+  --red:#C93C3C; --red-pale:#FBE6E4; --red-on-dark:#FF8A80;
+  --green:#0E7C61; --green-pale:#DDF1EA; --green-on-dark:#5FDDB2;
+  --violet:#6B4BB8; --violet-pale:#ECE6F8; --violet-on-dark:#B9A2FF;
+  --m1:#2A63C9; --m2:#F28C28; --m3:#0E7C61; --m4:#6B4BB8;   /* machine colours */
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#070c1b;overflow:hidden;font-family:'IBM Plex Sans',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;flex:none;width:1920px;height:1080px;transform-origin:center center;box-shadow:0 20px 80px rgba(0,0,0,.55);border-radius:6px;overflow:hidden;background:var(--bg-a)}
+#bar{position:absolute;left:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--blue),var(--orange));z-index:50;transition:width .5s var(--ease)}
+#counter{position:absolute;right:30px;bottom:18px;font-size:20px;color:var(--faint);z-index:50;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;display:flex;align-items:center;gap:4px}
+#counter .ctr-n{min-width:96px;text-align:center;cursor:text;user-select:none}
+#counter .ctr-b{font:inherit;color:inherit;background:none;border:0;padding:2px 10px;border-radius:8px;cursor:pointer;opacity:.7}
+#counter .ctr-b:hover{opacity:1;background:rgba(91,103,133,.14)}
+#counter .ctr-in{font:inherit;letter-spacing:inherit;color:inherit;width:3.2ch;text-align:center;background:transparent;border:0;border-bottom:2px solid currentColor;outline:none;padding:0}
+.dark-ui #counter{color:#7F8CA8}
+#hud{position:absolute;left:30px;top:22px;z-index:60;font-family:'IBM Plex Mono',monospace;font-size:26px;color:#fff;background:rgba(14,26,58,.88);padding:8px 18px;border-radius:12px;display:none;letter-spacing:1px}
+#hud.show{display:block}
+
+/* ── slides ── */
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .5s ease;background:var(--bg-a);overflow:hidden}
+.slide.active{opacity:1;visibility:visible;z-index:2}
+.slide.leaving{opacity:0;visibility:visible;z-index:1}
+.slide.light{background:linear-gradient(160deg,var(--bg-a) 0%,var(--bg-b) 100%)}
+.slide.dark{background:radial-gradient(1300px 800px at 82% 115%,#21418A 0%,var(--navy) 62%);color:#F4F6FA}
+.slide.dark::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(157,179,220,.16) 1.4px,transparent 1.6px);background-size:44px 44px;mask-image:radial-gradient(1100px 700px at 30% 30%,#000 0%,transparent 100%);-webkit-mask-image:radial-gradient(1100px 700px at 30% 30%,#000 0%,transparent 100%);pointer-events:none}
+.slide>*{position:relative}
+.slide>.abs,.slide .abs{position:absolute}
+
+/* ── type ── */
+h1{font-family:Sora,Arial,sans-serif;font-size:150px;font-weight:700;line-height:1.02;letter-spacing:-3px}
+h2{font-family:Sora,Arial,sans-serif;font-size:60px;font-weight:700;line-height:1.1;letter-spacing:-.8px}
+h3{font-family:Sora,Arial,sans-serif;font-weight:600;font-size:34px;line-height:1.2}
+.eyebrow{font-size:22px;color:var(--orange-deep);letter-spacing:3.5px;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+.dark .eyebrow{color:var(--orange-on-blue)}
+.sub{font-size:29px;color:var(--body);line-height:1.38;margin-top:16px;max-width:1450px}
+.dark .sub{color:#C7D6F3}
+.hd{position:absolute;left:120px;top:96px;width:1560px}
+.bd{position:absolute;left:120px;right:120px;top:370px;bottom:110px}
+.mono{font-family:'IBM Plex Mono',Menlo,monospace}
+.hi{color:var(--orange-deep)} .dark .hi{color:var(--orange-on-blue)}
+.hb{color:var(--blue)} .dark .hb{color:var(--blue-soft)}
+.hg{color:var(--green)} .dark .hg{color:var(--green-on-dark)}
+.hr{color:var(--red)} .dark .hr{color:var(--red-on-dark)}
+p.t{font-size:27px;line-height:1.42;color:var(--body)}
+.dark p.t{color:#C7D6F3}
+p.t b,li b{color:var(--ink);font-weight:600}
+.dark p.t b{color:#fff}
+.note{font-size:22px;color:var(--muted);line-height:1.4}
+.dark .note{color:#9DB3DC}
+.src{position:absolute;left:120px;bottom:44px;font-size:21px;color:var(--faint)}
+.dark .src{color:#7F8CA8}
+
+/* ── components ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 34px rgba(14,26,58,.07)}
+.dark .card{background:rgba(255,255,255,.05);border:1px solid rgba(157,179,220,.22);box-shadow:none}
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:999px;background:var(--blue-pale);color:var(--blue)}
+.tag.or{background:var(--peach);color:var(--orange-deep)} .tag.gr{background:var(--green-pale);color:var(--green)}
+.tag.rd{background:var(--red-pale);color:var(--red)} .tag.vi{background:var(--violet-pale);color:var(--violet)}
+.dark .tag{background:rgba(157,179,220,.16);color:var(--blue-soft)}
+.dark .tag.or{background:rgba(242,140,40,.2);color:var(--orange-on-blue)}
+.dark .tag.gr{background:rgba(95,221,178,.16);color:var(--green-on-dark)}
+.dark .tag.rd{background:rgba(255,138,128,.16);color:var(--red-on-dark)}
+.chip{display:inline-block;font-size:24px;padding:9px 20px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
+.dark .chip{background:rgba(255,255,255,.07);border-color:rgba(157,179,220,.28);color:#E4ECFA}
+.code{font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.55;background:#0E1A3A;color:#E4ECFA;border-radius:22px;padding:30px 36px;white-space:pre;box-shadow:0 18px 50px rgba(14,26,58,.28)}
+.code .k{color:#FFC078}.code .s{color:#8FE0C0}.code .c{color:#7F8CA8}.code .f{color:#9DB3DC}.code .n{color:#F4A6A0}
+.stat b{display:block;font-family:Sora,Arial,sans-serif;font-weight:700;line-height:1;white-space:nowrap}
+.stat span{display:block;font-size:26px;color:var(--muted);line-height:1.3;margin-top:12px}
+.dark .stat span{color:#9DB3DC}
+
+/* journey strip: the four problems */
+.jr{position:absolute;right:120px;top:44px;display:flex;align-items:center;font-size:19px;font-weight:600;letter-spacing:1px;text-transform:uppercase;z-index:5}
+.jr span{display:flex;align-items:center;gap:8px;padding:7px 16px 7px 8px;border-radius:999px;color:var(--faint)}
+.jr span i{font-style:normal;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--line);color:var(--muted)}
+.jr span.done{color:var(--ink)} .jr span.done i{background:var(--ink);color:#fff}
+.jr span.on{background:var(--peach);color:var(--orange-deep)} .jr span.on i{background:var(--orange);color:#fff}
+.jr b{display:block;width:22px;height:2px;background:var(--line)}
+.dark .jr span{color:#7F8CA8} .dark .jr span i{background:#26345C;color:#9DB3DC}
+.dark .jr span.done{color:#E4ECFA} .dark .jr span.done i{background:#9DB3DC;color:var(--navy)}
+.dark .jr span.on{background:rgba(242,140,40,.2);color:var(--orange-on-blue)} .dark .jr b{background:#26345C}
+
+.footer{position:absolute;left:120px;bottom:30px;font-size:20px;color:var(--faint);letter-spacing:.5px}
+.dark .footer{color:#7F8CA8}
+.corner-logo{position:absolute;right:120px;bottom:30px;height:52px;object-fit:contain}
+
+aside.notes{display:none}
+
+/* ── step reveal ── */
+[data-s]{transition:opacity .55s ease,transform .65s var(--ease);will-change:opacity,transform}
+[data-s]:not(.on){opacity:0;transform:translateY(26px);pointer-events:none}
+[data-s].from-left:not(.on){transform:translateX(-50px)}
+[data-s].from-right:not(.on){transform:translateX(50px)}
+[data-s].pop:not(.on){transform:scale(.86)}
+[data-s].fade:not(.on){transform:none}
+[data-h]{transition:opacity .45s ease}
+[data-h].off{opacity:0;pointer-events:none}
+.instant,.instant *{transition:none!important}
+
+/* ── divider slides ── */
+.dv-num{position:absolute;left:120px;top:210px;font-family:Sora,Arial,sans-serif;font-weight:700;font-size:260px;line-height:1;color:var(--orange);letter-spacing:-8px}
+.dv-eb{position:absolute;left:124px;top:520px;font-size:26px;letter-spacing:5px;text-transform:uppercase;color:var(--orange-on-blue);font-weight:600}
+.dv-h{position:absolute;left:120px;top:572px;width:1500px;font-family:Sora,Arial,sans-serif;font-weight:700;font-size:92px;line-height:1.06;color:#F4F6FA;letter-spacing:-1.5px}
+.dv-q{position:absolute;left:124px;top:800px;width:1300px;font-size:38px;line-height:1.35;color:#C7D6F3}
+.dv-line{position:absolute;left:124px;top:760px;height:4px;width:0;background:linear-gradient(90deg,var(--orange),transparent);transition:width 1.2s var(--ease) .3s}
+.slide.active .dv-line{width:760px}
+
+/* ── overview / presenter ── */
+#overview{position:fixed;inset:0;background:rgba(7,12,27,.96);z-index:200;display:none;overflow:auto;padding:40px 60px;color:#E4ECFA;font-family:'IBM Plex Sans',sans-serif}
+#overview.show{display:block}
+#overview h4{font-family:Sora,sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#FFC078;margin:26px 0 12px}
+#overview .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+#overview .cell{background:#16264F;border:1px solid #2b3c6b;border-radius:12px;padding:12px 14px;cursor:pointer;font-size:14px;line-height:1.3;min-height:70px}
+#overview .cell:hover{border-color:#F28C28}
+#overview .cell.cur{border-color:#F28C28;background:#23356a}
+#overview .cell small{display:block;color:#9DB3DC;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-bottom:4px}
+#overview .cell.opt::after{content:"optional";float:right;font-size:11px;color:#FFC078;letter-spacing:1px;text-transform:uppercase}
+#presenter-panel{display:none}
+body.presenter #stage-wrap{right:auto;width:62vw}
+body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom:0;width:38vw;background:#0b1226;color:#E4ECFA;flex-direction:column;padding:22px 26px;gap:14px;font-family:'IBM Plex Sans',sans-serif;border-left:1px solid #26345C;overflow:hidden}
+#presenter-panel .top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+#presenter-panel .clock{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:600;letter-spacing:1px}
+#presenter-panel .clock.ok{color:#5FDDB2}#presenter-panel .clock.warn{color:#FFC078}#presenter-panel .clock.bad{color:#FF8A80}
+#presenter-panel .meta{font-size:15px;color:#9DB3DC;font-family:'IBM Plex Mono',monospace;line-height:1.5}
+#presenter-panel .btns{display:flex;gap:8px;flex-wrap:wrap}
+#presenter-panel button{background:#16264F;color:#E4ECFA;border:1px solid #2b3c6b;border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+#presenter-panel button:hover{border-color:#F28C28}
+#presenter-panel .notes-box{flex:1;overflow:auto;font-size:21px;line-height:1.5;color:#E4ECFA;background:#101a36;border-radius:12px;padding:16px 20px}
+#presenter-panel .notes-box p{margin-bottom:.8em}
+#presenter-panel .notes-box b{color:#FFC078}
+#presenter-panel .next{font-size:16px;color:#9DB3DC}
+#presenter-panel .next b{color:#fff;font-weight:600}
+
+/* ── ambient motion on every slide (kept behind content) ── */
+.slide>*{z-index:1}
+.slide::after{content:"";position:absolute;inset:-15%;z-index:0;pointer-events:none;background:radial-gradient(640px 420px at 18% 28%,rgba(42,99,201,.10),transparent 62%),radial-gradient(540px 380px at 82% 72%,rgba(242,140,40,.10),transparent 62%);animation:drift 26s ease-in-out infinite alternate;animation-play-state:paused}
+.slide.dark::after{background:radial-gradient(640px 420px at 18% 28%,rgba(95,140,255,.14),transparent 62%),radial-gradient(540px 380px at 82% 72%,rgba(242,140,40,.12),transparent 62%)}
+.slide.active::after{animation-play-state:running}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,-50px) scale(1.14)}}
+.slide.active .hd>*{animation:hdin .8s var(--ease) both}
+.slide.active .hd>*:nth-child(2){animation-delay:.08s}
+.slide.active .hd>*:nth-child(3){animation-delay:.16s}
+@keyframes hdin{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.slide.active .jr{animation:hdin .8s var(--ease) both}

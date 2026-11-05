@@ -1,0 +1,39 @@
+<section class="slide light" id="rpath" data-steps="0" data-section="4 · Reads and memory" data-time="1" data-title="A read is one pread, with nothing in between">
+  <div class="hd">
+    <div class="eyebrow">The read path</div>
+    <h2>A read is one pread, with nothing in between</h2>
+  </div>
+  <div class="abs pf-rp" style="left:120px;top:236px;width:1680px">
+    <div class="card"><small>Process</small><b>read_image(uri)</b></div>
+    <em></em>
+    <div class="card"><small>File already open</small><b>16 per kind, by default</b></div>
+    <em></em>
+    <div class="card hl"><small>One system call</small><b class="mono">pread(offset, length)</b></div>
+    <em></em>
+    <div class="card"><small>Local drive</small><b>NVMe</b></div>
+  </div>
+  <div class="abs pf-rx" style="left:120px;top:416px;width:1680px">
+    <span class="lb">Not on the read path:</span>
+    <s>the daemon</s><s>unpacking</s><s>decompression</s><s>format conversion</s><s>a filesystem layer</s>
+  </div>
+  <div class="abs card pf-fb" style="left:120px;top:500px;width:820px;height:430px">
+    <small>Reading one image from the disk</small>
+    <div class="pf-fb-r"><label>Our first version: a FUSE mount</label><div class="tr"><i class="o" style="left:33.3%;width:66.7%"></i></div><b>1 to 3 ms</b></div>
+    <div class="pf-fb-r"><label>Direct read from NVMe</label><div class="tr"><i class="g" style="left:1.7%;width:5%"></i></div><b>50 to 200 µs</b></div>
+    <p>FUSE puts one extra hop on every read.</p>
+  </div>
+  <div class="abs card pf-tl" style="left:980px;top:500px;width:820px;height:430px">
+    <small>The only real wait is the first download</small>
+    <div class="pf-tl-r"><label>Training</label><div class="tr"><i class="b" style="left:0;width:50%">reads shard 1</i><i class="b2" style="left:50%;width:50%">reads shard 2</i></div></div>
+    <div class="pf-tl-r"><label>Fetch ahead</label><div class="tr"><i class="o" style="left:20%;width:28%">shard 2 downloads</i></div></div>
+    <p><code class="pf-ic">ensure_shard</code> can be sent early, so the download overlaps with training.</p>
+  </div>
+  <div class="src">Source: Patram-FS engineering post. The timeline is illustrative.</div>
+  <aside class="notes">
+    <p>So what does a read look like once a shard is on the disk? Follow the boxes. The process calls read_image. The shard file is usually already open, because each process keeps a few open, 16 of each kind by default, which skips even the open. Then one system call, pread, with an offset and a length. And then the drive.</p>
+    <p>There is nothing else on the path. An uncompressed TAR member needs no decoding of its own. So no unpacking, no decompression, no format conversion and no filesystem layer between the drive and your tensor.</p>
+    <p>How much does that matter? On the left: our first version of this system was a FUSE mount, which is the obvious way to build it, since it looks like an ordinary folder. Each image read cost 1 to 3 milliseconds, against 50 to 200 microseconds for a direct read from NVMe. FUSE pays that extra hop on every single read, and an epoch has tens of millions of reads.</p>
+    <p>On the right: the only real wait left in the system is the first download of a shard. Because ensure_shard can be called for a shard you have not reached yet, a data loader can fetch the next shard while it is still training on the current one. So even that wait overlaps with useful work.</p>
+    <p>That covers images. Annotations are a different story.</p>
+  </aside>
+</section>

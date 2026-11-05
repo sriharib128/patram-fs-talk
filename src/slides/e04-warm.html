@@ -1,0 +1,20 @@
+<section class="slide light" id="warm" data-steps="0" data-section="4 · Reads and memory" data-time="1.3" data-title="Warming keeps one shared copy in memory">
+  <div class="hd">
+    <div class="eyebrow">The page cache</div>
+    <h2>Warming keeps one shared copy in memory</h2>
+  </div>
+  <div class="abs" id="pf-wm" style="left:120px;top:226px;width:1160px;height:600px"></div>
+  <div class="abs pf-way" style="left:1310px;top:226px;width:490px">
+    <div class="card pf-wc"><small>Page cache</small><p>Linux keeps file bytes it has read in spare memory, and later reads by any process are answered from there.</p></div>
+    <div class="card pf-wc good" style="margin-top:20px"><small>Warming</small><p>The daemon asks the kernel to load the whole file at once, with <code class="pf-ic">madvise</code> and <code class="pf-ic">MADV_POPULATE_READ</code>.</p><b>About 0.5 s</b><span>for a 1 GiB file</span></div>
+  </div>
+  <p class="abs t" style="left:120px;top:842px;width:1680px;font-size:29px">Workers keep making the same small <code class="pf-ic">pread</code> calls, and each one is now answered from memory.</p>
+  <div class="abs" id="pf-wm-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing shows 4 workers; timing is simulated.</div>
+  <aside class="notes">
+    <p>The piece is the page cache. Whenever a process reads part of a file, the Linux kernel keeps those bytes in spare memory. The next time any process on the machine reads the same bytes, the kernel answers from memory and does not touch the drive. There is one copy of each piece of the file, shared by every process.</p>
+    <p>On its own, the page cache fills too slowly here. A scattered read brings in only the small piece of the file around one record, so for a long time most reads still miss and go to the drive. That is what you saw on the last slide.</p>
+    <p>Warming fixes that. When an annotation shard is first fetched, the client sends the daemon a warm_shard request, and the daemon asks the kernel to load the whole file into the page cache in one call. That takes about half a second for 1 gibibyte. You can see one row of memory filling, once.</p>
+    <p>And from then on, the workers keep making exactly the same small pread calls, and every one is answered from memory. So we get the best of both. Like the first approach, every read comes from memory. Like the second, each worker reads only the record it needs and keeps no copy of its own, so the machine holds one copy, however many workers there are. And we did not write any sharing layer: the kernel already had one.</p>
+  </aside>
+</section>
