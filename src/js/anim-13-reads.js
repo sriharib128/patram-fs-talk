@@ -29,8 +29,8 @@
         D.rect(K.x, K.y, K.w, K.h, { fill: C.peach, stroke: C.orange, r: 16 });
         D.t(K.x + 30, K.y + 46, 'Local disk', { w: 600, fill: C.deep, size: 26 });
         const shard = D.rect(K.x + 30, K.y + 74, 340, 84, { fill: C.mid, r: 10 }), sT = D.t(K.x + 200, K.y + 127, 'shard 42', { a: 'middle', w: 600, fill: '#fff', size: 28 });
-        D.t(290, 524, 'Dashed: ensure_shard after FileNotFoundError', { size: 21, fill: C.muted });
-        D.t(830, 524, 'Solid: open + pread, straight from the local disk', { size: 21, fill: C.green, w: 500 });
+        D.t(290, 524, 'Dashed: asks the daemon when the file is missing', { size: 21, fill: C.muted });
+        D.t(830, 524, 'Solid: reads straight from the local disk', { size: 21, fill: C.green, w: 500 });
         const evs = [], asks = [];
         ask.forEach((p, k) => { const e = { t0: T.asks + k * 150, dur: 700, r: 8, color: C.ink, at: along(p) }; evs.push(e); asks.push(e); });
         evs.push({ t0: T.dl, dur: 600, r: 8, color: C.orange, at: along(dlp) }, { t0: T.bytes, dur: 900, r: 13, color: C.orange, at: along(bytes) });

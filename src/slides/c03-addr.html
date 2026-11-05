@@ -1,4 +1,5 @@
-<section class="slide light" id="addr" data-steps="0" data-section="2 · Shards" data-time="1.2" data-title="Every sample has a fixed byte address">
+<section class="slide light" id="addr" data-steps="0" data-section="2 · Pack the files" data-time="1.2" data-title="Every sample has a fixed byte address">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>box 42, at this exact position</div>
   <div class="hd">
     <div class="eyebrow">Addresses</div>
     <h2>Every sample has a fixed byte address</h2>
@@ -18,7 +19,7 @@
   <div class="abs" id="pf-ad-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative offsets and lengths. Click a sample to select it.</div>
   <aside class="notes">
-    <p>So every sample has an address: the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.</p>
+    <p>So every sample has an address: which box, where in the box, and how long. In other words, the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.</p>
     <p>We write that address as a short link, which you see at the bottom: patram, colon, slash slash, image id, then the shard, offset and length. It contains everything needed to read the sample. No index has to be loaded and no service has to be asked. So an address can go anywhere a file path used to go: a list of samples, a config file, a column in a table.</p>
     <p>That last point turns out to matter a lot, as the next slide shows.</p>
   </aside>

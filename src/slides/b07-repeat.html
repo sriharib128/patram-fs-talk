@@ -1,0 +1,19 @@
+<section class="slide light" id="repeat" data-steps="0" data-section="1 · The problem" data-time="1" data-title="Each process fetches the same data again">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>three people driving to the warehouse for the same box</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 3 · One machine</div>
+    <h2>Each process fetches the same data again</h2>
+  </div>
+  <div class="abs" id="pf-rp" style="left:120px;top:226px;width:1680px;height:560px"></div>
+  <div class="abs pf-cnt" style="left:120px;top:800px;width:1680px">
+    <div class="o"><b id="pf-rp-f">0</b><span>fetches of the same data</span></div>
+    <div class="o"><b id="pf-rp-c">0</b><span>copies on this machine</span></div>
+    <p>They know nothing about each other, so none can reuse what another has fetched.</p>
+  </div>
+  <div class="abs" id="pf-rp-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: 3 processes on one machine.</div>
+  <aside class="notes">
+    <p>The third problem is easy to miss. A machine does not run just one program. It runs training, and often a data job beside it, and someone's notebook. They read the same data, but they know nothing about each other.</p>
+    <p>So each one fetches its own copy. Three people from the same office, each driving to the warehouse for the same box, and each keeping their own copy of it. That wastes the network, the disk and the memory, and it makes the request problem worse.</p>
+  </aside>
+</section>

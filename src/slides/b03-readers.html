@@ -1,0 +1,19 @@
+<section class="slide light" id="simple" data-steps="0" data-section="1 · The problem" data-time="1" data-title="Many readers ask for files at the same moment">
+  <div class="hd">
+    <div class="eyebrow">Who reads it</div>
+    <h2>Many readers ask for files at the same moment</h2>
+  </div>
+  <div class="abs pf-st" style="left:120px;top:236px;width:820px">
+    <div class="card"><b>8</b><span>GPUs on each machine</span></div>
+    <div class="card"><b>Several</b><span>reader processes fetching samples for each GPU</span></div>
+    <div class="card"><b>30</b><span>machines, so 240 GPUs in all</span></div>
+  </div>
+  <div class="abs card" id="pf-fan" style="left:980px;top:236px;width:820px;height:620px"></div>
+  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">Nothing coordinates these readers. Each one simply opens the next file on its list.</p>
+  <div class="abs note" style="left:120px;top:940px;font-size:21px">The drawing shows one machine, with fewer readers and files than the real cluster.</div>
+  <aside class="notes">
+    <p>Now the readers. A machine, one server in our cluster, has 8 GPUs. Each GPU is fed by several reader processes, which are the helpers from a moment ago. And there are 30 machines.</p>
+    <p>So at any moment, a very large number of processes are all opening different small files, as fast as they can, and none of them knows about the others.</p>
+    <p>All of those requests have to land somewhere. So where can we keep the files?</p>
+  </aside>
+</section>

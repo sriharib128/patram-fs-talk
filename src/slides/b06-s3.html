@@ -1,0 +1,29 @@
+<section class="slide light" id="trys3" data-steps="1" data-section="1 · The problem" data-time="1.8" data-title="The object store limits requests, not bytes">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>a warehouse gate that counts trips, not what each trip carries</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 2 · Object store</div>
+    <h2>The object store limits requests, not bytes</h2>
+  </div>
+  <div class="abs card" id="pf-s3" style="left:120px;top:236px;width:1000px;height:620px"></div>
+  <div class="abs pf-s3r" style="left:1160px;top:236px;width:640px">
+    <div class="card">
+      <small>Every request counts the same</small>
+      <div class="r"><span><i style="width:16px"></i>300 bytes</span><b>1 request</b></div>
+      <div class="r"><span><i style="width:220px"></i>10 GiB</span><b>1 request</b></div>
+    </div>
+    <div class="card eq" data-s="1">
+      <small>One file per sample</small>
+      <div class="m">10,000,000 requests<br>÷ 5,500 per second</div>
+      <b>About 30 minutes</b>
+      <span>for one pass over the data, at the limit for one prefix, doing nothing else</span>
+    </div>
+  </div>
+  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">Small files are the worst case: you pay for a whole request, however few bytes it brings back.</p>
+  <div class="abs" id="pf-s3-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: the drawing shows 60 requests. The limit is S3's stated rate. The sum is our arithmetic.</div>
+  <aside class="notes">
+    <p>So move the files out to the object store, the warehouse. It has plenty of room. But it works differently: you fetch a whole object per request, and the warehouse gate counts trips. Amazon S3 allows roughly 5,500 requests per second for each prefix, where a prefix is roughly like a folder.</p>
+    <p>Watch the queue build at the gate. Each dot is one request for one small file. And here is the odd part, on the right: a request for 300 bytes counts exactly the same as a request for 10 gibibytes. The gate does not care what the truck carries. So tiny files are the worst possible case.</p>
+    <p data-step="1">Let us do the sum. One file per sample means about ten million requests. Ten million divided by 5,500 a second is about 30 minutes, just to fetch the data once, at the limit, for one prefix. That is our own arithmetic, to give you a feel for it. A training run reads the data many times, on top of all the network time. Fetching one small file at a time simply does not work.</p>
+  </aside>
+</section>

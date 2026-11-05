@@ -1,7 +1,8 @@
-<section class="slide light" id="cache" data-steps="0" data-section="3 · The daemon" data-time="1.2" data-title="Each machine caches shards on its local disk">
+<section class="slide light" id="cache" data-steps="0" data-section="3 · Keep them local" data-time="1.2" data-title="Download each shard once, then read it locally">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>keeping the box on your own office shelf</div>
   <div class="hd">
     <div class="eyebrow">Local cache</div>
-    <h2>Each machine caches shards on its local disk</h2>
+    <h2>Download each shard once, then read it locally</h2>
   </div>
   <div class="abs" id="pf-ca" style="left:120px;top:226px;width:1680px;height:560px"></div>
   <div class="abs pf-cnt" style="left:120px;top:800px;width:1680px">
@@ -10,7 +11,8 @@
     <p>A download goes to a temporary file and is renamed into place when complete, so a reader never sees a partial shard.</p>
   </div>
   <div class="abs" id="pf-ca-pl" style="left:120px;top:962px;width:560px"></div>
-  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: counts and timing are simulated.</div>
+  <div class="abs pf-nx" style="left:720px;top:950px;width:1080px"><b>Next problem</b>Many processes can find the same shard missing at once.</div>
+  <div class="abs note" style="left:120px;top:1006px;font-size:20px">Illustrative: counts and timing are simulated.</div>
   <aside class="notes">
     <p>Every machine in our cluster has a 30 terabyte NVMe drive attached directly to it. So the first time a machine needs a shard, it downloads the whole shard from the object store onto that drive. From then on, every sample in that shard is a local read.</p>
     <p>Watch the two counters. Downloads tick up slowly, one per shard, and then stop. Reads keep climbing, and they are all coming from the local disk. A few big requests, then millions of small local reads. Compare that with the ten million requests we started from.</p>

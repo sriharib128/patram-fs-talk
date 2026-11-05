@@ -345,7 +345,7 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
 .pf-ans{display:block;font-style:normal;margin-top:24px;padding:16px 22px;border-radius:14px;font-size:26px;line-height:1.36}
 .pf-ans.bad{background:var(--red-pale);color:#8E271E}
 .pf-ans.good{background:var(--green-pale);color:#0A5F4A}
-#ytcomp[data-st="2"] .pf-opt.ok,#ytbytes[data-st="2"] .pf-opt2.ok,#ytwarm[data-st="2"] .pf-opt2.ok,#ytdel[data-st="2"] .pf-opt2.ok{border:3px solid var(--green);background:var(--green-pale)}
+#ytpack[data-st="2"] .pf-opt.ok,#ytcomp[data-st="2"] .pf-opt.ok,#ytbytes[data-st="2"] .pf-opt2.ok,#ytwarm[data-st="2"] .pf-opt2.ok,#ytdel[data-st="2"] .pf-opt2.ok{border:3px solid var(--green);background:var(--green-pale)}
 .pf-side{display:flex;flex-direction:column;gap:16px}
 .pf-ctxp{font-size:28px;line-height:1.36;color:var(--body)}.pf-ctxp b{color:var(--ink);font-weight:600}
 .pf-opt2{display:flex;align-items:center;gap:18px;padding:16px 22px}
@@ -495,6 +495,71 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
 .pf-tk i{flex:none;width:64px;height:64px;border-radius:50%;background:rgba(242,140,40,.2);color:#FFC078;display:flex;align-items:center;justify-content:center;font:700 29px Sora,sans-serif;font-style:normal}
 .pf-tk b{display:block;font:600 32px/1.2 Sora,sans-serif;color:#fff}
 .pf-tk span{display:block;font-size:27px;color:#C7D6F3;margin-top:4px}
+
+/* running analogy, top right of a slide */
+.pf-like{font-size:24px;color:var(--body);text-align:right;line-height:1.2}
+.pf-like b{font-weight:600;color:var(--orange-deep);margin-right:10px}
+/* the link to the next step */
+.pf-nx{display:flex;align-items:center;gap:16px;font-size:27px;font-weight:500;color:var(--ink);line-height:1.2}
+.pf-nx b{flex:none;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:999px;background:var(--peach);color:var(--orange-deep)}
+/* progress on the part dividers */
+.pf-trk{display:flex;flex-direction:column;gap:14px}
+.pf-trk small{font-size:22px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--orange-on-blue);margin-bottom:6px}
+.pf-trk>div{display:flex;align-items:center;gap:20px;font-size:29px;line-height:1.2;color:#F4F7FD}
+.pf-trk i{flex:none;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 27px Sora,sans-serif;font-style:normal}
+.pf-trk .ok{color:#9DB3DC}.pf-trk .ok i{background:rgba(52,199,155,.2);color:#7FE3C2}
+.pf-trk .now{font-weight:600}.pf-trk .now i{background:var(--orange);color:#fff}
+.pf-trk .todo{color:#7F8CA8}.pf-trk .todo i{background:rgba(157,179,220,.12);color:#7F8CA8}
+/* how many files */
+.pf-nf{padding:26px 36px}
+.pf-nf small,.pf-s3r small,.pf-nd2 small,.pf-fsr small{display:block;font-size:22px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange-deep)}
+.pf-nf-l{font:500 27px/1.5 'IBM Plex Mono',monospace;color:#E4ECFA;background:var(--navy);border-radius:16px;padding:18px 24px;margin:18px 0 22px}
+.pf-nf-r{display:flex;align-items:baseline;gap:16px;margin-top:12px}
+.pf-nf-r b{font:700 34px Sora,sans-serif;color:var(--ink)}.pf-nf-r span{font-size:26px;color:var(--muted)}
+#pf-nf-w{margin-top:16px}
+.pf-nf-c{display:flex;align-items:baseline;gap:16px;margin-top:10px}
+.pf-nf-c b{font:700 64px Sora,sans-serif;color:var(--orange-deep);line-height:1}.pf-nf-c span{font-size:30px;color:var(--body)}
+/* three places */
+.pf-pl{padding:18px 28px;display:flex;flex-direction:column}
+.pf-pl-d{height:170px;flex:none}
+.pf-pl h3{font:700 34px Sora,sans-serif;color:var(--ink);margin-top:6px}
+.pf-pl>p{font-size:25px;line-height:1.3;color:var(--body);margin-top:6px;min-height:98px}
+.pf-pl dl{margin-top:6px}
+.pf-pl dt{font-size:21px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.pf-pl dd{font-size:26px;line-height:1.25;color:var(--ink);font-weight:500;margin-top:2px}
+.pf-pl dd.good{color:var(--green)}.pf-pl dd.bad{color:var(--red)}
+.pf-pl .lk{margin-top:auto;background:var(--peach);border-radius:14px;padding:12px 18px;font-size:25px;line-height:1.25;color:var(--ink)}
+.pf-pl .lk b{display:block;font-size:20px;font-weight:600;color:var(--orange-deep)}
+/* filesystem result */
+.pf-fsr{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.pf-fsr .card{padding:18px 30px;min-height:190px}
+.pf-fsr b{display:block;font:700 36px/1.22 Sora,sans-serif;color:var(--red);margin-top:10px}
+/* object store side */
+.pf-s3r{display:flex;flex-direction:column;gap:20px}
+.pf-s3r .card{padding:22px 30px}
+.pf-s3r .r{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;font-size:26px;color:var(--body)}
+.pf-s3r .r span{display:flex;align-items:center;gap:14px}
+.pf-s3r .r i{display:block;height:26px;border-radius:5px;background:var(--mid,#2A63C9)}
+.pf-s3r .r b{font:700 28px Sora,sans-serif;color:var(--orange-deep);white-space:nowrap}
+.pf-s3r .eq .m{font:600 28px/1.35 'IBM Plex Mono',monospace;color:var(--ink);margin-top:12px}
+.pf-s3r .eq b{display:block;font:700 48px Sora,sans-serif;color:var(--red);margin-top:12px;line-height:1.1}
+.pf-s3r .eq span{display:block;font-size:24px;line-height:1.3;color:var(--body);margin-top:8px}
+/* what we need */
+.pf-nd{display:grid;grid-template-columns:1fr 1.25fr 1fr;padding:16px 40px;align-items:center}
+.pf-nd>div{padding:17px 0;font-size:32px;color:var(--ink);border-top:1px solid var(--line)}
+.pf-nd .h{font-size:23px;font-weight:600;color:var(--muted);border-top:0;padding:8px 0}
+.pf-nd .k{font-family:Sora,sans-serif;font-weight:600;font-size:30px}
+.pf-nd .bad{color:var(--red);font-weight:500}.pf-nd .good{color:var(--green);font-weight:600}
+.pf-nd2{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
+.pf-nd2 small{grid-column:1/-1}
+.pf-nd2 .card{padding:22px 30px;font-size:29px;line-height:1.3;color:var(--ink)}
+/* daemon steps */
+.pf-dq{display:flex;flex-direction:column;gap:16px}
+.pf-dq .card{display:flex;align-items:center;gap:18px;padding:18px 22px;min-height:146px}
+.pf-dq i{flex:none;width:52px;height:52px;border-radius:50%;background:var(--blue-pale);color:var(--blue);display:flex;align-items:center;justify-content:center;font:700 26px Sora,sans-serif;font-style:normal}
+.pf-dq span{font-size:27px;line-height:1.28;color:var(--ink)}
+/* recap */
+.pf-rcp span{font-size:25px}
 </style></head>
 <body>
 <div id="stage-wrap"><div id="stage">
@@ -513,12 +578,12 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
   </aside>
 </section>
 
-<section class="slide light" id="whyit" data-steps="0" data-section="Introduction" data-time="1.2" data-title="Patram learns from document images and text">
+<section class="slide light" id="whyit" data-steps="0" data-section="Introduction" data-time="1.5" data-title="We train Patram, a model that reads documents">
   <div class="hd">
     <div class="eyebrow">What we do</div>
-    <h2>Patram learns from document images and text</h2>
+    <h2>We train Patram, a model that reads documents</h2>
   </div>
-  <div class="abs card pf-wy" style="left:120px;top:236px;width:760px;height:620px">
+  <div class="abs card pf-wy" style="left:120px;top:236px;width:800px;height:620px">
     <small>One training sample</small>
     <div class="pf-wy-s">
       <div class="pf-pg" aria-hidden="true"><i class="h"></i><i></i><i></i><i class="s"></i><u></u><i></i><i></i><i class="s"></i></div>
@@ -531,22 +596,22 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
 }</code>
       </div>
     </div>
-    <div class="pf-wy-l"><div><b>Image of a page</b><span>50 to 500 KB</span></div><div><b>Annotation, a JSON record</b><span>about 300 bytes</span></div></div>
+    <div class="pf-wy-l"><div><b>An image of a page</b></div><div><b>An annotation that says what is on it</b></div></div>
   </div>
-  <div class="abs card pf-wy" style="left:920px;top:236px;width:880px;height:620px">
-    <small>Where it is read</small>
-    <div class="pf-lat" id="pf-lat" aria-hidden="true"></div>
-    <div class="pf-wy-f">
-      <div><b>30</b><span>machines</span></div><div><b>8</b><span>GPUs each</span></div><div><b>240</b><span>GPUs</span></div>
-    </div>
-    <p class="pf-wy-p">Tens of millions of samples, read many times over, by several reader processes for every GPU.</p>
+  <div class="abs card pf-ag" style="left:960px;top:236px;width:840px;height:620px">
+    <ol>
+      <li><i>1</i><div><b>Show the model a sample</b><span>A page, and a question about it</span></div></li>
+      <li><i>2</i><div><b>Compare its answer</b><span>Against the right answer in the annotation</span></div></li>
+      <li><i>3</i><div><b>Adjust the model</b><span>So it does a little better next time</span></div></li>
+      <li><i>4</i><div><b>Take the next sample</b><span>And repeat, many millions of times</span></div></li>
+    </ol>
   </div>
-  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">If reading is slow, training waits for its data.</p>
+  <p class="abs t" style="left:120px;top:884px;width:1680px;font-size:29px">This loop runs on GPUs, and it needs a new sample every time it comes round.</p>
   <div class="abs note" style="left:120px;top:940px;font-size:21px">The sample shown is illustrative.</div>
   <aside class="notes">
-    <p>A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents. Patram 1.5 learns from document images and the text that goes with them. So one training sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.</p>
-    <p>Both are small. The image is 50 to 500 kilobytes. The annotation is a JSON record of about 300 bytes. But a training dataset holds tens of millions of them, and a training run reads them many times over.</p>
-    <p>On the right is where that reading happens. Each square is one GPU: 30 machines with 8 GPUs each, 240 GPUs. Every GPU is fed by several reader processes. Why does this matter? Because the GPU only does useful work when the data has arrived. If reading is slow, training waits, and that is the problem this talk is about.</p>
+    <p>A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents.</p>
+    <p>Training data for a model like this is simple. One sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.</p>
+    <p>Training itself is a loop. Show the model a sample. Compare its answer with the right one. Adjust the model a little. Take the next sample. That loop runs on GPUs, and every time it comes round it needs a new sample. Keep that in mind, because this whole talk is about getting that next sample to the GPU on time.</p>
   </aside>
 </section>
 
@@ -555,24 +620,19 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
     <div class="eyebrow">Agenda</div>
     <h2>What we will talk about today</h2>
   </div>
-  <div class="abs card pf-ag" style="left:120px;top:236px;width:1000px;height:640px">
+  <div class="abs card pf-ag" style="left:120px;top:236px;width:1680px;height:640px">
     <ol>
-      <li><i>1</i><div><b>The problem</b><span>Why one file per sample stops working at ten million files</span></div></li>
-      <li><i>2</i><div><b>Shards</b><span>Packing samples together, and keeping each sample's address</span></div></li>
-      <li><i>3</i><div><b>The daemon</b><span>A small program on each machine, and one download per shard</span></div></li>
-      <li><i>4</i><div><b>Reads and memory</b><span>Reading without asking anyone, with one copy in memory</span></div></li>
-      <li><i>5</i><div><b>In production</b><span>Disk space, other tools, Patram 1.5 and the trade-offs</span></div></li>
+      <li><i>1</i><div><b>The problem</b><span>Why does reading small files hold up training?</span></div></li>
+      <li><i>2</i><div><b>Pack the files</b><span>How do ten million files become about two hundred?</span></div></li>
+      <li><i>3</i><div><b>Keep them local</b><span>How is each large file downloaded only once on a machine?</span></div></li>
+      <li><i>4</i><div><b>Read them fast</b><span>How does every read stay as cheap as reading a local file?</span></div></li>
+      <li><i>5</i><div><b>Run it</b><span>What happens when the disk fills up, and what did we give up?</span></div></li>
     </ol>
   </div>
-  <div class="abs card pf-ag2" style="left:1160px;top:236px;width:640px;height:640px">
-    <small>The picture we will build</small>
-    <div id="pf-agd"></div>
-  </div>
-  <p class="abs t" style="left:120px;top:900px;width:1680px;font-size:29px">Please stop us with questions at any time. Four slides will ask you for an answer.</p>
+  <p class="abs t" style="left:120px;top:900px;width:1680px;font-size:29px">Each part fixes one problem and uncovers the next. Please stop us with questions at any time.</p>
   <aside class="notes">
-    <p>Here is the plan for the next half hour. There are five parts.</p>
-    <p>First the problem: why the simplest design, one file per sample, stops working at ten million files. Then shards, which is how we pack samples together while keeping each one individually readable. Then the daemon, a small program on each machine that makes sure a shard is downloaded only once. Then reads and memory: how a read stays as cheap as reading a local file, and how a hundred processes can share one copy of a file in memory. And finally how it runs in production: keeping the disk from filling up, why we did not use an existing tool, how Patram 1.5 was trained on it, and what we gave up.</p>
-    <p>On the right is the picture we will end up with. It will not mean much yet, and that is fine: we will build it one box at a time. Please interrupt at any time. Four slides will stop and ask you for an answer, so stay ready. Let us begin.</p>
+    <p>Here is the plan for the next half hour. We will spend the most time on the first part, because the problem is unusual and the rest only makes sense once you have seen it. You do not need any storage background for this.</p>
+    <p>After that, each part fixes one problem and uncovers the next one. Pack the files, keep them on the machine, read them fast, and then what it takes to run this for real. A few slides will stop and ask you for an answer, so stay ready.</p>
   </aside>
 </section>
 
@@ -581,92 +641,257 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
   <div class="dv-eb">Part 1</div>
   <div class="dv-h">The problem</div>
   <div class="dv-line"></div>
-  <div class="dv-q">Why not keep one file per sample?</div>
-  <aside class="notes"><p>Let us start with the design anyone would write first, and see where it breaks.</p></aside>
+  <div class="dv-q">Why is reading files a problem at all?</div>
+  <aside class="notes"><p>Reading a file sounds like the easiest thing a computer does. So let us see how it becomes the problem, starting from a single GPU.</p></aside>
 </section>
 
-<section class="slide light" id="simple" data-steps="0" data-section="1 · The problem" data-time="1" data-title="The simplest design is one file per sample">
+<section class="slide light" id="gpuwait" data-steps="0" data-section="1 · The problem" data-time="1.5" data-title="A GPU can only learn when data has arrived">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>an expert who needs a helper to bring each page</div>
   <div class="hd">
-    <div class="eyebrow">The first design</div>
-    <h2>The simplest design is one file per sample</h2>
+    <div class="eyebrow">Why it matters</div>
+    <h2>A GPU can only learn when data has arrived</h2>
   </div>
-  <div class="abs code pf-simple" style="left:120px;top:262px;width:820px"><span class="k">for</span> path <span class="k">in</span> sample_paths:
-    image  = load_image(path + <span class="s">".jpg"</span>)
-    record = json.load(open(path + <span class="s">".json"</span>))
-    train_step(image, record)</div>
-  <div class="abs pf-simple-n" style="left:120px;top:560px;width:820px">
-    <div><b>50 to 500 KB</b><span>each image</span></div>
-    <div><b>About 300 bytes</b><span>each annotation</span></div>
-    <div><b>Tens of millions</b><span>of each in a dataset</span></div>
+  <div class="abs" id="pf-gw" style="left:120px;top:226px;width:1680px;height:540px"></div>
+  <p class="abs t" style="left:120px;top:790px;width:1680px;font-size:29px">Same GPU, same model. The only difference is how quickly the next sample arrives.</p>
+  <div class="abs pf-nx" style="left:120px;top:860px;width:1680px"><b>So the question is</b>How do we get samples to the GPU on time?</div>
+  <div class="abs" id="pf-gw-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: speeds and counts are simulated.</div>
+  <aside class="notes">
+    <p>Here is one GPU. Think of it as a very expensive expert who reads pages and learns from them, and of the program feeding it as a helper who fetches each page from storage.</p>
+    <p>In the top row, the pages arrive on time. The GPU is green the whole way along: it finishes one sample and the next is already there.</p>
+    <p>In the bottom row, nothing about the GPU or the model has changed. The pages just take longer to arrive. Most of the bar is grey, which means the GPU is sitting idle, waiting. We are paying for a GPU that is doing nothing, and the run takes far longer.</p>
+    <p>So the job is to keep the GPU fed. That sounds easy for one GPU and one file. Let us look at how much there is to read.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="nfiles" data-steps="0" data-section="1 · The problem" data-time="1" data-title="A dataset is tens of millions of small files">
+  <div class="hd">
+    <div class="eyebrow">How much data</div>
+    <h2>A dataset is tens of millions of small files</h2>
+  </div>
+  <div class="abs card pf-nf" style="left:120px;top:236px;width:620px;height:620px">
+    <small>The simplest way to store it</small>
+    <div class="pf-nf-l">img_000001.jpg<br>img_000001.json<br>img_000002.jpg<br>img_000002.json<br>img_000003.jpg<br>...</div>
+    <div class="pf-nf-r"><b>50 to 500 KB</b><span>each image</span></div>
+    <div class="pf-nf-r"><b>About 300 bytes</b><span>each annotation</span></div>
+  </div>
+  <div class="abs card pf-nf" style="left:780px;top:236px;width:1020px;height:620px">
+    <small>One file per sample, in one dataset</small>
+    <div id="pf-nf-w"></div>
+    <div class="pf-nf-c"><b id="pf-nf-n">0</b><span>files</span></div>
+  </div>
+  <p class="abs t" style="left:120px;top:884px;width:1680px;font-size:29px">Each file is tiny. The trouble is how many of them there are.</p>
+  <div class="abs" id="pf-nf-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing is not to scale. Ten million is a round figure for the size of a dataset.</div>
+  <aside class="notes">
+    <p>The obvious way to store this data is what you would do on your own laptop: one file for each image, and one file for each annotation, all in a folder.</p>
+    <p>Each one is small. An image is 50 to 500 kilobytes. An annotation is about 300 bytes, which is shorter than a text message.</p>
+    <p>But a training dataset holds tens of millions of them. Most computer systems are comfortable with a few very big files. They are much less comfortable with millions of tiny ones, and we will see exactly why in a moment. First, one more piece of the picture: who is reading them.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="simple" data-steps="0" data-section="1 · The problem" data-time="1" data-title="Many readers ask for files at the same moment">
+  <div class="hd">
+    <div class="eyebrow">Who reads it</div>
+    <h2>Many readers ask for files at the same moment</h2>
+  </div>
+  <div class="abs pf-st" style="left:120px;top:236px;width:820px">
+    <div class="card"><b>8</b><span>GPUs on each machine</span></div>
+    <div class="card"><b>Several</b><span>reader processes fetching samples for each GPU</span></div>
+    <div class="card"><b>30</b><span>machines, so 240 GPUs in all</span></div>
   </div>
   <div class="abs card" id="pf-fan" style="left:980px;top:236px;width:820px;height:620px"></div>
-  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">This works for a thousand files; the next slides show what changes at ten million.</p>
+  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">Nothing coordinates these readers. Each one simply opens the next file on its list.</p>
   <div class="abs note" style="left:120px;top:940px;font-size:21px">The drawing shows one machine, with fewer readers and files than the real cluster.</div>
   <aside class="notes">
-    <p>The simplest way to store this data is one file per sample, and the simplest way to train on it is to open each file when you need it. Here is that code: for each path, load the image, load the JSON, and take a training step. There is nothing wrong with it, and it works very well for a thousand files.</p>
-    <p>Now look at the right. This is one machine. It has 8 GPUs, every GPU is fed by several reader processes, and all of them are opening different small files as fast as they can. Multiply that by 30 machines. Nothing coordinates those readers with each other. Each one simply opens the next file on its list.</p>
-    <p>Before we see what goes wrong at ten million files, we need a few terms for where those files can live.</p>
+    <p>Now the readers. A machine, one server in our cluster, has 8 GPUs. Each GPU is fed by several reader processes, which are the helpers from a moment ago. And there are 30 machines.</p>
+    <p>So at any moment, a very large number of processes are all opening different small files, as fast as they can, and none of them knows about the others.</p>
+    <p>All of those requests have to land somewhere. So where can we keep the files?</p>
   </aside>
 </section>
 
-<section class="slide light" id="cluster" data-steps="0" data-section="1 · The problem" data-time="1.5" data-title="One machine and the stores it reads from">
+<section class="slide light" id="places" data-steps="2" data-section="1 · The problem" data-time="1.5" data-title="The files can live in three places">
   <div class="hd">
-    <div class="eyebrow">Terms</div>
-    <h2>One machine and the stores it reads from</h2>
+    <div class="eyebrow">Where it can live</div>
+    <h2>The files can live in three places</h2>
   </div>
-  <div class="abs" id="pf-cl" style="left:120px;top:226px;width:1680px;height:690px"></div>
-  <aside class="notes">
-    <p>Five terms will come up for the rest of the talk, and they are all in this picture.</p>
-    <p>A machine is one server in the GPU cluster; people also call it a node. Ours each have 8 H100 GPUs, and there are 30 of them. A worker is a Python process that reads training samples, for example a data loader worker. A machine runs dozens of them, and nothing coordinates them with each other.</p>
-    <p>Each machine has a 30 terabyte NVMe drive attached directly to it. Reads from it take tens of microseconds.</p>
-    <p>Then there are two things outside the machine, so reaching them means crossing the network, which costs milliseconds. The shared filesystem is a network filesystem that every machine mounts, so every machine sees the same files. It keeps a metadata entry, called an inode, for every file. The object store is where datasets live long term; we use Amazon S3. Data is read and written as whole objects over the network, and it charges and limits by request.</p>
-    <p>Keep those two numbers in mind: tens of microseconds on this side, milliseconds on that side. A lot of this design follows from that gap.</p>
-  </aside>
-</section>
-
-<section class="slide light" id="three" data-steps="2" data-section="1 · The problem" data-time="2" data-title="At ten million files, three things go wrong">
-  <div class="hd">
-    <div class="eyebrow">The problem</div>
-    <h2>At ten million files, three things go wrong</h2>
+  <div class="abs card pf-pl" style="left:120px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl1"></div>
+    <h3>Local drive</h3>
+    <p>A 30 TB NVMe drive attached directly to each machine.</p>
+    <dl><dt>Speed</dt><dd class="good">Tens of microseconds</dd><dt>The catch</dt><dd>Only that machine can see it</dd></dl>
+    <div class="lk"><b>Think of it as</b>the shelf in your own office</div>
   </div>
-  <div class="abs card pf-tr" style="left:120px;top:236px;width:540px;height:660px">
-    <div class="pf-tr-d" id="pf-tr1"></div>
-    <i>1</i><h3>The shared filesystem slows down for everyone</h3>
-    <p>One metadata entry per file. Listing the dataset folder takes minutes.</p>
+  <div class="abs card pf-pl" data-s="1" style="left:690px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl2"></div>
+    <h3>Shared filesystem</h3>
+    <p>A network filesystem every machine mounts, so all of them see the same files.</p>
+    <dl><dt>Speed</dt><dd class="bad">Milliseconds, over the network</dd><dt>The catch</dt><dd>Keeps an entry for every file, and everyone shares it</dd></dl>
+    <div class="lk"><b>Think of it as</b>one records room for the whole building</div>
   </div>
-  <div class="abs card pf-tr" data-s="1" style="left:690px;top:236px;width:540px;height:660px">
-    <div class="pf-tr-d" id="pf-tr2"></div>
-    <i>2</i><h3>The object store limits requests, not bytes</h3>
-    <p>About 5,500 requests per second per prefix, against about ten million requests in a run.</p>
-  </div>
-  <div class="abs card pf-tr" data-s="2" style="left:1260px;top:236px;width:540px;height:660px">
-    <div class="pf-tr-d" id="pf-tr3"></div>
-    <i>3</i><h3>Processes on one machine repeat each other's work</h3>
-    <p>Training, a data job and a notebook each fetch their own copy.</p>
+  <div class="abs card pf-pl" data-s="2" style="left:1260px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl3"></div>
+    <h3>Object store</h3>
+    <p>Where datasets live long term. We use Amazon S3.</p>
+    <dl><dt>Speed</dt><dd class="bad">Milliseconds, over the network</dd><dt>The catch</dt><dd>Charged and limited by the number of requests</dd></dl>
+    <div class="lk"><b>Think of it as</b>a warehouse across town</div>
   </div>
   <div class="src">Source: Patram-FS engineering post. The drawings are illustrative.</div>
   <aside class="notes">
-    <p>At ten million files, three things go wrong, and they are three different problems.</p>
-    <p>First, the shared filesystem. It keeps a metadata entry for every file, and it slows down with the number of files, whatever their size. At ten million files, just listing the dataset folder takes minutes. Worse, this is shared: the metadata load slows every other machine and every other team on the cluster.</p>
-    <p data-step="1">So move the data to the object store. It has plenty of room, but it limits requests, not bytes. S3 allows roughly 5,500 requests per second for each prefix. A run that fetches samples one at a time makes about ten million requests against that limit. Small files are the worst case, because you pay for one request per file however few bytes it holds.</p>
-    <p data-step="2">The third one is easy to miss. A machine runs several processes that read the same data: training, a data job, someone's notebook. They know nothing about each other, so each one fetches its own copy. That wastes the network, the disk and the memory.</p>
-    <p>Patram-FS solves these in order. Too many files is the first one, and that takes us to shards.</p>
+    <p>There are three places these files can live, and it helps to picture an office building. Each machine is one office.</p>
+    <p>First, the local drive. Each machine has a 30 terabyte NVMe drive attached directly to it. It is the shelf in your own office: reads take tens of microseconds. The catch is that only that machine can see it.</p>
+    <p data-step="1">Second, the shared filesystem. Every machine mounts it and sees the same files. It is one records room for the whole building. Reaching it crosses the network, which costs milliseconds, and it keeps an entry for every single file.</p>
+    <p data-step="2">Third, the object store, which for us is Amazon S3. It holds everything, long term. It is a warehouse across town: also milliseconds away, and it charges and limits you by the number of requests.</p>
+    <p>Notice the gap in speed: microseconds on the machine, milliseconds across the network. So the local drive is fast but private, and the two shared places are slow. Let us try putting ten million files in each of the shared ones, and see what happens.</p>
   </aside>
 </section>
 
-<section class="slide dark" id="dv2" data-section="2 · Shards" data-time="0.2" data-title="Part 2 · Shards">
-  <div class="dv-num">2</div>
-  <div class="dv-eb">Part 2</div>
-  <div class="dv-h">Shards</div>
-  <div class="dv-line"></div>
-  <div class="dv-q">How can one large file still give us a single sample?</div>
-  <aside class="notes"><p>The standard fix for too many small files is fewer, larger files. The interesting question is how to pack them so that one sample can still be read on its own.</p></aside>
+<section class="slide light" id="tryfs" data-steps="1" data-section="1 · The problem" data-time="1.8" data-title="More files means a slower shared filesystem">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>one clerk who finds a card before handing over any file</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 1 · Shared filesystem</div>
+    <h2>More files means a slower shared filesystem</h2>
+  </div>
+  <div class="abs" id="pf-fs" style="left:120px;top:226px;width:1680px;height:470px"></div>
+  <p class="abs t" data-h="1" style="left:120px;top:716px;width:1680px;font-size:29px">Every file needs its own lookup before its first byte, however small the file is.</p>
+  <div class="abs pf-fsr" data-s="1" style="left:120px;top:712px;width:1680px">
+    <div class="card"><small>At ten million files</small><b>Listing the dataset folder takes minutes</b></div>
+    <div class="card"><small>And it is shared</small><b>The load slows every other machine on the cluster</b></div>
+  </div>
+  <div class="abs" id="pf-fs-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: the drawing uses 40 files, and timing is simulated.</div>
+  <aside class="notes">
+    <p>Let us try the shared filesystem. Before it can give you a single byte of a file, a filesystem has to look that file up: its name, its size, and where its bytes are. That bookkeeping is called metadata, and the filesystem keeps one entry for every file. Picture a clerk in the records room who has to find the right card before handing over any file.</p>
+    <p>On the left is some data stored as one big file: one lookup, and then the bytes flow. On the right is the same data stored as many small files. Every one of them needs its own lookup. Watch the counter. The disks are not the slow part here. The clerk is.</p>
+    <p data-step="1">Now scale that to ten million files. The cost grows with the number of files, whatever their size. Just listing the dataset folder takes minutes. And the part people forget: this filesystem is shared. Our readers keep the clerk busy, so every other machine on the cluster slows down too.</p>
+  </aside>
 </section>
 
-<section class="slide light" id="pack" data-steps="0" data-section="2 · Shards" data-time="1.2" data-title="Packing samples into a few large shards">
+<section class="slide light" id="trys3" data-steps="1" data-section="1 · The problem" data-time="1.8" data-title="The object store limits requests, not bytes">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>a warehouse gate that counts trips, not what each trip carries</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 2 · Object store</div>
+    <h2>The object store limits requests, not bytes</h2>
+  </div>
+  <div class="abs card" id="pf-s3" style="left:120px;top:236px;width:1000px;height:620px"></div>
+  <div class="abs pf-s3r" style="left:1160px;top:236px;width:640px">
+    <div class="card">
+      <small>Every request counts the same</small>
+      <div class="r"><span><i style="width:16px"></i>300 bytes</span><b>1 request</b></div>
+      <div class="r"><span><i style="width:220px"></i>10 GiB</span><b>1 request</b></div>
+    </div>
+    <div class="card eq" data-s="1">
+      <small>One file per sample</small>
+      <div class="m">10,000,000 requests<br>÷ 5,500 per second</div>
+      <b>About 30 minutes</b>
+      <span>for one pass over the data, at the limit for one prefix, doing nothing else</span>
+    </div>
+  </div>
+  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">Small files are the worst case: you pay for a whole request, however few bytes it brings back.</p>
+  <div class="abs" id="pf-s3-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: the drawing shows 60 requests. The limit is S3's stated rate. The sum is our arithmetic.</div>
+  <aside class="notes">
+    <p>So move the files out to the object store, the warehouse. It has plenty of room. But it works differently: you fetch a whole object per request, and the warehouse gate counts trips. Amazon S3 allows roughly 5,500 requests per second for each prefix, where a prefix is roughly like a folder.</p>
+    <p>Watch the queue build at the gate. Each dot is one request for one small file. And here is the odd part, on the right: a request for 300 bytes counts exactly the same as a request for 10 gibibytes. The gate does not care what the truck carries. So tiny files are the worst possible case.</p>
+    <p data-step="1">Let us do the sum. One file per sample means about ten million requests. Ten million divided by 5,500 a second is about 30 minutes, just to fetch the data once, at the limit, for one prefix. That is our own arithmetic, to give you a feel for it. A training run reads the data many times, on top of all the network time. Fetching one small file at a time simply does not work.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="repeat" data-steps="0" data-section="1 · The problem" data-time="1" data-title="Each process fetches the same data again">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>three people driving to the warehouse for the same box</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 3 · One machine</div>
+    <h2>Each process fetches the same data again</h2>
+  </div>
+  <div class="abs" id="pf-rp" style="left:120px;top:226px;width:1680px;height:560px"></div>
+  <div class="abs pf-cnt" style="left:120px;top:800px;width:1680px">
+    <div class="o"><b id="pf-rp-f">0</b><span>fetches of the same data</span></div>
+    <div class="o"><b id="pf-rp-c">0</b><span>copies on this machine</span></div>
+    <p>They know nothing about each other, so none can reuse what another has fetched.</p>
+  </div>
+  <div class="abs" id="pf-rp-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: 3 processes on one machine.</div>
+  <aside class="notes">
+    <p>The third problem is easy to miss. A machine does not run just one program. It runs training, and often a data job beside it, and someone's notebook. They read the same data, but they know nothing about each other.</p>
+    <p>So each one fetches its own copy. Three people from the same office, each driving to the warehouse for the same box, and each keeping their own copy of it. That wastes the network, the disk and the memory, and it makes the request problem worse.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="need" data-steps="0" data-section="1 · The problem" data-time="0.8" data-title="Three problems, and what each one needs">
+  <div class="hd">
+    <div class="eyebrow">The problem, in one slide</div>
+    <h2>Three problems, and what each one needs</h2>
+  </div>
+  <div class="abs card pf-nd" style="left:120px;top:236px;width:1680px">
+    <div class="h">Where it hurts</div><div class="h">The problem</div><div class="h">What we need</div>
+    <div class="k">Shared filesystem</div><div class="bad">Too many small files</div><div class="good">Far fewer files</div>
+    <div class="k">Object store</div><div class="bad">Too many requests</div><div class="good">Far fewer requests</div>
+    <div class="k">One machine</div><div class="bad">Every process fetches its own copy</div><div class="good">One copy per machine</div>
+  </div>
+  <div class="abs pf-nd2" style="left:120px;top:640px;width:1680px">
+    <small>And two conditions</small>
+    <div class="card">Reads must stay as fast as the local drive, because the GPU is waiting.</div>
+    <div class="card">Existing code expects one file at one path, and it should keep working.</div>
+  </div>
+  <p class="abs t" style="left:120px;top:900px;width:1680px;font-size:29px">Patram-FS is built to meet these, one step at a time.</p>
+  <aside class="notes">
+    <p>So here is the whole problem on one slide. The shared filesystem suffers because there are too many small files. The object store suffers because there are too many requests. And on each machine, every process fetches its own copy.</p>
+    <p>There are also two conditions. Reads have to stay as fast as the local drive, because of the GPU we started with. And we have a lot of existing code that assumes each sample is a file at a path, and we do not want to rewrite all of it.</p>
+    <p>If this slide makes sense, the rest of the talk will too. So this is a good moment for questions. Then we fix these one at a time.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="ytpack" data-steps="2" data-section="1 · The problem" data-time="1" data-title="Cutting ten million requests">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Cutting ten million requests</h2>
+  </div>
+  <div class="abs card pf-ctx" style="left:120px;top:236px;width:1680px">
+    <div class="pf-ctx-i"><b>10,000,000</b><span>small files in the object store</span></div>
+    <div class="pf-ctx-i"><b>1 request</b><span>to fetch each file</span></div>
+    <div class="pf-ctx-i"><b>Any size</b><span>300 bytes or 10 GiB counts the same</span></div>
+  </div>
+  <div class="abs pf-q" data-s="1" style="left:120px;top:400px;width:1680px">How would you cut the number of requests?</div>
+  <div class="abs card pf-opt" data-s="1" style="left:120px;top:480px;width:820px;height:400px">
+    <i>A</i><h4>Send them in parallel</h4>
+    <div class="pf-strip" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+    <em data-s="2" class="pf-ans bad">It is still ten million requests, against the same limit.</em>
+  </div>
+  <div class="abs card pf-opt ok" data-s="1" style="left:980px;top:480px;width:820px;height:400px">
+    <i>B</i><h4>Pack files into large ones</h4>
+    <div class="pf-strip" aria-hidden="true"><b style="background:var(--blue-mid);border-color:var(--blue-mid)"></b></div>
+    <em data-s="2" class="pf-ans good">One request brings back a large file holding tens of thousands of images.</em>
+  </div>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Before we move on, try this one. There are ten million small files in the object store. Each takes one request. And one request can bring back 300 bytes or 10 gibibytes, for the same cost.</p>
+    <p data-step="1">How would you cut the number of requests? Option A: send them in parallel, as many at once as you can. Option B: pack the small files into large ones. Which would you pick?</p>
+    <p data-step="2">B. Parallel requests are still ten million requests against the same limit. If one trip can carry anything, the answer is to fill the truck. That is the next part.</p>
+  </aside>
+</section>
+
+<section class="slide dark" id="dv2" data-section="2 · Pack the files" data-time="0.3" data-title="Part 2 · Pack the files">
+  <div class="dv-num">2</div>
+  <div class="dv-eb">Part 2</div>
+  <div class="dv-h">Pack the files</div>
+  <div class="dv-line"></div>
+  <div class="dv-q">How can one large file still give us a single sample?</div>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="now"><i>→</i><span>Too many small files</span></div>
+    <div class="now"><i>→</i><span>Too many requests</span></div>
+    <div class="todo"><i>·</i><span>Every process fetches its own copy</span></div>
+    <div class="todo"><i>·</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>On the right is our list of problems, and we will come back to it at the start of each part. Packing the files takes on the first two together. The interesting question is how to pack them so that one sample can still be read on its own.</p></aside>
+</section>
+
+<section class="slide light" id="pack" data-steps="0" data-section="2 · Pack the files" data-time="1.2" data-title="A shard is one large file holding many samples">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>boxes of pages: one trip brings a whole box</div>
   <div class="hd">
     <div class="eyebrow">Fewer, larger files</div>
-    <h2>Packing samples into a few large shards</h2>
+    <h2>A shard is one large file holding many samples</h2>
   </div>
   <div class="abs" id="pf-pk" style="left:120px;top:226px;width:1680px;height:430px"></div>
   <div class="abs card pf-cmp" style="left:120px;top:672px;width:1680px">
@@ -676,16 +901,17 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
     <div>Listing the dataset folder</div><div class="bad">minutes</div><div class="good">milliseconds</div>
   </div>
   <div class="abs" id="pf-pk-pl" style="left:120px;top:962px;width:560px"></div>
-  <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing is not to scale.</div>
+  <div class="abs pf-nx" style="left:720px;top:950px;width:1080px"><b>Next problem</b>One image now sits somewhere inside a 10 GiB file.</div>
+  <div class="abs note" style="left:120px;top:1006px;font-size:20px">The drawing is not to scale.</div>
   <aside class="notes">
     <p>A shard is simply a large archive file holding many samples. We pack images into TAR files of about 10 gibibytes each, and annotations into JSONL files of about 1 gibibyte each. JSONL is one JSON record per line.</p>
     <p>Watch the small files move into the bars. A dataset of tens of millions of samples becomes about two hundred shards.</p>
-    <p>Now read the table. Files in storage go from about ten million to about two hundred, so the shared filesystem has almost nothing to keep track of. Requests to the object store go from about ten million to about two hundred, because we fetch a whole shard in one request. And listing the folder goes from minutes to milliseconds. That is the first problem, and most of the second, solved by one idea.</p>
+    <p>Now read the table. Files in storage go from about ten million to about two hundred, so the shared filesystem has almost nothing to keep track of. Requests to the object store go from about ten million to about two hundred, because we fetch a whole shard in one request. And listing the folder goes from minutes to milliseconds. That is the first two problems on our list, solved by one idea. Think of a box of pages: one trip to the warehouse now brings a whole box.</p>
     <p>But we have created a new problem. Training wants one image, and that image is now somewhere inside a 10 gibibyte file. How we pack it decides how expensive that is. Which brings us to a question for you.</p>
   </aside>
 </section>
 
-<section class="slide light" id="ytcomp" data-steps="2" data-section="2 · Shards" data-time="1" data-title="Compressing the shards">
+<section class="slide light" id="ytcomp" data-steps="2" data-section="2 · Pack the files" data-time="1" data-title="Compressing the shards">
   <div class="hd">
     <div class="eyebrow">Your turn</div>
     <h2>Compressing the shards</h2>
@@ -714,7 +940,8 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
   </aside>
 </section>
 
-<section class="slide light" id="addr" data-steps="0" data-section="2 · Shards" data-time="1.2" data-title="Every sample has a fixed byte address">
+<section class="slide light" id="addr" data-steps="0" data-section="2 · Pack the files" data-time="1.2" data-title="Every sample has a fixed byte address">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>box 42, at this exact position</div>
   <div class="hd">
     <div class="eyebrow">Addresses</div>
     <h2>Every sample has a fixed byte address</h2>
@@ -734,13 +961,13 @@ body.presenter #presenter-panel{display:flex;position:fixed;right:0;top:0;bottom
   <div class="abs" id="pf-ad-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative offsets and lengths. Click a sample to select it.</div>
   <aside class="notes">
-    <p>So every sample has an address: the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.</p>
+    <p>So every sample has an address: which box, where in the box, and how long. In other words, the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.</p>
     <p>We write that address as a short link, which you see at the bottom: patram, colon, slash slash, image id, then the shard, offset and length. It contains everything needed to read the sample. No index has to be loaded and no service has to be asked. So an address can go anywhere a file path used to go: a list of samples, a config file, a column in a table.</p>
     <p>That last point turns out to matter a lot, as the next slide shows.</p>
   </aside>
 </section>
 
-<section class="slide light" id="rdcode" data-steps="0" data-section="2 · Shards" data-time="0.8" data-title="Only the read call changes">
+<section class="slide light" id="rdcode" data-steps="0" data-section="2 · Pack the files" data-time="0.8" data-title="Only the read call changes">
   <div class="hd">
     <div class="eyebrow">Existing code</div>
     <h2>Only the read call changes</h2>
@@ -754,27 +981,37 @@ ann = json.loads(open(<span class="s">f"{root}/img_000123.json"</span>).read())<
 img = read_image(uri=<span class="s">"patram://img/000123?shard=...&amp;offset=...&amp;length=..."</span>)
 ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&amp;offset=...&amp;length=..."</span>)</div>
   <p class="abs t" style="left:120px;top:820px;width:1680px;font-size:29px"><code class="pf-ic">read_image</code> and <code class="pf-ic">read_annotation</code> are the whole client interface, and the rest of the calling code stays the same.</p>
+  <div class="abs pf-nx" style="left:120px;top:894px;width:1680px"><b>Next problem</b>The shards are still far away in the object store.</div>
   <div class="src">Source: Patram-FS engineering post</div>
   <aside class="notes">
     <p>Here is why the address matters. Our data pipelines, training loops and evaluation scripts were all written for one assumption: each sample is a file at a path. If you give each sample an address instead of a path, that code keeps its assumption. Only the read call changes.</p>
-    <p>At the top is the old code. At the bottom is the new code. These two functions, read_image and read_annotation, are the whole client interface, because an image plus a JSON record is the shape of all our training data. The library also has build_uri and parse_uri for making and checking addresses when you build a dataset.</p>
+    <p>You do not need to read this code closely. At the top is the old way, at the bottom is the new way, and the shape is the same: these two functions are all most code ever calls.</p>
     <p>The promise behind those two calls is simple: you read an address as if the shard were already a file on the machine's local drive. Of course it is not there yet. Making that promise true is the job of the next part.</p>
   </aside>
 </section>
 
-<section class="slide dark" id="dv3" data-section="3 · The daemon" data-time="0.2" data-title="Part 3 · The daemon">
+<section class="slide dark" id="dv3" data-section="3 · Keep them local" data-time="0.3" data-title="Part 3 · Keep them local">
   <div class="dv-num">3</div>
   <div class="dv-eb">Part 3</div>
-  <div class="dv-h">The daemon</div>
+  <div class="dv-h">Keep them local</div>
   <div class="dv-line"></div>
-  <div class="dv-q">What happens when many processes want the same shard?</div>
-  <aside class="notes"><p>Shards fixed the file count. But fetching from the object store on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the next problem.</p></aside>
+  <div class="dv-q">How is each shard downloaded only once on a machine?</div>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="ok"><i>✓</i><span>Too many small files</span></div>
+    <div class="ok"><i>✓</i><span>Too many requests</span></div>
+    <div class="now"><i>→</i><span>Every process fetches its own copy</span></div>
+    <div class="todo"><i>·</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>The first two are fixed: few files, few requests. But the shards are still far away in the object store, and fetching from there on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the third problem on our list.</p></aside>
 </section>
 
-<section class="slide light" id="cache" data-steps="0" data-section="3 · The daemon" data-time="1.2" data-title="Each machine caches shards on its local disk">
+<section class="slide light" id="cache" data-steps="0" data-section="3 · Keep them local" data-time="1.2" data-title="Download each shard once, then read it locally">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>keeping the box on your own office shelf</div>
   <div class="hd">
     <div class="eyebrow">Local cache</div>
-    <h2>Each machine caches shards on its local disk</h2>
+    <h2>Download each shard once, then read it locally</h2>
   </div>
   <div class="abs" id="pf-ca" style="left:120px;top:226px;width:1680px;height:560px"></div>
   <div class="abs pf-cnt" style="left:120px;top:800px;width:1680px">
@@ -783,7 +1020,8 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
     <p>A download goes to a temporary file and is renamed into place when complete, so a reader never sees a partial shard.</p>
   </div>
   <div class="abs" id="pf-ca-pl" style="left:120px;top:962px;width:560px"></div>
-  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: counts and timing are simulated.</div>
+  <div class="abs pf-nx" style="left:720px;top:950px;width:1080px"><b>Next problem</b>Many processes can find the same shard missing at once.</div>
+  <div class="abs note" style="left:120px;top:1006px;font-size:20px">Illustrative: counts and timing are simulated.</div>
   <aside class="notes">
     <p>Every machine in our cluster has a 30 terabyte NVMe drive attached directly to it. So the first time a machine needs a shard, it downloads the whole shard from the object store onto that drive. From then on, every sample in that shard is a local read.</p>
     <p>Watch the two counters. Downloads tick up slowly, one per shard, and then stop. Reads keep climbing, and they are all coming from the local disk. A few big requests, then millions of small local reads. Compare that with the ten million requests we started from.</p>
@@ -792,27 +1030,29 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="daemon" data-steps="0" data-section="3 · The daemon" data-time="1" data-title="One small daemon runs on each machine">
+<section class="slide light" id="daemon" data-steps="0" data-section="3 · Keep them local" data-time="1" data-title="One small daemon on each machine fetches shards">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>one office manager who orders each box once</div>
   <div class="hd">
     <div class="eyebrow">The daemon</div>
-    <h2>One small daemon runs on each machine</h2>
+    <h2>One small daemon on each machine fetches shards</h2>
   </div>
   <div class="abs card" id="pf-dm" style="left:120px;top:236px;width:1100px;height:640px"></div>
-  <div class="abs pf-st" style="left:1260px;top:236px;width:540px">
-    <div class="card"><b>74 µs</b><span>median round trip through the socket, from Python</span></div>
-    <div class="card"><b>124,000</b><span>requests per second through it, from 20 processes together</span></div>
-    <div class="card pf-st-t"><span>A background program written in Go. It runs all the time, and every process on the machine talks to the same one.</span></div>
+  <div class="abs pf-dq" style="left:1260px;top:236px;width:540px">
+    <div class="card"><i>1</i><span>A process asks: is this shard on the local disk?</span></div>
+    <div class="card"><i>2</i><span>The daemon checks the disk.</span></div>
+    <div class="card"><i>3</i><span>If it is missing and not already downloading, the daemon downloads it.</span></div>
+    <div class="card"><i>4</i><span>It tells the process where the shard is.</span></div>
   </div>
-  <div class="src">Source: Patram-FS benchmarks, as reported in the engineering post</div>
+  <p class="abs t" style="left:120px;top:894px;width:1680px;font-size:29px">A daemon is a background program that runs all the time. Every process on the machine talks to the same one.</p>
   <aside class="notes">
-    <p>The fix is one small program on each machine. We call it the Patram-FS daemon. It is a background program written in Go that runs all the time. Every process on the machine, whether training, a data job or a notebook, talks to that same daemon.</p>
-    <p>They talk through a Unix domain socket. That is a channel between processes on one machine that goes only through the kernel, with no network in the way. It is quick: from Python, a round trip takes a median of 74 microseconds, and 20 processes together pushed 124,000 requests per second through it.</p>
-    <p>The main request is called ensure_shard. A process sends it when a shard it needs is not on the local disk. The daemon checks the disk, and starts a download only if the shard is not there and is not already downloading. It answers one question: is this shard on the local disk, and where?</p>
-    <p>Why a socket and not shared memory, which is about fifty times faster? Because the daemon is asked once per shard, not once per sample, so a few microseconds is nothing. And the kernel cleans up after a crashed client, which is worth more to us. If anyone wants more detail on that, or on why Go, ask at the end.</p>
+    <p>The fix is one small program on each machine. We call it the Patram-FS daemon. A daemon is simply a background program that runs all the time. Think of an office manager: instead of everyone driving to the warehouse, you tell the manager which box you need.</p>
+    <p>Every process on the machine, whether training, a data job or a notebook, talks to that same daemon through a Unix domain socket, a channel between processes on one machine with no network in the way.</p>
+    <p>The main request is called ensure_shard, and the daemon answers one question: is this shard on the local disk, and where? If the shard is missing and nobody has started downloading it, the daemon downloads it. Otherwise it does not.</p>
+    <p>If anyone asks: from Python, a round trip through the socket takes a median of 74 microseconds, measured with 20 processes flooding it together. We chose a socket over faster shared memory because the daemon is asked once per shard, not once per sample, and the kernel cleans up after a crashed client. The daemon is written in Go.</p>
   </aside>
 </section>
 
-<section class="slide light" id="dedup" data-steps="1" data-section="3 · The daemon" data-time="1.8" data-title="Identical requests become one download">
+<section class="slide light" id="dedup" data-steps="1" data-section="3 · Keep them local" data-time="1.8" data-title="Identical requests become one download">
   <div class="hd">
     <div class="eyebrow">Deduplication</div>
     <h2>Identical requests become one download</h2>
@@ -836,7 +1076,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="ytbytes" data-steps="2" data-section="3 · The daemon" data-time="1.2" data-title="Where shard bytes travel on one machine">
+<section class="slide light" id="ytbytes" data-steps="2" data-section="3 · Keep them local" data-time="1.2" data-title="Where shard bytes travel on one machine">
   <div class="hd">
     <div class="eyebrow">Your turn</div>
     <h2>Where shard bytes travel on one machine</h2>
@@ -858,19 +1098,28 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide dark" id="dv4" data-section="4 · Reads and memory" data-time="0.2" data-title="Part 4 · Reads and memory">
+<section class="slide dark" id="dv4" data-section="4 · Read them fast" data-time="0.3" data-title="Part 4 · Read them fast">
   <div class="dv-num">4</div>
   <div class="dv-eb">Part 4</div>
-  <div class="dv-h">Reads and memory</div>
+  <div class="dv-h">Read them fast</div>
   <div class="dv-line"></div>
   <div class="dv-q">How can each read cost no more than reading a local file?</div>
-  <aside class="notes"><p>The daemon solved downloads. Now we look at the reads themselves, because that is where the run spends its time: first image reads, and then annotations, which turn out to need something extra.</p></aside>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="ok"><i>✓</i><span>Too many small files</span></div>
+    <div class="ok"><i>✓</i><span>Too many requests</span></div>
+    <div class="ok"><i>✓</i><span>Every process fetches its own copy</span></div>
+    <div class="now"><i>→</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>Downloads are solved. Now the reads themselves, because that is where a run spends its time: first images, and then annotations, which turn out to need something extra.</p></aside>
 </section>
 
-<section class="slide light" id="miss" data-steps="0" data-section="4 · Reads and memory" data-time="1.2" data-title="The daemon is asked only on a missing shard">
+<section class="slide light" id="miss" data-steps="0" data-section="4 · Read them fast" data-time="1.2" data-title="The daemon is asked only when a shard is missing">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>check your shelf first, and ask the manager only if the box is not there</div>
   <div class="hd">
     <div class="eyebrow">Reading</div>
-    <h2>The daemon is asked only on a missing shard</h2>
+    <h2>The daemon is asked only when a shard is missing</h2>
   </div>
   <div class="abs" id="pf-ms" style="left:120px;top:226px;width:1680px;height:530px"></div>
   <div class="abs pf-cnt" style="left:120px;top:764px;width:1680px">
@@ -881,57 +1130,50 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   <div class="abs" id="pf-ms-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: 4 processes, one shard. Counts and timing are simulated.</div>
   <aside class="notes">
-    <p>A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file, and reads the sample at its offset with pread, a single system call that reads a given number of bytes from a given position.</p>
+    <p>A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file and reads the sample at its position. Think of checking your own shelf before bothering the manager.</p>
     <p>Only if the open fails with FileNotFoundError does it send ensure_shard to the daemon, and then it tries again.</p>
     <p>Watch the two counters here. At the start the shard is not on this machine, so each of the four processes gets the error and asks. That is four questions. The daemon downloads the shard once, and every process retries. And from then on the question counter stays at four while reads keep climbing.</p>
     <p>So for each shard, only the first processes to reach it ever talk to the daemon. Every later read, from every process, for the rest of the run, is an ordinary open and read of a local file.</p>
   </aside>
 </section>
 
-<section class="slide light" id="rpath" data-steps="0" data-section="4 · Reads and memory" data-time="1" data-title="A read is one pread, with nothing in between">
+<section class="slide light" id="rpath" data-steps="0" data-section="4 · Read them fast" data-time="1" data-title="A read goes straight to the drive">
   <div class="hd">
     <div class="eyebrow">The read path</div>
-    <h2>A read is one pread, with nothing in between</h2>
+    <h2>A read goes straight to the drive</h2>
   </div>
   <div class="abs pf-rp" style="left:120px;top:236px;width:1680px">
-    <div class="card"><small>Process</small><b>read_image(uri)</b></div>
+    <div class="card"><small>The process</small><b>asks for one sample</b></div>
     <em></em>
-    <div class="card"><small>File already open</small><b>16 per kind, by default</b></div>
+    <div class="card hl"><small>One system call</small><b>read these bytes here</b></div>
     <em></em>
-    <div class="card hl"><small>One system call</small><b class="mono">pread(offset, length)</b></div>
-    <em></em>
-    <div class="card"><small>Local drive</small><b>NVMe</b></div>
+    <div class="card"><small>The local drive</small><b>returns the bytes</b></div>
   </div>
   <div class="abs pf-rx" style="left:120px;top:416px;width:1680px">
-    <span class="lb">Not on the read path:</span>
+    <span class="lb">Not on the way:</span>
     <s>the daemon</s><s>unpacking</s><s>decompression</s><s>format conversion</s><s>a filesystem layer</s>
   </div>
-  <div class="abs card pf-fb" style="left:120px;top:500px;width:820px;height:430px">
-    <small>Reading one image from the disk</small>
-    <div class="pf-fb-r"><label>Our first version: a FUSE mount</label><div class="tr"><i class="o" style="left:33.3%;width:66.7%"></i></div><b>1 to 3 ms</b></div>
-    <div class="pf-fb-r"><label>Direct read from NVMe</label><div class="tr"><i class="g" style="left:1.7%;width:5%"></i></div><b>50 to 200 µs</b></div>
-    <p>FUSE puts one extra hop on every read.</p>
+  <div class="abs card pf-fb" style="left:120px;top:500px;width:1680px;height:372px">
+    <small>Why this matters: reading one image from the disk</small>
+    <div class="pf-fb-r"><label>Our first version, which added a layer on every read (a FUSE mount)</label><div class="tr"><i class="o" style="left:33.3%;width:66.7%"></i></div><b>1 to 3 ms</b></div>
+    <div class="pf-fb-r"><label>A direct read from the local drive</label><div class="tr"><i class="g" style="left:1.7%;width:5%"></i></div><b>50 to 200 µs</b></div>
   </div>
-  <div class="abs card pf-tl" style="left:980px;top:500px;width:820px;height:430px">
-    <small>The only real wait is the first download</small>
-    <div class="pf-tl-r"><label>Training</label><div class="tr"><i class="b" style="left:0;width:50%">reads shard 1</i><i class="b2" style="left:50%;width:50%">reads shard 2</i></div></div>
-    <div class="pf-tl-r"><label>Fetch ahead</label><div class="tr"><i class="o" style="left:20%;width:28%">shard 2 downloads</i></div></div>
-    <p><code class="pf-ic">ensure_shard</code> can be sent early, so the download overlaps with training.</p>
-  </div>
-  <div class="src">Source: Patram-FS engineering post. The timeline is illustrative.</div>
+  <div class="abs pf-nx" style="left:120px;top:894px;width:1680px"><b>Next problem</b>Annotations are tiny and scattered, so reads queue at the drive.</div>
+  <div class="src">Source: Patram-FS engineering post</div>
   <aside class="notes">
-    <p>So what does a read look like once a shard is on the disk? Follow the boxes. The process calls read_image. The shard file is usually already open, because each process keeps a few open, 16 of each kind by default, which skips even the open. Then one system call, pread, with an offset and a length. And then the drive.</p>
-    <p>There is nothing else on the path. An uncompressed TAR member needs no decoding of its own. So no unpacking, no decompression, no format conversion and no filesystem layer between the drive and your tensor.</p>
-    <p>How much does that matter? On the left: our first version of this system was a FUSE mount, which is the obvious way to build it, since it looks like an ordinary folder. Each image read cost 1 to 3 milliseconds, against 50 to 200 microseconds for a direct read from NVMe. FUSE pays that extra hop on every single read, and an epoch has tens of millions of reads.</p>
-    <p>On the right: the only real wait left in the system is the first download of a shard. Because ensure_shard can be called for a shard you have not reached yet, a data loader can fetch the next shard while it is still training on the current one. So even that wait overlaps with useful work.</p>
+    <p>So what does a read look like once a shard is on the disk? The process asks for one sample. One system call, called pread, says: read this many bytes from this position. And the drive returns them. That is all.</p>
+    <p>There is nothing else on the way. No daemon, no unpacking, no decompression, no format conversion, no filesystem layer. This is why we kept the shards uncompressed.</p>
+    <p>How much does that matter? Our first version of this system added one layer on every read, a FUSE mount, which is the obvious way to build it because it looks like an ordinary folder. Each image read cost 1 to 3 milliseconds, against 50 to 200 microseconds for a direct read. A training pass has tens of millions of reads, so that layer is paid tens of millions of times.</p>
+    <p>The only real wait left is the first download of a shard, and a process can ask for the next shard early, while it is still training on the current one, so even that overlaps with useful work.</p>
     <p>That covers images. Annotations are a different story.</p>
   </aside>
 </section>
 
-<section class="slide light" id="ann" data-steps="1" data-section="4 · Reads and memory" data-time="1.3" data-title="The two obvious ways to serve annotations">
+<section class="slide light" id="ann" data-steps="1" data-section="4 · Read them fast" data-time="1.3" data-title="For annotations, both obvious ways fail">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>everyone copying a whole book, or walking to the shelf for each line</div>
   <div class="hd">
     <div class="eyebrow">Annotations</div>
-    <h2>The two obvious ways to serve annotations</h2>
+    <h2>For annotations, both obvious ways fail</h2>
   </div>
   <div class="abs" id="pf-an" style="left:120px;top:226px;width:1160px;height:600px"></div>
   <div class="abs pf-way" data-h="1" style="left:1310px;top:226px;width:490px">
@@ -944,14 +1186,15 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   <div class="abs" id="pf-an-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing shows 4 workers; timing is simulated.</div>
   <aside class="notes">
-    <p>An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.</p>
+    <p>Images are large and read one at a time. Annotations are the opposite. An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.</p>
     <p>The first: load the whole file into every worker. Here you see four workers each filling a row of memory with their own copy. Each row can hold one full copy of the file. Lookups are fast after that. But workers cannot share their memory with each other, so 100 workers hold 100 copies of the same file: 100 gibibytes of memory for 1 gibibyte of data, and every worker waits for the load before it can start.</p>
     <p data-step="1">The second: keep the file on the drive and read only each record's bytes with pread, the way we read images. Memory stays small, as you can see. But every record is a separate trip to the drive, at a median of 297.6 microseconds for a 300-byte record. Training makes millions of these, all from the same drive, and they queue behind each other. The drive becomes the bottleneck.</p>
     <p>What we want is the small reads of the second approach, answered from memory, with one copy of the file for the whole machine. It turns out Linux already has the piece that makes this possible.</p>
   </aside>
 </section>
 
-<section class="slide light" id="warm" data-steps="0" data-section="4 · Reads and memory" data-time="1.3" data-title="Warming keeps one shared copy in memory">
+<section class="slide light" id="warm" data-steps="0" data-section="4 · Read them fast" data-time="1.3" data-title="Warming keeps one shared copy in memory">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>one copy left open on a table everyone can reach</div>
   <div class="hd">
     <div class="eyebrow">The page cache</div>
     <h2>Warming keeps one shared copy in memory</h2>
@@ -959,20 +1202,20 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   <div class="abs" id="pf-wm" style="left:120px;top:226px;width:1160px;height:600px"></div>
   <div class="abs pf-way" style="left:1310px;top:226px;width:490px">
     <div class="card pf-wc"><small>Page cache</small><p>Linux keeps file bytes it has read in spare memory, and later reads by any process are answered from there.</p></div>
-    <div class="card pf-wc good" style="margin-top:20px"><small>Warming</small><p>The daemon asks the kernel to load the whole file at once, with <code class="pf-ic">madvise</code> and <code class="pf-ic">MADV_POPULATE_READ</code>.</p><b>About 0.5 s</b><span>for a 1 GiB file</span></div>
+    <div class="card pf-wc good" style="margin-top:20px"><small>Warming</small><p>The daemon asks the kernel to load the whole file into that memory in one go.</p><b>About 0.5 s</b><span>for a 1 GiB file</span></div>
   </div>
-  <p class="abs t" style="left:120px;top:842px;width:1680px;font-size:29px">Workers keep making the same small <code class="pf-ic">pread</code> calls, and each one is now answered from memory.</p>
+  <p class="abs t" style="left:120px;top:842px;width:1680px;font-size:29px">Workers keep making the same small reads, and each one is now answered from memory.</p>
   <div class="abs" id="pf-wm-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing shows 4 workers; timing is simulated.</div>
   <aside class="notes">
     <p>The piece is the page cache. Whenever a process reads part of a file, the Linux kernel keeps those bytes in spare memory. The next time any process on the machine reads the same bytes, the kernel answers from memory and does not touch the drive. There is one copy of each piece of the file, shared by every process.</p>
     <p>On its own, the page cache fills too slowly here. A scattered read brings in only the small piece of the file around one record, so for a long time most reads still miss and go to the drive. That is what you saw on the last slide.</p>
-    <p>Warming fixes that. When an annotation shard is first fetched, the client sends the daemon a warm_shard request, and the daemon asks the kernel to load the whole file into the page cache in one call. That takes about half a second for 1 gibibyte. You can see one row of memory filling, once.</p>
+    <p>Warming fixes that. When an annotation shard is first fetched, the client sends the daemon a warm_shard request, and the daemon asks the kernel to load the whole file into the page cache in one call, madvise with MADV_POPULATE_READ. That takes about half a second for 1 gibibyte. You can see one row of memory filling, once.</p>
     <p>And from then on, the workers keep making exactly the same small pread calls, and every one is answered from memory. So we get the best of both. Like the first approach, every read comes from memory. Like the second, each worker reads only the record it needs and keeps no copy of its own, so the machine holds one copy, however many workers there are. And we did not write any sharing layer: the kernel already had one.</p>
   </aside>
 </section>
 
-<section class="slide light" id="ytwarm" data-steps="2" data-section="4 · Reads and memory" data-time="1.2" data-title="Warming records and warming images">
+<section class="slide light" id="ytwarm" data-steps="2" data-section="4 · Read them fast" data-time="1.2" data-title="Warming records and warming images">
   <div class="hd">
     <div class="eyebrow">Your turn</div>
     <h2>Warming records and warming images</h2>
@@ -1002,16 +1245,25 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide dark" id="dv5" data-section="5 · In production" data-time="0.2" data-title="Part 5 · In production">
+<section class="slide dark" id="dv5" data-section="5 · Run it" data-time="0.3" data-title="Part 5 · Run it">
   <div class="dv-num">5</div>
   <div class="dv-eb">Part 5</div>
-  <div class="dv-h">In production</div>
+  <div class="dv-h">Run it</div>
   <div class="dv-line"></div>
   <div class="dv-q">What does it take to run this, and what did we give up?</div>
-  <aside class="notes"><p>The design is complete. Now the practical questions: the disk fills up, so what then? How do you use this? Why not use an existing tool? And did it work for a real training run?</p></aside>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="ok"><i>✓</i><span>Too many small files</span></div>
+    <div class="ok"><i>✓</i><span>Too many requests</span></div>
+    <div class="ok"><i>✓</i><span>Every process fetches its own copy</span></div>
+    <div class="ok"><i>✓</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="now"><i>→</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>The design is nearly complete. One item is left on the list: the disk fills up. Then the practical questions: why not use an existing tool, did it work on a real run, and what did we give up?</p></aside>
 </section>
 
-<section class="slide light" id="evict" data-steps="0" data-section="5 · In production" data-time="1.2" data-title="Least recently asked-for shards are removed">
+<section class="slide light" id="evict" data-steps="0" data-section="5 · Run it" data-time="1.2" data-title="Least recently asked-for shards are removed">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>a full shelf: the box nobody has asked for lately goes first</div>
   <div class="hd">
     <div class="eyebrow">Disk space</div>
     <h2>Least recently asked-for shards are removed</h2>
@@ -1039,7 +1291,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="ytdel" data-steps="2" data-section="5 · In production" data-time="1" data-title="Deleting a shard that is being read">
+<section class="slide light" id="ytdel" data-steps="2" data-section="5 · Run it" data-time="1" data-title="Deleting a shard that is being read">
   <div class="hd">
     <div class="eyebrow">Your turn</div>
     <h2>Deleting a shard that is being read</h2>
@@ -1061,7 +1313,34 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="pattern" data-steps="0" data-section="5 · In production" data-time="1" data-title="A daemon per machine is a general pattern">
+<section class="slide light" id="recap" data-steps="3" data-section="5 · Run it" data-time="1.2" data-title="The whole design, in one read">
+  <div class="hd">
+    <div class="eyebrow">Putting it together</div>
+    <h2>The whole design, in one read</h2>
+  </div>
+  <div class="abs card pf-ag pf-rcp" style="left:120px;top:236px;width:1000px;height:660px">
+    <ol>
+      <li><i>1</i><div><b>Start with the address</b><span>The shard, the byte where the sample starts, and its length</span></div></li>
+      <li data-s="1"><i>2</i><div><b>Try the local file</b><span>Every process can work out the name, so no one is asked</span></div></li>
+      <li data-s="2"><i>3</i><div><b>If it is missing, ask the daemon</b><span>One download per machine, and annotation shards are warmed</span></div></li>
+      <li data-s="3"><i>4</i><div><b>Read the bytes directly</b><span>Every later read is only steps 2 and 4</span></div></li>
+    </ol>
+  </div>
+  <div class="abs card pf-ag2" style="left:1160px;top:236px;width:640px;height:660px">
+    <small>One machine</small>
+    <div id="pf-agd"></div>
+  </div>
+  <div class="src">The drawing is a summary of the design, not to scale.</div>
+  <aside class="notes">
+    <p>Before the practical questions, here is the whole design in one read, because you now know every piece.</p>
+    <p>A process starts with an address: the shard, the byte where the sample starts, and its length.</p>
+    <p data-step="1">It tries the local file. Every process can work out the name by a fixed rule, so it does not have to ask anyone.</p>
+    <p data-step="2">If the file is missing, it asks the daemon, shown as the dashed lines. The daemon downloads the shard once for the whole machine, the orange line, and warms it if it is an annotation shard.</p>
+    <p data-step="3">Then the process reads the bytes directly from the drive, the thick green line. And every later read, for the rest of the run, is only steps 2 and 4. The daemon is asked once per shard, and the green line runs millions of times.</p>
+  </aside>
+</section>
+
+<section class="slide light" id="pattern" data-steps="0" data-section="5 · Run it" data-time="1" data-title="A daemon per machine is a general pattern">
   <div class="hd">
     <div class="eyebrow">A general pattern</div>
     <h2>A daemon per machine is a general pattern</h2>
@@ -1077,31 +1356,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="using" data-steps="0" data-section="5 · In production" data-time="0.7" data-title="Using Patram-FS takes three pieces">
-  <div class="hd">
-    <div class="eyebrow">Using it</div>
-    <h2>Using Patram-FS takes three pieces</h2>
-  </div>
-  <div class="abs pf-us" style="left:120px;top:236px;width:1680px">
-    <div class="card"><i>1</i><h4>Build the shards</h4><p>Uncompressed TAR of about 10 GiB, JSONL of about 1 GiB, each sample's address recorded.</p></div>
-    <div class="card"><i>2</i><h4>Run the daemon</h4><p>A container that restarts itself. One command deploys it and sizes each machine's cache budgets.</p></div>
-    <div class="card"><i>3</i><h4>Install the library</h4><p>Replace each path read with <code class="pf-ic">read_image</code> or <code class="pf-ic">read_annotation</code>.</p></div>
-  </div>
-  <div class="abs card pf-rq" style="left:120px;top:506px;width:1680px">
-    <small>The three requests the daemon answers, as small JSON messages over the Unix socket</small>
-    <div class="r"><code>ensure_shard</code><span>Makes sure a shard is on the local drive, downloading it at most once per machine.</span></div>
-    <div class="r"><code>warm_shard</code><span>Loads a shard into the page cache. Sent for annotation shards, never for image shards.</span></div>
-    <div class="r"><code>db_lookup</code><span>Turns a record id into its shard, offset and length, batching lookups from the machine.</span></div>
-  </div>
-  <p class="abs t" style="left:120px;top:866px;width:1680px;font-size:29px">Every request gets a reply, even on failure, so a caller is never left waiting.</p>
-  <aside class="notes">
-    <p>If you wanted to use this, there are three pieces. Build the shards: pack images into uncompressed TAR files, annotations into JSONL files, upload them to the object store, and record each sample's address, or put its shard, offset and length in a database table. Run the daemon on every machine: it runs as a container that restarts itself if it stops, and one command deploys it across the cluster and sizes each machine's cache budgets to its free drive space. Install the client library: the Python package has no required dependencies, and reading images also needs OpenCV and NumPy.</p>
-    <p>Most code only ever calls the two read functions. Underneath, the library talks to the daemon with three requests. You have seen ensure_shard and warm_shard. The third, db_lookup, is for reading by a short record id instead of a full address: it turns an id into a shard, offset and length, and the daemon gathers the requests that arrive together into one query, so the DB sees one client per machine instead of one per worker.</p>
-    <p>A rule we kept throughout: every request gets a reply, even when something fails. If the DB or the object store has a problem, the daemon answers with an error instead of leaving the caller waiting. To watch it in production, each daemon exports metrics for requests, downloads, bytes downloaded, evictions and cache usage, and alerts fire when a daemon stops responding or its requests start failing.</p>
-  </aside>
-</section>
-
-<section class="slide light" id="alts" data-steps="0" data-section="5 · In production" data-time="1.5" data-title="Existing tools against five requirements">
+<section class="slide light" id="alts" data-steps="0" data-section="5 · Run it" data-time="1.5" data-title="Existing tools against five requirements">
   <div class="hd">
     <div class="eyebrow">Alternatives</div>
     <h2>Existing tools against five requirements</h2>
@@ -1123,7 +1378,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="p15" data-steps="0" data-section="5 · In production" data-time="0.8" data-title="Training Patram 1.5 from local disks">
+<section class="slide light" id="p15" data-steps="0" data-section="5 · Run it" data-time="0.8" data-title="Training Patram 1.5 from local disks">
   <div class="hd">
     <div class="eyebrow">Patram 1.5</div>
     <h2>Training Patram 1.5 from local disks</h2>
@@ -1148,7 +1403,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section class="slide light" id="trade" data-steps="0" data-section="5 · In production" data-time="1" data-title="Where it fits, and the trade-offs we chose">
+<section class="slide light" id="trade" data-steps="0" data-section="5 · Run it" data-time="1" data-title="Where it fits, and the trade-offs we chose">
   <div class="hd">
     <div class="eyebrow">Trade-offs</div>
     <h2>Where it fits, and the trade-offs we chose</h2>
@@ -1181,7 +1436,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
   </aside>
 </section>
 
-<section data-nobrand class="slide dark" id="close" data-steps="0" data-section="5 · In production" data-time="1" data-title="Key takeaways">
+<section data-nobrand class="slide dark" id="close" data-steps="0" data-section="5 · Run it" data-time="1" data-title="Key takeaways">
   <div class="abs" style="left:120px;top:90px;width:1680px">
     <div class="eyebrow">Summary</div>
     <h2>Key takeaways</h2>
@@ -1362,7 +1617,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
     for (const b of [$('#brandtl')]) if (b) b.classList.toggle('hide', el.hasAttribute('data-nobrand'));   // the title and thank-you slides carry the logo themselves
     const acts = $('#acts');
     if (acts) {
-      if (!acts.children.length) { const sp = document.createElement('span'); sp.dataset.part = 'title'; sp.className = 'ttl'; sp.title = 'Go to the title slide'; sp.innerHTML = '<b>Title</b>'; acts.appendChild(sp); } if (acts.children.length === 1) ['The problem', 'Shards', 'The daemon', 'Reads and memory', 'In production'].forEach((n, k) => { const sp = document.createElement('span'); sp.dataset.part = k + 1; sp.title = 'Go to part ' + (k + 1) + ': ' + n; sp.innerHTML = '<b>' + (k + 1) + '</b><u>' + n + '</u>'; acts.appendChild(sp); });
+      if (!acts.children.length) { const sp = document.createElement('span'); sp.dataset.part = 'title'; sp.className = 'ttl'; sp.title = 'Go to the title slide'; sp.innerHTML = '<b>Title</b>'; acts.appendChild(sp); } if (acts.children.length === 1) ['The problem', 'Pack the files', 'Keep them local', 'Read them fast', 'Run it'].forEach((n, k) => { const sp = document.createElement('span'); sp.dataset.part = k + 1; sp.title = 'Go to part ' + (k + 1) + ': ' + n; sp.innerHTML = '<b>' + (k + 1) + '</b><u>' + n + '</u>'; acts.appendChild(sp); });
       const m = /^(\d) ·/.exec(el.dataset.section || ''), n = m ? +m[1] : -1;   // the number in data-section picks the part
       acts.classList.toggle('hide', state.i === 0); [...acts.children].forEach(c => c.classList.toggle('on', c.dataset.part === String(n)));
     }
@@ -1687,7 +1942,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
 
 /* Introduction and Part 1 */
 (function () {
-  const U = Deck.util, { C, canvas, once, clamp } = Deck.pf;
+  const U = Deck.util, { C, canvas, once, play, clamp, seg } = Deck.pf;
 
   /* ── title: small files drift across and collect into a few long shards (ambient) ── */
   Deck.on('title', {
@@ -1708,31 +1963,74 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
     },
   });
 
-  /* ── the cluster as a lattice of GPUs, a few of them reading at any moment (ambient) ── */
-  Deck.on('whyit', {
+  /* ── one GPU, twice: same model, samples arriving on time and arriving late ── */
+  Deck.on('gpuwait', {
     enter(ctx) {
       once(ctx, '__b', () => {
-        const h = ctx.q('#pf-lat'), R = U.rng(11);
-        for (let k = 0; k < 240; k++) { const i = document.createElement('i'); i.style.animationDelay = (-R() * 4).toFixed(2) + 's'; h.appendChild(i); }
+        const D = canvas(ctx.q('#pf-gw'), 1680, 540), T = 13000, BUSY = 1000;
+        const lane = (y, name, period, travel) => {
+          D.rect(0, y, 1680, 256, { stroke: C.line, r: 20 });
+          D.t(30, y + 46, name, { f: 'sora', w: 700, fill: C.ink, size: 30 });
+          D.rect(30, y + 80, 170, 130, { fill: C.peach, stroke: C.orange, r: 12 }); D.t(115, y + 153, 'Storage', { a: 'middle', w: 600, fill: C.deep, size: 26 });
+          const X0 = 214, X1 = 610, Y = y + 145;
+          D.path(`M${X0} ${Y} L${X1 + 24} ${Y}`, { stroke: C.line, sw: 4, arrow: 1 });
+          const gpu = D.rect(650, y + 80, 190, 130, { fill: C.bpale, stroke: C.mid, r: 12 });
+          D.t(745, y + 134, 'GPU', { a: 'middle', f: 'sora', w: 700, fill: C.blue, size: 30 });
+          const st = D.t(745, y + 174, 'waiting', { a: 'middle', w: 600, fill: C.muted, size: 25 });
+          const TX = 890, TW = 520;
+          D.t(TX, y + 106, 'What the GPU did over time', { size: 23, w: 500 });
+          D.rect(TX, y + 122, TW, 62, { fill: C.free, r: 10 });
+          const N = Math.floor((T - travel) / period) + 1, ev = [];
+          for (let i = 0; i < N; i++) {
+            const a = travel + i * period;
+            ev.push({ a, seg: D.rect(TX + TW * a / T, y + 122, 0, 62, { fill: C.green, r: 3 }), pg: D.rect(0, Y - 20, 30, 40, { fill: '#fff', stroke: C.blue, sw: 2.5, r: 4, display: 'none' }) });
+          }
+          const n = D.t(1560, y + 150, '0', { a: 'middle', f: 'sora', w: 700, fill: C.green, size: 64 });
+          D.t(1560, y + 186, 'samples', { a: 'middle', size: 24 });
+          return t => {
+            let busy = false, done = 0;
+            ev.forEach(e => {
+              const s = e.a - travel, vis = t >= s && t < e.a;
+              e.pg.setAttribute('display', vis ? 'inline' : 'none');
+              if (vis) e.pg.setAttribute('x', X0 + (X1 - X0) * (t - s) / travel);
+              e.seg.setAttribute('width', Math.max(0, Math.min(t, e.a + BUSY) - e.a) / T * TW);
+              if (t >= e.a && t < e.a + BUSY) busy = true;
+              if (t >= e.a + BUSY) done++;
+            });
+            gpu.setAttribute('fill', busy ? C.gpale : C.bpale); gpu.setAttribute('stroke', busy ? C.green : C.mid);
+            st.textContent = busy ? 'learning' : 'waiting'; st.setAttribute('fill', busy ? C.green : C.muted);
+            n.textContent = done;
+          };
+        };
+        const a = lane(0, 'Data arrives on time', 1000, 800), b = lane(278, 'Data arrives late', 3000, 2800);
+        ctx.el.__gw = { draw: t => { a(t); b(t); }, T };
+        const key = D.el('g');
+        D.rect(1228, 8, 26, 26, { fill: C.green, r: 4 }, key); D.t(1262, 30, 'learning', { size: 23 }, key);
+        D.rect(1380, 8, 26, 26, { fill: C.free, stroke: C.line, r: 4 }, key); D.t(1414, 30, 'waiting', { size: 23 }, key);
       });
+      const { draw, T } = ctx.el.__gw;
+      ctx.__pl = play(ctx, '#pf-gw-pl', { dur: T, render: draw });
     },
   });
 
-  /* ── a small version of the final picture ── */
-  Deck.on('agenda', {
+  /* ── the wall of files ── */
+  Deck.on('nfiles', {
     enter(ctx) {
       once(ctx, '__b', () => {
-        const D = canvas(ctx.q('#pf-agd'), 584, 530), g = C.green;
-        D.cyl(500, 26, 150, 38, '', null); D.t(410, 60, 'Object store', { a: 'end', w: 600, fill: C.ink, size: 24 });
-        D.rect(10, 136, 564, 386, { fill: C.soft, stroke: C.line, r: 16 });
-        D.t(30, 170, 'One machine', { w: 600, fill: C.muted, size: 21 });
-        ['Training', 'Data job', 'Notebook'].forEach((n, i) => { D.rect(30 + i * 148, 188, 136, 56, { stroke: C.line, r: 10 }); D.t(98 + i * 148, 224, n, { a: 'middle', w: 600, fill: C.ink, size: 21 }); });
-        D.rect(140, 308, 204, 66, { fill: C.bpale, stroke: C.mid, r: 12 }); D.t(242, 349, 'Daemon', { a: 'middle', w: 600, fill: C.blue, size: 25, f: 'sora' });
-        D.rect(30, 432, 524, 70, { fill: C.peach, stroke: C.orange, r: 12 }); D.t(292, 475, 'Local disk: shards', { a: 'middle', w: 600, fill: C.deep, size: 24 });
-        D.path('M246 246 L242 306', { dash: '6 7', arrow: 1 }); D.path('M394 246 L330 306', { dash: '6 7', arrow: 1 }); D.path('M110 246 L170 306', { dash: '6 7', arrow: 1 });
-        D.path('M242 374 V430', { dash: '6 7', arrow: 1 });
-        D.path('M515 112 V430', { stroke: C.orange, sw: 4, arrow: 1 });
-        D.path('M70 432 V248', { stroke: g, sw: 7, arrow: 1 });
+        const D = canvas(ctx.q('#pf-nf-w'), 948, 450), cols = 79, rows = 37, sz = 9, gap = 3, tiles = [], R = U.rng(9), order = [];
+        for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { tiles.push(D.rect(c * (sz + gap), r * (sz + gap), sz, sz, { fill: (r + c) % 2 ? C.orange : C.mid, r: 1.5, display: 'none' })); order.push(R()); }
+        const idx = tiles.map((_, i) => i).sort((a, b) => order[a] - order[b]);
+        ctx.el.__nf = { tiles, idx, shown: 0 };
+      });
+      const st = ctx.el.__nf, out = ctx.q('#pf-nf-n'), DUR = 5000;
+      ctx.__pl = play(ctx, '#pf-nf-pl', {
+        dur: DUR,
+        render: t => {
+          const k = U.ease.inout(clamp(t / (DUR - 400))), want = Math.round(k * st.idx.length);
+          while (st.shown < want) st.tiles[st.idx[st.shown++]].setAttribute('display', 'inline');
+          while (st.shown > want) st.tiles[st.idx[--st.shown]].setAttribute('display', 'none');
+          out.textContent = (Math.round(k * 10000000 / 1000) * 1000).toLocaleString('en-US');
+        },
       });
     },
   });
@@ -1756,86 +2054,147 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
     },
   });
 
-  /* ── the five terms in one picture ── */
-  Deck.on('cluster', {
+  /* ── three places, three small drawings ── */
+  Deck.on('places', {
     enter(ctx) {
       once(ctx, '__b', () => {
-        const D = canvas(ctx.q('#pf-cl'), 1680, 690);
-        [[24, 24], [12, 12]].forEach(([dx, dy]) => D.rect(dx, dy, 950, 650, { fill: '#F7F9FC', stroke: C.line, r: 20 }));
-        D.rect(0, 0, 950, 650, { fill: '#fff', stroke: C.blue, sw: 2.5, r: 20 });
-        D.t(32, 52, 'Machine', { f: 'sora', w: 700, fill: C.ink, size: 32 });
-        D.t(200, 52, 'one server in the cluster, also called a node', { size: 25 });
-        D.t(920, 52, '× 30', { a: 'end', f: 'sora', w: 700, fill: C.deep, size: 32 });
-        for (let g = 0; g < 8; g++) { D.rect(32 + g * 111, 80, 99, 60, { fill: C.bpale, stroke: C.mid, r: 10 }); D.t(81 + g * 111, 118, 'H100', { a: 'middle', fill: C.blue, w: 600, size: 22 }); }
-        D.t(32, 200, 'Workers', { f: 'sora', w: 700, fill: C.ink, size: 28 });
-        D.t(170, 200, 'Python processes that read samples, uncoordinated', { size: 25 });
-        const wy = 248;
-        for (let w = 0; w < 24; w++) D.el('circle', { cx: 50 + w * 37, cy: wy, r: 14, fill: '#fff', stroke: C.orange, 'stroke-width': 3 });
-        D.rect(32, 410, 886, 200, { fill: C.peach, stroke: C.orange, sw: 2.5, r: 16 });
-        D.t(60, 462, 'NVMe', { f: 'sora', w: 700, fill: C.deep, size: 34 });
-        D.t(60, 508, 'A 30 TB drive attached directly to the machine', { size: 26, fill: C.ink });
-        D.t(60, 570, 'tens of microseconds', { f: 'mono', w: 600, fill: C.green, size: 34 });
-        D.t(474, 570, 'per read', { size: 26, fill: C.green });
-        for (let k = 0; k < 6; k++) { const x = 90 + k * 152; D.path(`M${x} 408 L${x} ${wy + 18}`, { stroke: C.green, sw: 3, arrow: 1 }); D.flow(`M${x} 408 L${x} ${wy + 18}`, { r: 6, dur: .9, begin: -k * .23, color: C.green }); }
-
-        D.rect(1140, 10, 540, 300, { fill: '#fff', stroke: C.line, r: 20 });
-        D.t(1170, 62, 'Shared filesystem', { f: 'sora', w: 700, fill: C.ink, size: 30 });
-        D.lines(1170, 108, ['A network filesystem every machine mounts,', 'so every machine sees the same files.'], { size: 24 });
-        for (let r = 0; r < 4; r++) for (let c = 0; c < 30; c++) D.rect(1170 + c * 16, 180 + r * 14, 12, 8, { fill: C.line, r: 1 });
-        D.t(1170, 268, 'One metadata entry (an inode) per file', { size: 24, fill: C.ink, w: 500 });
-
-        D.rect(1140, 340, 540, 340, { fill: '#fff', stroke: C.line, r: 20 });
-        D.cyl(1600, 382, 110, 44, '', null);
-        D.t(1170, 392, 'Object store', { f: 'sora', w: 700, fill: C.ink, size: 30 });
-        D.lines(1170, 480, ['Where datasets live long term, such as', 'Amazon S3. Whole objects, over the network.'], { size: 24 });
-        D.t(1170, 590, 'Charged and limited by request', { size: 24, fill: C.ink, w: 500 });
-
-        const L = [[160, 1136], [510, 1136]];
-        L.forEach(([y, x]) => { D.path(`M978 ${y} L${x} ${y}`, { stroke: C.red, sw: 3, arrow: 1, dash: '8 7' }); D.flow(`M978 ${y} L${x} ${y}`, { r: 6, dur: 2.2, color: C.red }); });
-        D.t(1062, 322, 'network', { a: 'middle', size: 24, fill: C.red, w: 600 });
-        D.t(1062, 352, 'milliseconds', { a: 'middle', size: 24, fill: C.red, w: 600 });
+        const M = (D, x, y, w = 92, h = 44) => { D.rect(x, y, w, h, { fill: C.bpale, stroke: C.mid, r: 8 }); D.t(x + w / 2, y + 29, 'Machine', { a: 'middle', fill: C.blue, w: 600, size: 17 }); };
+        { const D = canvas(ctx.q('#pf-pl1'), 484, 170);
+          D.rect(70, 8, 344, 154, { fill: C.soft, stroke: C.line, r: 14 });
+          M(D, 196, 18);
+          D.rect(110, 104, 264, 46, { fill: C.peach, stroke: C.orange, r: 8 }); D.t(242, 134, 'Local drive', { a: 'middle', fill: C.deep, w: 600, size: 21 });
+          D.path('M242 102 L242 66', { stroke: C.green, sw: 3, arrow: 1 }); D.flow('M242 102 L242 66', { r: 5, dur: .6, color: C.green }); }
+        { const D = canvas(ctx.q('#pf-pl2'), 484, 170);
+          for (let i = 0; i < 4; i++) { const x = 16 + i * 116; M(D, x, 6); const d = `M${x + 46} 52 L242 110`; D.path(d, { stroke: C.line, sw: 2.5 }); D.flow(d, { r: 5, dur: 1.8, begin: -i * .45, color: C.red }); }
+          D.rect(100, 110, 284, 54, { fill: '#fff', stroke: C.muted, r: 10 }); D.t(242, 144, 'Shared filesystem', { a: 'middle', fill: C.ink, w: 600, size: 22 }); }
+        { const D = canvas(ctx.q('#pf-pl3'), 484, 170);
+          M(D, 10, 26); M(D, 10, 96);
+          D.cyl(394, 36, 130, 84, '', null); D.t(394, 94, 'S3', { a: 'middle', f: 'sora', w: 700, fill: C.blue, size: 28 });
+          ['M104 48 L322 72', 'M104 118 L322 96'].forEach((d, i) => { D.path(d, { stroke: C.line, sw: 2.5, dash: '8 7' }); D.flow(d, { r: 5, dur: 2.2, begin: -i, color: C.red }); });
+          D.t(214, 48, 'network', { a: 'middle', size: 20, w: 600, fill: C.red }); }
       });
     },
   });
 
-  /* ── the three problems, each with a small looping picture ── */
-  Deck.on('three', {
+  /* ── the same data as one file and as many: lookups are per file ── */
+  function fsPanel(D, x, title, sub, n, slot) {
+    D.rect(x, 0, 820, 470, { stroke: C.line, r: 20 });
+    D.t(x + 30, 46, title, { f: 'sora', w: 700, fill: C.ink, size: 30 });
+    D.t(x + 30, 82, sub, { size: 24 });
+    const W = 760, tiles = [], g = n > 1 ? 3 : 0, w = (W - g * (n - 1)) / n;
+    for (let i = 0; i < n; i++) tiles.push(D.rect(x + 30 + i * (w + g), 104, w, 52, { fill: C.free, stroke: n > 1 ? 'none' : C.line, r: n > 1 ? 2 : 8 }));
+    const desk = D.rect(x + 200, 182, 420, 96, { fill: C.soft, stroke: C.line, r: 14 });
+    D.t(x + 410, 222, 'Lookup', { a: 'middle', f: 'sora', w: 700, fill: C.ink, size: 28 });
+    D.t(x + 410, 256, 'name, size, where the bytes are', { a: 'middle', size: 22 });
+    const c = D.t(x + 30, 372, '0', { f: 'sora', w: 700, fill: C.orange, size: 64 }), cl = D.t(x + 130, 368, 'lookups', { size: 27, fill: C.ink, w: 500 });
+    D.t(x + 30, 412, 'Data delivered', { size: 23 });
+    D.rect(x + 30, 424, 760, 26, { fill: C.free, r: 6 });
+    const bar = D.rect(x + 30, 424, 0, 26, { fill: C.green, r: 6 });
+    return t => {
+      const { looking, looked, frac, lit } = slot(t);
+      desk.setAttribute('fill', looking ? C.peach : C.soft); desk.setAttribute('stroke', looking ? C.orange : C.line);
+      c.textContent = looked; cl.textContent = looked === 1 ? 'lookup' : 'lookups';
+      cl.setAttribute('x', x + (looked >= 10 ? 130 : 90));
+      bar.setAttribute('width', 760 * frac);
+      tiles.forEach((e, i) => e.setAttribute('fill', i < lit ? C.mid : C.free));
+    };
+  }
+  Deck.on('tryfs', {
     enter(ctx) {
       once(ctx, '__b', () => {
-        { /* metadata load */
-          const D = canvas(ctx.q('#pf-tr1'), 484, 290);
-          for (let m = 0; m < 5; m++) { const x = 8 + m * 96; D.rect(x, 6, 80, 44, { fill: C.bpale, stroke: C.mid, r: 8 }); D.path(`M${x + 40} 52 L${x + 40} 128`, { stroke: C.line, sw: 3 }); D.flow(`M${x + 40} 52 L${x + 40} 128`, { r: 6, dur: 3.2, begin: -m * .7, color: C.red }); }
-          D.rect(8, 130, 468, 150, { fill: C.soft, stroke: C.line, r: 14 });
-          D.t(26, 164, 'One metadata entry per file', { size: 21, w: 600, fill: C.ink });
-          for (let r = 0; r < 6; r++) for (let c = 0; c < 40; c++) D.rect(26 + c * 11, 180 + r * 15, 8, 9, { fill: (r * 7 + c * 3) % 11 === 0 ? C.red : '#C9D3E5', r: 1 });
-        }
-        { /* the request limit */
-          const D = canvas(ctx.q('#pf-tr2'), 484, 290), R = U.rng(3);
-          for (let r = 0; r < 12; r++) for (let c = 0; c < 15; c++) { D.el('circle', { cx: 16 + c * 16 + (r % 2) * 7, cy: 34 + r * 16, r: 5.5, fill: C.orange, opacity: .35 + R() * .55 }); }
-          D.t(10, 262, 'about 10 million requests', { size: 21, w: 600, fill: C.deep });
-          D.rect(268, 14, 12, 210, { fill: C.red, r: 6 });
-          D.t(286, 262, 'the limit', { size: 21, w: 600, fill: C.red });
-          D.cyl(410, 76, 104, 90, '', null);
-          [0, .6, 1.2].forEach(b => D.flow('M250 120 L356 120', { r: 6, dur: 1.8, begin: -b, color: C.orange }));
-        }
-        { /* repeated work */
-          const D = canvas(ctx.q('#pf-tr3'), 484, 290);
-          const names = ['Training', 'Data job', 'Notebook'];
-          D.cyl(420, 78, 96, 110, '', null);
-          D.rect(170, 14, 148, 262, { fill: C.peach, stroke: C.orange, r: 12 });
-          D.t(244, 42, 'Local disk', { a: 'middle', size: 20, w: 600, fill: C.deep });
-          names.forEach((n, i) => {
-            const y = 64 + i * 72;
-            D.rect(0, y, 134, 52, { stroke: C.line, r: 9 }); D.t(67, y + 33, n, { a: 'middle', size: 20, w: 600, fill: C.ink });
-            D.rect(190, y + 6, 108, 40, { fill: C.orange, r: 6 }); D.t(244, y + 33, 'same shard', { a: 'middle', size: 17, w: 600, fill: '#fff' });
-            D.path(`M372 ${100 + i * 34} L300 ${y + 26}`, { stroke: C.orange, sw: 2.5, arrow: 1, dash: '6 6' });
-            D.flow(`M372 ${100 + i * 34} L300 ${y + 26}`, { r: 5, dur: 1.5, begin: -i * .5, color: C.orange });
-            D.path(`M188 ${y + 26} L136 ${y + 26}`, { stroke: C.green, sw: 3, arrow: 1 });
+        const D = canvas(ctx.q('#pf-fs'), 1680, 470), N = 40, S0 = 300, SL = 250;
+        const a = fsPanel(D, 0, 'One large file', 'One lookup, then the bytes flow', 1, t => ({ looking: t >= S0 && t < 1000, looked: t >= S0 ? 1 : 0, frac: seg(t, 1000, 3200), lit: t >= 1000 ? 1 : 0 }));
+        const b = fsPanel(D, 860, 'The same data, as many small files', 'One lookup for every file', N, t => { const k = (t - S0) / SL, i = Math.floor(k); return { looking: k >= 0 && i < N && k - i < .62, looked: t < S0 ? 0 : Math.min(N, i + 1), frac: clamp(k / N), lit: clamp(i, 0, N) }; });
+        ctx.el.__fs = t => { a(t); b(t); };
+      });
+      ctx.__pl = play(ctx, '#pf-fs-pl', { dur: 10900, render: ctx.el.__fs });
+    },
+  });
+
+  /* ── requests queue at a gate that lets through a fixed number per second ── */
+  Deck.on('trys3', {
+    enter(ctx) {
+      once(ctx, '__b', () => {
+        const D = canvas(ctx.q('#pf-s3'), 1000, 620), N = 60, IV = 200, FLY = 900, GX = 560, CX = 850;
+        D.t(36, 56, 'One request for each small file', { f: 'sora', w: 700, fill: C.ink, size: 28 });
+        D.rect(GX - 8, 130, 16, 320, { fill: C.red, r: 8 });
+        D.t(GX, 100, 'The limit', { a: 'middle', w: 700, fill: C.red, size: 26 });
+        D.lines(GX, 490, ['about 5,500 requests', 'per second, per prefix'], { a: 'middle', size: 24, w: 600, fill: C.red });
+        D.cyl(CX, 190, 170, 200, '', null); D.t(CX, 300, 'S3', { a: 'middle', f: 'sora', w: 700, fill: C.blue, size: 36 });
+        const ds = Array.from({ length: N }, () => D.el('circle', { r: 11, fill: C.orange }));
+        const nW = D.t(36, 580, '', { w: 600, fill: C.deep, size: 27 }), nS = D.t(964, 580, '', { a: 'end', w: 600, fill: C.green, size: 27 });
+        ctx.el.__s3 = { dur: N * IV + FLY, draw: t => {
+          const gone = Math.floor(t / IV); let arrived = 0;
+          ds.forEach((c, j) => {
+            const q = j - gone;
+            if (q >= 0) { const col = Math.floor(q / 6), row = q % 6; c.setAttribute('cx', GX - 44 - col * 42); c.setAttribute('cy', 180 + row * 44); c.setAttribute('display', GX - 44 - col * 42 < 20 ? 'none' : 'inline'); c.setAttribute('opacity', 1); return; }
+            const k = (t - j * IV) / FLY;
+            if (k >= 1) { arrived++; c.setAttribute('display', 'none'); return; }
+            c.setAttribute('display', 'inline'); c.setAttribute('cx', GX + (CX - 90 - GX) * k); c.setAttribute('cy', 290);
           });
-        }
+          nW.textContent = Math.max(0, N - gone) + ' waiting'; nS.textContent = arrived + ' served';
+        } };
+      });
+      const s = ctx.el.__s3;
+      ctx.__pl = play(ctx, '#pf-s3-pl', { dur: s.dur, render: s.draw });
+    },
+  });
+
+  /* ── three processes, each fetching the same data for itself ── */
+  Deck.on('repeat', {
+    enter(ctx) {
+      once(ctx, '__b', () => {
+        const D = canvas(ctx.q('#pf-rp'), 1680, 560), names = ['Training', 'Data job', 'Notebook'], FLY = 1500, GAP = 2700, T0 = 300;
+        D.cyl(130, 170, 210, 220, 'Object store');
+        D.rect(300, 0, 1380, 556, { fill: C.soft, stroke: C.line, r: 22 });
+        D.t(328, 44, 'One machine', { w: 600, fill: C.muted, size: 24 });
+        D.rect(560, 76, 420, 450, { fill: C.peach, stroke: C.orange, r: 16 }); D.t(770, 116, 'Local disk', { a: 'middle', w: 600, fill: C.deep, size: 26 });
+        const rows = names.map((n, i) => {
+          const y = 140 + i * 126;
+          D.rect(600, y, 340, 100, { fill: '#fff', stroke: '#F3D9BC', r: 10, dash: '6 6' });
+          const sh = D.rect(600, y, 340, 100, { fill: C.mid, r: 10, display: 'none' }), lb = D.t(770, y + 60, 'the same data', { a: 'middle', w: 600, fill: '#fff', size: 26 }); lb.setAttribute('display', 'none');
+          D.rect(1270, y, 360, 100, { stroke: C.line, r: 12 }); D.t(1450, y + 60, n, { a: 'middle', w: 600, fill: C.ink, size: 30 });
+          const ln = D.path(`M1268 ${y + 50} L944 ${y + 50}`, { stroke: C.orange, sw: 3, dash: '8 7', arrow: 1 });
+          const back = D.path(`M942 ${y + 50} L1266 ${y + 50}`, { stroke: C.green, sw: 4, arrow: 1 });
+          return { y, sh, lb, ln, back };
+        });
+        const fly = D.rect(0, 0, 80, 40, { fill: C.mid, r: 6, display: 'none' });
+        ctx.el.__rp = { T: T0 + GAP * 3 + 500, draw: (t, fE, cE) => {
+          let done = 0, active = null;
+          rows.forEach((r, i) => {
+            const s = T0 + i * GAP, here = t >= s + FLY;
+            if (here) done++; if (t >= s && !here) active = { r, k: (t - s) / FLY };
+            r.sh.setAttribute('display', here ? 'inline' : 'none'); r.lb.setAttribute('display', here ? 'inline' : 'none');
+            r.ln.setAttribute('opacity', t >= s - 100 && !here ? 1 : 0); r.back.setAttribute('opacity', here ? 1 : 0);
+          });
+          if (active) { const e = U.ease.inout(active.k), x0 = 170, y0 = 250, x1 = 730, y1 = active.r.y + 30; fly.setAttribute('display', 'inline'); fly.setAttribute('x', x0 + (x1 - x0) * e); fly.setAttribute('y', y0 + (y1 - y0) * e); } else fly.setAttribute('display', 'none');
+          const nf = rows.filter((_, i) => t >= T0 + i * GAP).length; fE.textContent = nf; cE.textContent = done; fE.nextElementSibling.textContent = (nf === 1 ? 'fetch' : 'fetches') + ' of the same data'; cE.nextElementSibling.textContent = (done === 1 ? 'copy' : 'copies') + ' on this machine';
+        } };
+      });
+      const s = ctx.el.__rp, f = ctx.q('#pf-rp-f'), c = ctx.q('#pf-rp-c');
+      ctx.__pl = play(ctx, '#pf-rp-pl', { dur: s.T, render: t => s.draw(t, f, c) });
+    },
+  });
+
+  /* ── the final picture, once every piece has been explained ── */
+  Deck.on('recap', {
+    enter(ctx) {
+      once(ctx, '__b', () => {
+        const D = canvas(ctx.q('#pf-agd'), 584, 530), g = C.green;
+        D.cyl(500, 26, 150, 38, '', null); D.t(410, 60, 'Object store', { a: 'end', w: 600, fill: C.ink, size: 24 });
+        D.rect(10, 136, 564, 386, { fill: C.soft, stroke: C.line, r: 16 });
+        D.t(30, 170, 'One machine', { w: 600, fill: C.muted, size: 21 });
+        ['Training', 'Data job', 'Notebook'].forEach((n, i) => { D.rect(30 + i * 148, 188, 136, 56, { stroke: C.line, r: 10 }); D.t(98 + i * 148, 224, n, { a: 'middle', w: 600, fill: C.ink, size: 21 }); });
+        D.rect(140, 308, 204, 66, { fill: C.bpale, stroke: C.mid, r: 12 }); D.t(242, 349, 'Daemon', { a: 'middle', w: 600, fill: C.blue, size: 25, f: 'sora' });
+        D.rect(30, 432, 524, 70, { fill: C.peach, stroke: C.orange, r: 12 }); D.t(292, 475, 'Local disk: shards', { a: 'middle', w: 600, fill: C.deep, size: 24 });
+        D.path('M246 246 L242 306', { dash: '6 7', arrow: 1 }); D.path('M394 246 L330 306', { dash: '6 7', arrow: 1 }); D.path('M110 246 L170 306', { dash: '6 7', arrow: 1 });
+        D.path('M242 374 V430', { dash: '6 7', arrow: 1 });
+        D.path('M515 112 V430', { stroke: C.orange, sw: 4, arrow: 1 });
+        D.path('M70 432 V248', { stroke: g, sw: 7, arrow: 1 });
       });
     },
   });
+
 })();
 
 /* Part 2: shards and addresses */
@@ -1871,6 +2230,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
         const imgs = bars.filter(b => !b.kind), anns = bars.filter(b => b.kind), tiles = [], cols = 32, rows = 18, sz = 13, gap = 5;
         for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
           const ann = (r + c * 3) % 2 === 1, x = 30 + c * (sz + gap), y = 78 + r * (sz + 5);
+          D.rect(x, y, sz, sz, { fill: C.free, r: 2 });
           const tgt = ann ? anns[Math.floor(R() * anns.length)] : imgs[Math.floor(R() * imgs.length)]; tgt.n++;
           tiles.push({ x, y, tgt, ann, t0: 300 + R() * 3700, e: D.rect(x, y, sz, sz, { fill: ann ? C.orange : C.mid, r: 2 }), tx: tgt.x + 10 + R() * (tgt.w - 20), ty: tgt.y + R() * (tgt.h - sz) });
         }
@@ -1913,7 +2273,7 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
           const m = MEM[k];
           cells.forEach((c, j) => c.classList.toggle('pf-sel', j === k));
           let before = 0; for (let j = 0; j < k; j++) before += KB[j];
-          head.style.left = (32 + before / TOTAL * W) + 'px';
+          head.style.left = (32 + before / TOTAL * W) + 'px'; head.firstElementChild.style.display = 'inline-block'; head.firstElementChild.style.transform = before / TOTAL > .8 ? 'translateX(-100%)' : '';
           o.textContent = m.off.toLocaleString('en-US'); l.textContent = m.len.toLocaleString('en-US') + ' bytes';
           u.innerHTML = `patram://img/${String(m.id).padStart(6, '0')}?shard=shard_0042.tar&amp;offset=<span class="o">${m.off}</span>&amp;length=<span class="l">${m.len}</span>`;
         },
@@ -2160,8 +2520,8 @@ ann = read_annotation(uri=<span class="s">"patram://annotation/000123?shard=...&
         D.rect(K.x, K.y, K.w, K.h, { fill: C.peach, stroke: C.orange, r: 16 });
         D.t(K.x + 30, K.y + 46, 'Local disk', { w: 600, fill: C.deep, size: 26 });
         const shard = D.rect(K.x + 30, K.y + 74, 340, 84, { fill: C.mid, r: 10 }), sT = D.t(K.x + 200, K.y + 127, 'shard 42', { a: 'middle', w: 600, fill: '#fff', size: 28 });
-        D.t(290, 524, 'Dashed: ensure_shard after FileNotFoundError', { size: 21, fill: C.muted });
-        D.t(830, 524, 'Solid: open + pread, straight from the local disk', { size: 21, fill: C.green, w: 500 });
+        D.t(290, 524, 'Dashed: asks the daemon when the file is missing', { size: 21, fill: C.muted });
+        D.t(830, 524, 'Solid: reads straight from the local disk', { size: 21, fill: C.green, w: 500 });
         const evs = [], asks = [];
         ask.forEach((p, k) => { const e = { t0: T.asks + k * 150, dur: 700, r: 8, color: C.ink, at: along(p) }; evs.push(e); asks.push(e); });
         evs.push({ t0: T.dl, dur: 600, r: 8, color: C.orange, at: along(dlp) }, { t0: T.bytes, dur: 900, r: 13, color: C.orange, at: along(bytes) });

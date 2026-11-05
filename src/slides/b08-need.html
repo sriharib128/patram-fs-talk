@@ -1,0 +1,23 @@
+<section class="slide light" id="need" data-steps="0" data-section="1 · The problem" data-time="0.8" data-title="Three problems, and what each one needs">
+  <div class="hd">
+    <div class="eyebrow">The problem, in one slide</div>
+    <h2>Three problems, and what each one needs</h2>
+  </div>
+  <div class="abs card pf-nd" style="left:120px;top:236px;width:1680px">
+    <div class="h">Where it hurts</div><div class="h">The problem</div><div class="h">What we need</div>
+    <div class="k">Shared filesystem</div><div class="bad">Too many small files</div><div class="good">Far fewer files</div>
+    <div class="k">Object store</div><div class="bad">Too many requests</div><div class="good">Far fewer requests</div>
+    <div class="k">One machine</div><div class="bad">Every process fetches its own copy</div><div class="good">One copy per machine</div>
+  </div>
+  <div class="abs pf-nd2" style="left:120px;top:640px;width:1680px">
+    <small>And two conditions</small>
+    <div class="card">Reads must stay as fast as the local drive, because the GPU is waiting.</div>
+    <div class="card">Existing code expects one file at one path, and it should keep working.</div>
+  </div>
+  <p class="abs t" style="left:120px;top:900px;width:1680px;font-size:29px">Patram-FS is built to meet these, one step at a time.</p>
+  <aside class="notes">
+    <p>So here is the whole problem on one slide. The shared filesystem suffers because there are too many small files. The object store suffers because there are too many requests. And on each machine, every process fetches its own copy.</p>
+    <p>There are also two conditions. Reads have to stay as fast as the local drive, because of the GPU we started with. And we have a lot of existing code that assumes each sample is a file at a path, and we do not want to rewrite all of it.</p>
+    <p>If this slide makes sense, the rest of the talk will too. So this is a good moment for questions. Then we fix these one at a time.</p>
+  </aside>
+</section>

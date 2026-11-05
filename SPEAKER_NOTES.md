@@ -5,122 +5,176 @@ Generated from the deck. Keys: → next · ← back · F fullscreen · O overvie
 | # | Slide | min | cumulative (core path) |
 |---|---|---|---|
 | 1 | Patram-FS | 0.3 | 0.3 |
-| 2 | Patram learns from document images and text | 1.2 | 1.5 |
-| 3 | What we will talk about today | 0.7 | 2.2 |
-| 4 | Part 1 · The problem | 0.2 | 2.4 |
-| 5 | The simplest design is one file per sample | 1 | 3.4 |
-| 6 | One machine and the stores it reads from | 1.5 | 4.9 |
-| 7 | At ten million files, three things go wrong | 2 | 6.9 |
-| 8 | Part 2 · Shards | 0.2 | 7.1 |
-| 9 | Packing samples into a few large shards | 1.2 | 8.3 |
-| 10 | Compressing the shards | 1 | 9.3 |
-| 11 | Every sample has a fixed byte address | 1.2 | 10.5 |
-| 12 | Only the read call changes | 0.8 | 11.3 |
-| 13 | Part 3 · The daemon | 0.2 | 11.5 |
-| 14 | Each machine caches shards on its local disk | 1.2 | 12.7 |
-| 15 | One small daemon runs on each machine | 1 | 13.7 |
-| 16 | Identical requests become one download | 1.8 | 15.5 |
-| 17 | Where shard bytes travel on one machine | 1.2 | 16.7 |
-| 18 | Part 4 · Reads and memory | 0.2 | 16.9 |
-| 19 | The daemon is asked only on a missing shard | 1.2 | 18.1 |
-| 20 | A read is one pread, with nothing in between | 1 | 19.1 |
-| 21 | The two obvious ways to serve annotations | 1.3 | 20.4 |
-| 22 | Warming keeps one shared copy in memory | 1.3 | 21.7 |
-| 23 | Warming records and warming images | 1.2 | 22.9 |
-| 24 | Part 5 · In production | 0.2 | 23.1 |
-| 25 | Least recently asked-for shards are removed | 1.2 | 24.3 |
-| 26 | Deleting a shard that is being read | 1 | 25.3 |
-| 27 | A daemon per machine is a general pattern | 1 | 26.3 |
-| 28 | Using Patram-FS takes three pieces | 0.7 | 27.0 |
-| 29 | Existing tools against five requirements | 1.5 | 28.5 |
-| 30 | Training Patram 1.5 from local disks | 0.8 | 29.3 |
-| 31 | Where it fits, and the trade-offs we chose | 1 | 30.3 |
-| 32 | Key takeaways | 1 | 31.3 |
+| 2 | We train Patram, a model that reads documents | 1.5 | 1.8 |
+| 3 | What we will talk about today | 0.7 | 2.5 |
+| 4 | Part 1 · The problem | 0.2 | 2.7 |
+| 5 | A GPU can only learn when data has arrived | 1.5 | 4.2 |
+| 6 | A dataset is tens of millions of small files | 1 | 5.2 |
+| 7 | Many readers ask for files at the same moment | 1 | 6.2 |
+| 8 | The files can live in three places | 1.5 | 7.7 |
+| 9 | More files means a slower shared filesystem | 1.8 | 9.5 |
+| 10 | The object store limits requests, not bytes | 1.8 | 11.3 |
+| 11 | Each process fetches the same data again | 1 | 12.3 |
+| 12 | Three problems, and what each one needs | 0.8 | 13.1 |
+| 13 | Cutting ten million requests | 1 | 14.1 |
+| 14 | Part 2 · Pack the files | 0.3 | 14.4 |
+| 15 | A shard is one large file holding many samples | 1.2 | 15.6 |
+| 16 | Compressing the shards | 1 | 16.6 |
+| 17 | Every sample has a fixed byte address | 1.2 | 17.8 |
+| 18 | Only the read call changes | 0.8 | 18.6 |
+| 19 | Part 3 · Keep them local | 0.3 | 18.9 |
+| 20 | Download each shard once, then read it locally | 1.2 | 20.1 |
+| 21 | One small daemon on each machine fetches shards | 1 | 21.1 |
+| 22 | Identical requests become one download | 1.8 | 22.9 |
+| 23 | Where shard bytes travel on one machine | 1.2 | 24.1 |
+| 24 | Part 4 · Read them fast | 0.3 | 24.4 |
+| 25 | The daemon is asked only when a shard is missing | 1.2 | 25.6 |
+| 26 | A read goes straight to the drive | 1 | 26.6 |
+| 27 | For annotations, both obvious ways fail | 1.3 | 27.9 |
+| 28 | Warming keeps one shared copy in memory | 1.3 | 29.2 |
+| 29 | Warming records and warming images | 1.2 | 30.4 |
+| 30 | Part 5 · Run it | 0.3 | 30.7 |
+| 31 | Least recently asked-for shards are removed | 1.2 | 31.9 |
+| 32 | Deleting a shard that is being read | 1 | 32.9 |
+| 33 | The whole design, in one read | 1.2 | 34.1 |
+| 34 | A daemon per machine is a general pattern | 1 | 35.1 |
+| 35 | Existing tools against five requirements | 1.5 | 36.6 |
+| 36 | Training Patram 1.5 from local disks | 0.8 | 37.4 |
+| 37 | Where it fits, and the trade-offs we chose | 1 | 38.4 |
+| 38 | Key takeaways | 1 | 39.4 |
 
 
-**Core path ≈ 31.3 min.**
+**Core path ≈ 39.4 min.**
 
 ## 1. Patram-FS
 *Introduction · ~0.3 min · no steps*
 
 Hello everyone, and thank you for having us. This talk is about Patram-FS, the storage layer we built at BharatGen to feed training data to our GPUs. You do not need a storage background to follow it. We will start with what we do and why this problem comes up at all, and then build the design one decision at a time.
 
-## 2. Patram learns from document images and text
-*Introduction · ~1.2 min · no steps*
+## 2. We train Patram, a model that reads documents
+*Introduction · ~1.5 min · no steps*
 
-A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents. Patram 1.5 learns from document images and the text that goes with them. So one training sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.
+A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents.
 
-Both are small. The image is 50 to 500 kilobytes. The annotation is a JSON record of about 300 bytes. But a training dataset holds tens of millions of them, and a training run reads them many times over.
+Training data for a model like this is simple. One sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.
 
-On the right is where that reading happens. Each square is one GPU: 30 machines with 8 GPUs each, 240 GPUs. Every GPU is fed by several reader processes. Why does this matter? Because the GPU only does useful work when the data has arrived. If reading is slow, training waits, and that is the problem this talk is about.
+Training itself is a loop. Show the model a sample. Compare its answer with the right one. Adjust the model a little. Take the next sample. That loop runs on GPUs, and every time it comes round it needs a new sample. Keep that in mind, because this whole talk is about getting that next sample to the GPU on time.
 
 ## 3. What we will talk about today
 *Introduction · ~0.7 min · no steps*
 
-Here is the plan for the next half hour. There are five parts.
+Here is the plan for the next half hour. We will spend the most time on the first part, because the problem is unusual and the rest only makes sense once you have seen it. You do not need any storage background for this.
 
-First the problem: why the simplest design, one file per sample, stops working at ten million files. Then shards, which is how we pack samples together while keeping each one individually readable. Then the daemon, a small program on each machine that makes sure a shard is downloaded only once. Then reads and memory: how a read stays as cheap as reading a local file, and how a hundred processes can share one copy of a file in memory. And finally how it runs in production: keeping the disk from filling up, why we did not use an existing tool, how Patram 1.5 was trained on it, and what we gave up.
-
-On the right is the picture we will end up with. It will not mean much yet, and that is fine: we will build it one box at a time. Please interrupt at any time. Four slides will stop and ask you for an answer, so stay ready. Let us begin.
+After that, each part fixes one problem and uncovers the next one. Pack the files, keep them on the machine, read them fast, and then what it takes to run this for real. A few slides will stop and ask you for an answer, so stay ready.
 
 ## 4. Part 1 · The problem
 *1 · The problem · ~0.2 min · no steps*
 
-Let us start with the design anyone would write first, and see where it breaks.
+Reading a file sounds like the easiest thing a computer does. So let us see how it becomes the problem, starting from a single GPU.
 
-## 5. The simplest design is one file per sample
-*1 · The problem · ~1 min · no steps*
-
-The simplest way to store this data is one file per sample, and the simplest way to train on it is to open each file when you need it. Here is that code: for each path, load the image, load the JSON, and take a training step. There is nothing wrong with it, and it works very well for a thousand files.
-
-Now look at the right. This is one machine. It has 8 GPUs, every GPU is fed by several reader processes, and all of them are opening different small files as fast as they can. Multiply that by 30 machines. Nothing coordinates those readers with each other. Each one simply opens the next file on its list.
-
-Before we see what goes wrong at ten million files, we need a few terms for where those files can live.
-
-## 6. One machine and the stores it reads from
+## 5. A GPU can only learn when data has arrived
 *1 · The problem · ~1.5 min · no steps*
 
-Five terms will come up for the rest of the talk, and they are all in this picture.
+Here is one GPU. Think of it as a very expensive expert who reads pages and learns from them, and of the program feeding it as a helper who fetches each page from storage.
 
-A machine is one server in the GPU cluster; people also call it a node. Ours each have 8 H100 GPUs, and there are 30 of them. A worker is a Python process that reads training samples, for example a data loader worker. A machine runs dozens of them, and nothing coordinates them with each other.
+In the top row, the pages arrive on time. The GPU is green the whole way along: it finishes one sample and the next is already there.
 
-Each machine has a 30 terabyte NVMe drive attached directly to it. Reads from it take tens of microseconds.
+In the bottom row, nothing about the GPU or the model has changed. The pages just take longer to arrive. Most of the bar is grey, which means the GPU is sitting idle, waiting. We are paying for a GPU that is doing nothing, and the run takes far longer.
 
-Then there are two things outside the machine, so reaching them means crossing the network, which costs milliseconds. The shared filesystem is a network filesystem that every machine mounts, so every machine sees the same files. It keeps a metadata entry, called an inode, for every file. The object store is where datasets live long term; we use Amazon S3. Data is read and written as whole objects over the network, and it charges and limits by request.
+So the job is to keep the GPU fed. That sounds easy for one GPU and one file. Let us look at how much there is to read.
 
-Keep those two numbers in mind: tens of microseconds on this side, milliseconds on that side. A lot of this design follows from that gap.
+## 6. A dataset is tens of millions of small files
+*1 · The problem · ~1 min · no steps*
 
-## 7. At ten million files, three things go wrong
-*1 · The problem · ~2 min · reveal steps: 2*
+The obvious way to store this data is what you would do on your own laptop: one file for each image, and one file for each annotation, all in a folder.
 
-At ten million files, three things go wrong, and they are three different problems.
+Each one is small. An image is 50 to 500 kilobytes. An annotation is about 300 bytes, which is shorter than a text message.
 
-First, the shared filesystem. It keeps a metadata entry for every file, and it slows down with the number of files, whatever their size. At ten million files, just listing the dataset folder takes minutes. Worse, this is shared: the metadata load slows every other machine and every other team on the cluster.
+But a training dataset holds tens of millions of them. Most computer systems are comfortable with a few very big files. They are much less comfortable with millions of tiny ones, and we will see exactly why in a moment. First, one more piece of the picture: who is reading them.
 
-**[step 1]** So move the data to the object store. It has plenty of room, but it limits requests, not bytes. S3 allows roughly 5,500 requests per second for each prefix. A run that fetches samples one at a time makes about ten million requests against that limit. Small files are the worst case, because you pay for one request per file however few bytes it holds.
+## 7. Many readers ask for files at the same moment
+*1 · The problem · ~1 min · no steps*
 
-**[step 2]** The third one is easy to miss. A machine runs several processes that read the same data: training, a data job, someone's notebook. They know nothing about each other, so each one fetches its own copy. That wastes the network, the disk and the memory.
+Now the readers. A machine, one server in our cluster, has 8 GPUs. Each GPU is fed by several reader processes, which are the helpers from a moment ago. And there are 30 machines.
 
-Patram-FS solves these in order. Too many files is the first one, and that takes us to shards.
+So at any moment, a very large number of processes are all opening different small files, as fast as they can, and none of them knows about the others.
 
-## 8. Part 2 · Shards
-*2 · Shards · ~0.2 min · no steps*
+All of those requests have to land somewhere. So where can we keep the files?
 
-The standard fix for too many small files is fewer, larger files. The interesting question is how to pack them so that one sample can still be read on its own.
+## 8. The files can live in three places
+*1 · The problem · ~1.5 min · reveal steps: 2*
 
-## 9. Packing samples into a few large shards
-*2 · Shards · ~1.2 min · no steps*
+There are three places these files can live, and it helps to picture an office building. Each machine is one office.
+
+First, the local drive. Each machine has a 30 terabyte NVMe drive attached directly to it. It is the shelf in your own office: reads take tens of microseconds. The catch is that only that machine can see it.
+
+**[step 1]** Second, the shared filesystem. Every machine mounts it and sees the same files. It is one records room for the whole building. Reaching it crosses the network, which costs milliseconds, and it keeps an entry for every single file.
+
+**[step 2]** Third, the object store, which for us is Amazon S3. It holds everything, long term. It is a warehouse across town: also milliseconds away, and it charges and limits you by the number of requests.
+
+Notice the gap in speed: microseconds on the machine, milliseconds across the network. So the local drive is fast but private, and the two shared places are slow. Let us try putting ten million files in each of the shared ones, and see what happens.
+
+## 9. More files means a slower shared filesystem
+*1 · The problem · ~1.8 min · reveal steps: 1*
+
+Let us try the shared filesystem. Before it can give you a single byte of a file, a filesystem has to look that file up: its name, its size, and where its bytes are. That bookkeeping is called metadata, and the filesystem keeps one entry for every file. Picture a clerk in the records room who has to find the right card before handing over any file.
+
+On the left is some data stored as one big file: one lookup, and then the bytes flow. On the right is the same data stored as many small files. Every one of them needs its own lookup. Watch the counter. The disks are not the slow part here. The clerk is.
+
+**[step 1]** Now scale that to ten million files. The cost grows with the number of files, whatever their size. Just listing the dataset folder takes minutes. And the part people forget: this filesystem is shared. Our readers keep the clerk busy, so every other machine on the cluster slows down too.
+
+## 10. The object store limits requests, not bytes
+*1 · The problem · ~1.8 min · reveal steps: 1*
+
+So move the files out to the object store, the warehouse. It has plenty of room. But it works differently: you fetch a whole object per request, and the warehouse gate counts trips. Amazon S3 allows roughly 5,500 requests per second for each prefix, where a prefix is roughly like a folder.
+
+Watch the queue build at the gate. Each dot is one request for one small file. And here is the odd part, on the right: a request for 300 bytes counts exactly the same as a request for 10 gibibytes. The gate does not care what the truck carries. So tiny files are the worst possible case.
+
+**[step 1]** Let us do the sum. One file per sample means about ten million requests. Ten million divided by 5,500 a second is about 30 minutes, just to fetch the data once, at the limit, for one prefix. That is our own arithmetic, to give you a feel for it. A training run reads the data many times, on top of all the network time. Fetching one small file at a time simply does not work.
+
+## 11. Each process fetches the same data again
+*1 · The problem · ~1 min · no steps*
+
+The third problem is easy to miss. A machine does not run just one program. It runs training, and often a data job beside it, and someone's notebook. They read the same data, but they know nothing about each other.
+
+So each one fetches its own copy. Three people from the same office, each driving to the warehouse for the same box, and each keeping their own copy of it. That wastes the network, the disk and the memory, and it makes the request problem worse.
+
+## 12. Three problems, and what each one needs
+*1 · The problem · ~0.8 min · no steps*
+
+So here is the whole problem on one slide. The shared filesystem suffers because there are too many small files. The object store suffers because there are too many requests. And on each machine, every process fetches its own copy.
+
+There are also two conditions. Reads have to stay as fast as the local drive, because of the GPU we started with. And we have a lot of existing code that assumes each sample is a file at a path, and we do not want to rewrite all of it.
+
+If this slide makes sense, the rest of the talk will too. So this is a good moment for questions. Then we fix these one at a time.
+
+## 13. Cutting ten million requests
+*1 · The problem · ~1 min · reveal steps: 2*
+
+Before we move on, try this one. There are ten million small files in the object store. Each takes one request. And one request can bring back 300 bytes or 10 gibibytes, for the same cost.
+
+**[step 1]** How would you cut the number of requests? Option A: send them in parallel, as many at once as you can. Option B: pack the small files into large ones. Which would you pick?
+
+**[step 2]** B. Parallel requests are still ten million requests against the same limit. If one trip can carry anything, the answer is to fill the truck. That is the next part.
+
+## 14. Part 2 · Pack the files
+*2 · Pack the files · ~0.3 min · no steps*
+
+On the right is our list of problems, and we will come back to it at the start of each part. Packing the files takes on the first two together. The interesting question is how to pack them so that one sample can still be read on its own.
+
+## 15. A shard is one large file holding many samples
+*2 · Pack the files · ~1.2 min · no steps*
 
 A shard is simply a large archive file holding many samples. We pack images into TAR files of about 10 gibibytes each, and annotations into JSONL files of about 1 gibibyte each. JSONL is one JSON record per line.
 
 Watch the small files move into the bars. A dataset of tens of millions of samples becomes about two hundred shards.
 
-Now read the table. Files in storage go from about ten million to about two hundred, so the shared filesystem has almost nothing to keep track of. Requests to the object store go from about ten million to about two hundred, because we fetch a whole shard in one request. And listing the folder goes from minutes to milliseconds. That is the first problem, and most of the second, solved by one idea.
+Now read the table. Files in storage go from about ten million to about two hundred, so the shared filesystem has almost nothing to keep track of. Requests to the object store go from about ten million to about two hundred, because we fetch a whole shard in one request. And listing the folder goes from minutes to milliseconds. That is the first two problems on our list, solved by one idea. Think of a box of pages: one trip to the warehouse now brings a whole box.
 
 But we have created a new problem. Training wants one image, and that image is now somewhere inside a 10 gibibyte file. How we pack it decides how expensive that is. Which brings us to a question for you.
 
-## 10. Compressing the shards
-*2 · Shards · ~1 min · reveal steps: 2*
+## 16. Compressing the shards
+*2 · Pack the files · ~1 min · reveal steps: 2*
 
 Here is the situation. We have a 10 gibibyte image shard. The images inside are JPEGs, so they are already compressed. And a reader wants one image at a time, out of tens of thousands in the shard.
 
@@ -128,31 +182,31 @@ Here is the situation. We have a 10 gibibyte image shard. The images inside are 
 
 **[step 2]** We chose B, for two reasons. First, compression barely helps: the images are already JPEGs, and compressing them again saves 0 to 2 percent. Second, and this is the important one, in an uncompressed TAR file every image sits at a fixed byte position. So reading one image is one seek and one read, with nothing to unpack. And as a bonus, building a shard is plain copying, at 1 to 2 gigabytes per second. That fixed position is the idea the rest of the design rests on.
 
-## 11. Every sample has a fixed byte address
-*2 · Shards · ~1.2 min · no steps*
+## 17. Every sample has a fixed byte address
+*2 · Pack the files · ~1.2 min · no steps*
 
-So every sample has an address: the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.
+So every sample has an address: which box, where in the box, and how long. In other words, the shard it lives in, the byte where it starts, and its length. Watch the selection move along this shard. Each sample has its own offset and length, and because nothing is compressed, those numbers point at the exact bytes.
 
 We write that address as a short link, which you see at the bottom: patram, colon, slash slash, image id, then the shard, offset and length. It contains everything needed to read the sample. No index has to be loaded and no service has to be asked. So an address can go anywhere a file path used to go: a list of samples, a config file, a column in a table.
 
 That last point turns out to matter a lot, as the next slide shows.
 
-## 12. Only the read call changes
-*2 · Shards · ~0.8 min · no steps*
+## 18. Only the read call changes
+*2 · Pack the files · ~0.8 min · no steps*
 
 Here is why the address matters. Our data pipelines, training loops and evaluation scripts were all written for one assumption: each sample is a file at a path. If you give each sample an address instead of a path, that code keeps its assumption. Only the read call changes.
 
-At the top is the old code. At the bottom is the new code. These two functions, read_image and read_annotation, are the whole client interface, because an image plus a JSON record is the shape of all our training data. The library also has build_uri and parse_uri for making and checking addresses when you build a dataset.
+You do not need to read this code closely. At the top is the old way, at the bottom is the new way, and the shape is the same: these two functions are all most code ever calls.
 
 The promise behind those two calls is simple: you read an address as if the shard were already a file on the machine's local drive. Of course it is not there yet. Making that promise true is the job of the next part.
 
-## 13. Part 3 · The daemon
-*3 · The daemon · ~0.2 min · no steps*
+## 19. Part 3 · Keep them local
+*3 · Keep them local · ~0.3 min · no steps*
 
-Shards fixed the file count. But fetching from the object store on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the next problem.
+The first two are fixed: few files, few requests. But the shards are still far away in the object store, and fetching from there on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the third problem on our list.
 
-## 14. Each machine caches shards on its local disk
-*3 · The daemon · ~1.2 min · no steps*
+## 20. Download each shard once, then read it locally
+*3 · Keep them local · ~1.2 min · no steps*
 
 Every machine in our cluster has a 30 terabyte NVMe drive attached directly to it. So the first time a machine needs a shard, it downloads the whole shard from the object store onto that drive. From then on, every sample in that shard is a local read.
 
@@ -162,19 +216,19 @@ One detail: a download is written to a temporary file and renamed into place onl
 
 This creates the next problem. A machine does not run one process. It runs eight training processes, one per GPU, each with several readers, and often a data job or a notebook beside them. They start at the same moment, they read the same shards, and they know nothing about each other. If each one downloads a shard whenever it finds it missing, the machine downloads the same 10 gibibyte shard many times over.
 
-## 15. One small daemon runs on each machine
-*3 · The daemon · ~1 min · no steps*
+## 21. One small daemon on each machine fetches shards
+*3 · Keep them local · ~1 min · no steps*
 
-The fix is one small program on each machine. We call it the Patram-FS daemon. It is a background program written in Go that runs all the time. Every process on the machine, whether training, a data job or a notebook, talks to that same daemon.
+The fix is one small program on each machine. We call it the Patram-FS daemon. A daemon is simply a background program that runs all the time. Think of an office manager: instead of everyone driving to the warehouse, you tell the manager which box you need.
 
-They talk through a Unix domain socket. That is a channel between processes on one machine that goes only through the kernel, with no network in the way. It is quick: from Python, a round trip takes a median of 74 microseconds, and 20 processes together pushed 124,000 requests per second through it.
+Every process on the machine, whether training, a data job or a notebook, talks to that same daemon through a Unix domain socket, a channel between processes on one machine with no network in the way.
 
-The main request is called ensure_shard. A process sends it when a shard it needs is not on the local disk. The daemon checks the disk, and starts a download only if the shard is not there and is not already downloading. It answers one question: is this shard on the local disk, and where?
+The main request is called ensure_shard, and the daemon answers one question: is this shard on the local disk, and where? If the shard is missing and nobody has started downloading it, the daemon downloads it. Otherwise it does not.
 
-Why a socket and not shared memory, which is about fifty times faster? Because the daemon is asked once per shard, not once per sample, so a few microseconds is nothing. And the kernel cleans up after a crashed client, which is worth more to us. If anyone wants more detail on that, or on why Go, ask at the end.
+If anyone asks: from Python, a round trip through the socket takes a median of 74 microseconds, measured with 20 processes flooding it together. We chose a socket over faster shared memory because the daemon is asked once per shard, not once per sample, and the kernel cleans up after a crashed client. The daemon is written in Go.
 
-## 16. Identical requests become one download
-*3 · The daemon · ~1.8 min · reveal steps: 1*
+## 22. Identical requests become one download
+*3 · Keep them local · ~1.8 min · reveal steps: 1*
 
 Here is the same moment, played twice: eight processes need the same shard at the same instant. On the left there is no daemon, and each process finds the shard missing and downloads it for itself. That is 8 downloads and 80 gibibytes pulled from the object store. This is not hypothetical: an earlier design of ours did exactly that, and 16 reader processes missing the same shard caused 16 separate downloads.
 
@@ -182,8 +236,8 @@ On the right is the same moment with the daemon. All eight processes send their 
 
 **[step 1]** And here is the measurement. We had 20 processes ask for the same missing 1 gibibyte shard at the same instant. The daemon made one download, and all 20 processes had the shard in 2.16 seconds, the time a single process takes on its own. Asking for a shard that is already on the disk takes under 100 microseconds.
 
-## 17. Where shard bytes travel on one machine
-*3 · The daemon · ~1.2 min · reveal steps: 2*
+## 23. Where shard bytes travel on one machine
+*3 · Keep them local · ~1.2 min · reveal steps: 2*
 
 Here are the pieces on one machine so far. Three processes, the socket, the daemon, the local drive, and the object store outside. The dashed lines are questions: ensure_shard, once per shard. The orange line is the download. I have left something out on purpose: how do the bytes get from the drive to the process?
 
@@ -193,15 +247,15 @@ Here are the pieces on one machine so far. Three processes, the socket, the daem
 
 There is also a bonus to having one daemon per machine: every machine-wide question has one place to be answered. How hard are we hitting the object store, what is cached, how many bytes were downloaded today? Each daemon publishes those as Prometheus metrics, so the whole cluster reads as one Grafana dashboard.
 
-## 18. Part 4 · Reads and memory
-*4 · Reads and memory · ~0.2 min · no steps*
+## 24. Part 4 · Read them fast
+*4 · Read them fast · ~0.3 min · no steps*
 
-The daemon solved downloads. Now we look at the reads themselves, because that is where the run spends its time: first image reads, and then annotations, which turn out to need something extra.
+Downloads are solved. Now the reads themselves, because that is where a run spends its time: first images, and then annotations, which turn out to need something extra.
 
-## 19. The daemon is asked only on a missing shard
-*4 · Reads and memory · ~1.2 min · no steps*
+## 25. The daemon is asked only when a shard is missing
+*4 · Read them fast · ~1.2 min · no steps*
 
-A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file, and reads the sample at its offset with pread, a single system call that reads a given number of bytes from a given position.
+A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file and reads the sample at its position. Think of checking your own shelf before bothering the manager.
 
 Only if the open fails with FileNotFoundError does it send ensure_shard to the daemon, and then it tries again.
 
@@ -209,23 +263,23 @@ Watch the two counters here. At the start the shard is not on this machine, so e
 
 So for each shard, only the first processes to reach it ever talk to the daemon. Every later read, from every process, for the rest of the run, is an ordinary open and read of a local file.
 
-## 20. A read is one pread, with nothing in between
-*4 · Reads and memory · ~1 min · no steps*
+## 26. A read goes straight to the drive
+*4 · Read them fast · ~1 min · no steps*
 
-So what does a read look like once a shard is on the disk? Follow the boxes. The process calls read_image. The shard file is usually already open, because each process keeps a few open, 16 of each kind by default, which skips even the open. Then one system call, pread, with an offset and a length. And then the drive.
+So what does a read look like once a shard is on the disk? The process asks for one sample. One system call, called pread, says: read this many bytes from this position. And the drive returns them. That is all.
 
-There is nothing else on the path. An uncompressed TAR member needs no decoding of its own. So no unpacking, no decompression, no format conversion and no filesystem layer between the drive and your tensor.
+There is nothing else on the way. No daemon, no unpacking, no decompression, no format conversion, no filesystem layer. This is why we kept the shards uncompressed.
 
-How much does that matter? On the left: our first version of this system was a FUSE mount, which is the obvious way to build it, since it looks like an ordinary folder. Each image read cost 1 to 3 milliseconds, against 50 to 200 microseconds for a direct read from NVMe. FUSE pays that extra hop on every single read, and an epoch has tens of millions of reads.
+How much does that matter? Our first version of this system added one layer on every read, a FUSE mount, which is the obvious way to build it because it looks like an ordinary folder. Each image read cost 1 to 3 milliseconds, against 50 to 200 microseconds for a direct read. A training pass has tens of millions of reads, so that layer is paid tens of millions of times.
 
-On the right: the only real wait left in the system is the first download of a shard. Because ensure_shard can be called for a shard you have not reached yet, a data loader can fetch the next shard while it is still training on the current one. So even that wait overlaps with useful work.
+The only real wait left is the first download of a shard, and a process can ask for the next shard early, while it is still training on the current one, so even that overlaps with useful work.
 
 That covers images. Annotations are a different story.
 
-## 21. The two obvious ways to serve annotations
-*4 · Reads and memory · ~1.3 min · reveal steps: 1*
+## 27. For annotations, both obvious ways fail
+*4 · Read them fast · ~1.3 min · reveal steps: 1*
 
-An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.
+Images are large and read one at a time. Annotations are the opposite. An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.
 
 The first: load the whole file into every worker. Here you see four workers each filling a row of memory with their own copy. Each row can hold one full copy of the file. Lookups are fast after that. But workers cannot share their memory with each other, so 100 workers hold 100 copies of the same file: 100 gibibytes of memory for 1 gibibyte of data, and every worker waits for the load before it can start.
 
@@ -233,19 +287,19 @@ The first: load the whole file into every worker. Here you see four workers each
 
 What we want is the small reads of the second approach, answered from memory, with one copy of the file for the whole machine. It turns out Linux already has the piece that makes this possible.
 
-## 22. Warming keeps one shared copy in memory
-*4 · Reads and memory · ~1.3 min · no steps*
+## 28. Warming keeps one shared copy in memory
+*4 · Read them fast · ~1.3 min · no steps*
 
 The piece is the page cache. Whenever a process reads part of a file, the Linux kernel keeps those bytes in spare memory. The next time any process on the machine reads the same bytes, the kernel answers from memory and does not touch the drive. There is one copy of each piece of the file, shared by every process.
 
 On its own, the page cache fills too slowly here. A scattered read brings in only the small piece of the file around one record, so for a long time most reads still miss and go to the drive. That is what you saw on the last slide.
 
-Warming fixes that. When an annotation shard is first fetched, the client sends the daemon a warm_shard request, and the daemon asks the kernel to load the whole file into the page cache in one call. That takes about half a second for 1 gibibyte. You can see one row of memory filling, once.
+Warming fixes that. When an annotation shard is first fetched, the client sends the daemon a warm_shard request, and the daemon asks the kernel to load the whole file into the page cache in one call, madvise with MADV_POPULATE_READ. That takes about half a second for 1 gibibyte. You can see one row of memory filling, once.
 
 And from then on, the workers keep making exactly the same small pread calls, and every one is answered from memory. So we get the best of both. Like the first approach, every read comes from memory. Like the second, each worker reads only the record it needs and keeps no copy of its own, so the machine holds one copy, however many workers there are. And we did not write any sharing layer: the kernel already had one.
 
-## 23. Warming records and warming images
-*4 · Reads and memory · ~1.2 min · reveal steps: 2*
+## 29. Warming records and warming images
+*4 · Read them fast · ~1.2 min · reveal steps: 2*
 
 Here is what warming did for annotations. Reading one record from a 1 gibibyte JSONL file took a median of 297.6 microseconds before warming, and 26.7 microseconds after. That is 11 times faster per read. Over a full pass of random reads, with the half-second warm-up counted in, total time fell from 8.58 to 3.33 seconds. And with 8 workers reading at once, throughput rose from 19,846 to 28,060 reads per second, because the workers no longer queue on the drive.
 
@@ -255,13 +309,13 @@ Here is what warming did for annotations. Reading one record from a 1 gibibyte J
 
 The lesson is the one to take away from this part. The same step gave very different results on two kinds of data, and only measuring told us which was which.
 
-## 24. Part 5 · In production
-*5 · In production · ~0.2 min · no steps*
+## 30. Part 5 · Run it
+*5 · Run it · ~0.3 min · no steps*
 
-The design is complete. Now the practical questions: the disk fills up, so what then? How do you use this? Why not use an existing tool? And did it work for a real training run?
+The design is nearly complete. One item is left on the list: the disk fills up. Then the practical questions: why not use an existing tool, did it work on a real run, and what did we give up?
 
-## 25. Least recently asked-for shards are removed
-*5 · In production · ~1.2 min · no steps*
+## 31. Least recently asked-for shards are removed
+*5 · Run it · ~1.2 min · no steps*
 
 A machine's disk holds whichever shards its jobs are using, and eventually it fills up. Each kind of shard has its own space budget on the disk, with an upper mark and a lower mark. When a download pushes a budget over its upper mark, the daemon deletes the shards that were asked for least recently, until usage is back under the lower mark.
 
@@ -271,8 +325,8 @@ Three details make this safe. Separate budgets: one 1 gibibyte annotation shard 
 
 There is one more case, and it is a good question for you.
 
-## 26. Deleting a shard that is being read
-*5 · In production · ~1 min · reveal steps: 2*
+## 32. Deleting a shard that is being read
+*5 · Run it · ~1 min · reveal steps: 2*
 
 Here is a shard on the disk. A file on Linux is really two things: a name in a folder, and the data the name points to. Process A has this shard open and is in the middle of reading it. Now the budget goes over its mark, and this shard is the least recently asked for, so the daemon deletes it.
 
@@ -280,8 +334,21 @@ Here is a shard on the disk. A file on Linux is really two things: a name in a f
 
 **[step 2]** It finishes normally, and the daemon does not have to track anyone. On Linux, deleting a file removes its name at once, but its data stays until the last process that has it open closes it. So a process in the middle of a shard carries on. A process that opens the shard afterwards finds it missing, gets FileNotFoundError, and asks the daemon again. That is simply the normal path for any missing shard. We did not need to build anything for this case: it is the same miss path you saw earlier.
 
-## 27. A daemon per machine is a general pattern
-*5 · In production · ~1 min · no steps*
+## 33. The whole design, in one read
+*5 · Run it · ~1.2 min · reveal steps: 3*
+
+Before the practical questions, here is the whole design in one read, because you now know every piece.
+
+A process starts with an address: the shard, the byte where the sample starts, and its length.
+
+**[step 1]** It tries the local file. Every process can work out the name by a fixed rule, so it does not have to ask anyone.
+
+**[step 2]** If the file is missing, it asks the daemon, shown as the dashed lines. The daemon downloads the shard once for the whole machine, the orange line, and warms it if it is an annotation shard.
+
+**[step 3]** Then the process reads the bytes directly from the drive, the thick green line. And every later read, for the rest of the run, is only steps 2 and 4. The daemon is asked once per shard, and the green line runs millions of times.
+
+## 34. A daemon per machine is a general pattern
+*5 · Run it · ~1 min · no steps*
 
 Let us step back from shards. On a busy machine, many processes that know nothing about each other need the same shared things: files from the object store, rows from a database, space on the drive, memory. Left alone, each process fetches, queries and caches for itself, and every shared service sees dozens of separate clients from every machine. Making them coordinate directly would mean each one knowing about all the others.
 
@@ -291,17 +358,8 @@ Patram-FS uses this pattern three times. Requests for the same shard become one 
 
 It is also not tied to images. Nothing outside the daemon knows where shards come from: "the object store" means one download routine that calls rclone, an open-source tool that works with every major object store. And the daemon does not care what is in a shard. It can hold text, speech audio or video frames; a new reader function decides how to turn the bytes into a sample. What keeps it safe is the same rule as before: the daemon coordinates, and the data goes directly from the drive to the process.
 
-## 28. Using Patram-FS takes three pieces
-*5 · In production · ~0.7 min · no steps*
-
-If you wanted to use this, there are three pieces. Build the shards: pack images into uncompressed TAR files, annotations into JSONL files, upload them to the object store, and record each sample's address, or put its shard, offset and length in a database table. Run the daemon on every machine: it runs as a container that restarts itself if it stops, and one command deploys it across the cluster and sizes each machine's cache budgets to its free drive space. Install the client library: the Python package has no required dependencies, and reading images also needs OpenCV and NumPy.
-
-Most code only ever calls the two read functions. Underneath, the library talks to the daemon with three requests. You have seen ensure_shard and warm_shard. The third, db_lookup, is for reading by a short record id instead of a full address: it turns an id into a shard, offset and length, and the daemon gathers the requests that arrive together into one query, so the DB sees one client per machine instead of one per worker.
-
-A rule we kept throughout: every request gets a reply, even when something fails. If the DB or the object store has a problem, the daemon answers with an error instead of leaving the caller waiting. To watch it in production, each daemon exports metrics for requests, downloads, bytes downloaded, evictions and cache usage, and alerts fire when a daemon stops responding or its requests start failing.
-
-## 29. Existing tools against five requirements
-*5 · In production · ~1.5 min · no steps*
+## 35. Existing tools against five requirements
+*5 · Run it · ~1.5 min · no steps*
 
 A fair question at this point is: why build this at all? Serving shared training data from object storage to many processes on one machine is a narrow problem, and few tools aim at it. We found five that come close, and we read their documentation and source. Our workload needs five things at once, and those are the columns. One cache per machine, shared by every process. Reads at local-disk speed. Plain files, so nothing is converted. Little to run, because the machines are there to train. And every kind of job with a small code change, because training is not the only reader: data generation, annotation and analysis jobs and notebooks read the same data, mostly as plain Python that opens a file path.
 
@@ -309,8 +367,8 @@ Read it by row. StreamingDataset is an excellent library, but each dataset objec
 
 I want to be fair here. None of these is a poor tool. They were built for other workloads. If one coordinated training job is your only workload, a streaming dataset library is an excellent default, and it gives you things Patram-FS does not, such as shard-aware sampling and exact resumption on a different number of GPUs. If you need one cache shared across machines, or a normal file path that unmodified programs can open, look at Alluxio or JuiceFS. We built this because no single tool met all five for us.
 
-## 30. Training Patram 1.5 from local disks
-*5 · In production · ~0.8 min · no steps*
+## 36. Training Patram 1.5 from local disks
+*5 · Run it · ~0.8 min · no steps*
 
 Did it work? Before Patram-FS, training read its data from the cluster's shared filesystem. At the scale Patram 1.5 needed, that was too slow, too small and too expensive. Millions of small reads load a filesystem that every machine and team shares. There was not enough space for the training data at that scale. And growing it to that size was very expensive.
 
@@ -318,8 +376,8 @@ With Patram-FS, the shared filesystem is off the data path. We trained the 7B Pa
 
 Training is not the only reader. Our dataset-construction pipelines install the same library and read records by patram address, sharing each machine's cache with whatever training job is running there. That is the reason the design keeps a per-sample address: any code that used to take a path can take an address instead. The training corpus itself was generated by our data pipeline engine, Patram-Ingest, which is described separately.
 
-## 31. Where it fits, and the trade-offs we chose
-*5 · In production · ~1 min · no steps*
+## 37. Where it fits, and the trade-offs we chose
+*5 · Run it · ~1 min · no steps*
 
 So where does this fit? It works well when many unrelated processes on one machine read the same data, when your code was written for "each sample has its own path", when you want reads at the speed of the local drive, and when you want to be free to change object store, behind one replaceable download routine.
 
@@ -329,8 +387,8 @@ Second, sampling needs some shard locality. This one is important. A sampler tha
 
 Third, it is one more program to run. If a daemon stops, every process on that machine can still read every shard already on its disk, but no new shard arrives until the daemon is back. We accept that, and the daemon restarts itself and has alerts on it.
 
-## 32. Key takeaways
-*5 · In production · ~1 min · no steps*
+## 38. Key takeaways
+*5 · Run it · ~1 min · no steps*
 
 Let me leave you with five ideas, because they apply well beyond this system.
 

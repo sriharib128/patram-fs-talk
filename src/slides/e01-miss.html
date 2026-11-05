@@ -1,7 +1,8 @@
-<section class="slide light" id="miss" data-steps="0" data-section="4 · Reads and memory" data-time="1.2" data-title="The daemon is asked only on a missing shard">
+<section class="slide light" id="miss" data-steps="0" data-section="4 · Read them fast" data-time="1.2" data-title="The daemon is asked only when a shard is missing">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>check your shelf first, and ask the manager only if the box is not there</div>
   <div class="hd">
     <div class="eyebrow">Reading</div>
-    <h2>The daemon is asked only on a missing shard</h2>
+    <h2>The daemon is asked only when a shard is missing</h2>
   </div>
   <div class="abs" id="pf-ms" style="left:120px;top:226px;width:1680px;height:530px"></div>
   <div class="abs pf-cnt" style="left:120px;top:764px;width:1680px">
@@ -12,7 +13,7 @@
   <div class="abs" id="pf-ms-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: 4 processes, one shard. Counts and timing are simulated.</div>
   <aside class="notes">
-    <p>A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file, and reads the sample at its offset with pread, a single system call that reads a given number of bytes from a given position.</p>
+    <p>A process does not ask the daemon before every read. Because cached shards are named by a fixed rule, a process can work out by itself where a shard should be on the local disk. So it just tries: it opens that file and reads the sample at its position. Think of checking your own shelf before bothering the manager.</p>
     <p>Only if the open fails with FileNotFoundError does it send ensure_shard to the daemon, and then it tries again.</p>
     <p>Watch the two counters here. At the start the shard is not on this machine, so each of the four processes gets the error and asks. That is four questions. The daemon downloads the shard once, and every process retries. And from then on the question counter stays at four while reads keep climbing.</p>
     <p>So for each shard, only the first processes to reach it ever talk to the daemon. Every later read, from every process, for the rest of the run, is an ordinary open and read of a local file.</p>

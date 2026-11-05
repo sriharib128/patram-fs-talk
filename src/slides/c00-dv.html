@@ -1,8 +1,16 @@
-<section class="slide dark" id="dv2" data-section="2 · Shards" data-time="0.2" data-title="Part 2 · Shards">
+<section class="slide dark" id="dv2" data-section="2 · Pack the files" data-time="0.3" data-title="Part 2 · Pack the files">
   <div class="dv-num">2</div>
   <div class="dv-eb">Part 2</div>
-  <div class="dv-h">Shards</div>
+  <div class="dv-h">Pack the files</div>
   <div class="dv-line"></div>
   <div class="dv-q">How can one large file still give us a single sample?</div>
-  <aside class="notes"><p>The standard fix for too many small files is fewer, larger files. The interesting question is how to pack them so that one sample can still be read on its own.</p></aside>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="now"><i>→</i><span>Too many small files</span></div>
+    <div class="now"><i>→</i><span>Too many requests</span></div>
+    <div class="todo"><i>·</i><span>Every process fetches its own copy</span></div>
+    <div class="todo"><i>·</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>On the right is our list of problems, and we will come back to it at the start of each part. Packing the files takes on the first two together. The interesting question is how to pack them so that one sample can still be read on its own.</p></aside>
 </section>

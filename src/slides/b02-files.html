@@ -1,0 +1,25 @@
+<section class="slide light" id="nfiles" data-steps="0" data-section="1 · The problem" data-time="1" data-title="A dataset is tens of millions of small files">
+  <div class="hd">
+    <div class="eyebrow">How much data</div>
+    <h2>A dataset is tens of millions of small files</h2>
+  </div>
+  <div class="abs card pf-nf" style="left:120px;top:236px;width:620px;height:620px">
+    <small>The simplest way to store it</small>
+    <div class="pf-nf-l">img_000001.jpg<br>img_000001.json<br>img_000002.jpg<br>img_000002.json<br>img_000003.jpg<br>...</div>
+    <div class="pf-nf-r"><b>50 to 500 KB</b><span>each image</span></div>
+    <div class="pf-nf-r"><b>About 300 bytes</b><span>each annotation</span></div>
+  </div>
+  <div class="abs card pf-nf" style="left:780px;top:236px;width:1020px;height:620px">
+    <small>One file per sample, in one dataset</small>
+    <div id="pf-nf-w"></div>
+    <div class="pf-nf-c"><b id="pf-nf-n">0</b><span>files</span></div>
+  </div>
+  <p class="abs t" style="left:120px;top:884px;width:1680px;font-size:29px">Each file is tiny. The trouble is how many of them there are.</p>
+  <div class="abs" id="pf-nf-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing is not to scale. Ten million is a round figure for the size of a dataset.</div>
+  <aside class="notes">
+    <p>The obvious way to store this data is what you would do on your own laptop: one file for each image, and one file for each annotation, all in a folder.</p>
+    <p>Each one is small. An image is 50 to 500 kilobytes. An annotation is about 300 bytes, which is shorter than a text message.</p>
+    <p>But a training dataset holds tens of millions of them. Most computer systems are comfortable with a few very big files. They are much less comfortable with millions of tiny ones, and we will see exactly why in a moment. First, one more piece of the picture: who is reading them.</p>
+  </aside>
+</section>

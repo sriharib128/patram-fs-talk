@@ -1,8 +1,16 @@
-<section class="slide dark" id="dv4" data-section="4 · Reads and memory" data-time="0.2" data-title="Part 4 · Reads and memory">
+<section class="slide dark" id="dv4" data-section="4 · Read them fast" data-time="0.3" data-title="Part 4 · Read them fast">
   <div class="dv-num">4</div>
   <div class="dv-eb">Part 4</div>
-  <div class="dv-h">Reads and memory</div>
+  <div class="dv-h">Read them fast</div>
   <div class="dv-line"></div>
   <div class="dv-q">How can each read cost no more than reading a local file?</div>
-  <aside class="notes"><p>The daemon solved downloads. Now we look at the reads themselves, because that is where the run spends its time: first image reads, and then annotations, which turn out to need something extra.</p></aside>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="ok"><i>✓</i><span>Too many small files</span></div>
+    <div class="ok"><i>✓</i><span>Too many requests</span></div>
+    <div class="ok"><i>✓</i><span>Every process fetches its own copy</span></div>
+    <div class="now"><i>→</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>Downloads are solved. Now the reads themselves, because that is where a run spends its time: first images, and then annotations, which turn out to need something extra.</p></aside>
 </section>

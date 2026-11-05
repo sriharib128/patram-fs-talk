@@ -1,0 +1,28 @@
+<section class="slide light" id="ytpack" data-steps="2" data-section="1 · The problem" data-time="1" data-title="Cutting ten million requests">
+  <div class="hd">
+    <div class="eyebrow">Your turn</div>
+    <h2>Cutting ten million requests</h2>
+  </div>
+  <div class="abs card pf-ctx" style="left:120px;top:236px;width:1680px">
+    <div class="pf-ctx-i"><b>10,000,000</b><span>small files in the object store</span></div>
+    <div class="pf-ctx-i"><b>1 request</b><span>to fetch each file</span></div>
+    <div class="pf-ctx-i"><b>Any size</b><span>300 bytes or 10 GiB counts the same</span></div>
+  </div>
+  <div class="abs pf-q" data-s="1" style="left:120px;top:400px;width:1680px">How would you cut the number of requests?</div>
+  <div class="abs card pf-opt" data-s="1" style="left:120px;top:480px;width:820px;height:400px">
+    <i>A</i><h4>Send them in parallel</h4>
+    <div class="pf-strip" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+    <em data-s="2" class="pf-ans bad">It is still ten million requests, against the same limit.</em>
+  </div>
+  <div class="abs card pf-opt ok" data-s="1" style="left:980px;top:480px;width:820px;height:400px">
+    <i>B</i><h4>Pack files into large ones</h4>
+    <div class="pf-strip" aria-hidden="true"><b style="background:var(--blue-mid);border-color:var(--blue-mid)"></b></div>
+    <em data-s="2" class="pf-ans good">One request brings back a large file holding tens of thousands of images.</em>
+  </div>
+  <div class="src">Source: Patram-FS engineering post</div>
+  <aside class="notes">
+    <p>Before we move on, try this one. There are ten million small files in the object store. Each takes one request. And one request can bring back 300 bytes or 10 gibibytes, for the same cost.</p>
+    <p data-step="1">How would you cut the number of requests? Option A: send them in parallel, as many at once as you can. Option B: pack the small files into large ones. Which would you pick?</p>
+    <p data-step="2">B. Parallel requests are still ten million requests against the same limit. If one trip can carry anything, the answer is to fill the truck. That is the next part.</p>
+  </aside>
+</section>

@@ -1,0 +1,20 @@
+<section class="slide light" id="tryfs" data-steps="1" data-section="1 · The problem" data-time="1.8" data-title="More files means a slower shared filesystem">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>one clerk who finds a card before handing over any file</div>
+  <div class="hd">
+    <div class="eyebrow">Problem 1 · Shared filesystem</div>
+    <h2>More files means a slower shared filesystem</h2>
+  </div>
+  <div class="abs" id="pf-fs" style="left:120px;top:226px;width:1680px;height:470px"></div>
+  <p class="abs t" data-h="1" style="left:120px;top:716px;width:1680px;font-size:29px">Every file needs its own lookup before its first byte, however small the file is.</p>
+  <div class="abs pf-fsr" data-s="1" style="left:120px;top:712px;width:1680px">
+    <div class="card"><small>At ten million files</small><b>Listing the dataset folder takes minutes</b></div>
+    <div class="card"><small>And it is shared</small><b>The load slows every other machine on the cluster</b></div>
+  </div>
+  <div class="abs" id="pf-fs-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: the drawing uses 40 files, and timing is simulated.</div>
+  <aside class="notes">
+    <p>Let us try the shared filesystem. Before it can give you a single byte of a file, a filesystem has to look that file up: its name, its size, and where its bytes are. That bookkeeping is called metadata, and the filesystem keeps one entry for every file. Picture a clerk in the records room who has to find the right card before handing over any file.</p>
+    <p>On the left is some data stored as one big file: one lookup, and then the bytes flow. On the right is the same data stored as many small files. Every one of them needs its own lookup. Watch the counter. The disks are not the slow part here. The clerk is.</p>
+    <p data-step="1">Now scale that to ten million files. The cost grows with the number of files, whatever their size. Just listing the dataset folder takes minutes. And the part people forget: this filesystem is shared. Our readers keep the clerk busy, so every other machine on the cluster slows down too.</p>
+  </aside>
+</section>

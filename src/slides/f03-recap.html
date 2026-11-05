@@ -1,0 +1,26 @@
+<section class="slide light" id="recap" data-steps="3" data-section="5 · Run it" data-time="1.2" data-title="The whole design, in one read">
+  <div class="hd">
+    <div class="eyebrow">Putting it together</div>
+    <h2>The whole design, in one read</h2>
+  </div>
+  <div class="abs card pf-ag pf-rcp" style="left:120px;top:236px;width:1000px;height:660px">
+    <ol>
+      <li><i>1</i><div><b>Start with the address</b><span>The shard, the byte where the sample starts, and its length</span></div></li>
+      <li data-s="1"><i>2</i><div><b>Try the local file</b><span>Every process can work out the name, so no one is asked</span></div></li>
+      <li data-s="2"><i>3</i><div><b>If it is missing, ask the daemon</b><span>One download per machine, and annotation shards are warmed</span></div></li>
+      <li data-s="3"><i>4</i><div><b>Read the bytes directly</b><span>Every later read is only steps 2 and 4</span></div></li>
+    </ol>
+  </div>
+  <div class="abs card pf-ag2" style="left:1160px;top:236px;width:640px;height:660px">
+    <small>One machine</small>
+    <div id="pf-agd"></div>
+  </div>
+  <div class="src">The drawing is a summary of the design, not to scale.</div>
+  <aside class="notes">
+    <p>Before the practical questions, here is the whole design in one read, because you now know every piece.</p>
+    <p>A process starts with an address: the shard, the byte where the sample starts, and its length.</p>
+    <p data-step="1">It tries the local file. Every process can work out the name by a fixed rule, so it does not have to ask anyone.</p>
+    <p data-step="2">If the file is missing, it asks the daemon, shown as the dashed lines. The daemon downloads the shard once for the whole machine, the orange line, and warms it if it is an annotation shard.</p>
+    <p data-step="3">Then the process reads the bytes directly from the drive, the thick green line. And every later read, for the rest of the run, is only steps 2 and 4. The daemon is asked once per shard, and the green line runs millions of times.</p>
+  </aside>
+</section>

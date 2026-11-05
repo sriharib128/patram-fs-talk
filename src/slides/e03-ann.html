@@ -1,7 +1,8 @@
-<section class="slide light" id="ann" data-steps="1" data-section="4 · Reads and memory" data-time="1.3" data-title="The two obvious ways to serve annotations">
+<section class="slide light" id="ann" data-steps="1" data-section="4 · Read them fast" data-time="1.3" data-title="For annotations, both obvious ways fail">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>everyone copying a whole book, or walking to the shelf for each line</div>
   <div class="hd">
     <div class="eyebrow">Annotations</div>
-    <h2>The two obvious ways to serve annotations</h2>
+    <h2>For annotations, both obvious ways fail</h2>
   </div>
   <div class="abs" id="pf-an" style="left:120px;top:226px;width:1160px;height:600px"></div>
   <div class="abs pf-way" data-h="1" style="left:1310px;top:226px;width:490px">
@@ -14,7 +15,7 @@
   <div class="abs" id="pf-an-pl" style="left:120px;top:962px;width:560px"></div>
   <div class="abs note" style="left:720px;top:958px;font-size:21px">The drawing shows 4 workers; timing is simulated.</div>
   <aside class="notes">
-    <p>An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.</p>
+    <p>Images are large and read one at a time. Annotations are the opposite. An annotation shard is a 1 gibibyte JSONL file holding millions of small records of about 300 bytes each. During training, each worker needs a few records at a time, from scattered places in the file, and every worker on the machine does this at once. There are two obvious ways to give them their records.</p>
     <p>The first: load the whole file into every worker. Here you see four workers each filling a row of memory with their own copy. Each row can hold one full copy of the file. Lookups are fast after that. But workers cannot share their memory with each other, so 100 workers hold 100 copies of the same file: 100 gibibytes of memory for 1 gibibyte of data, and every worker waits for the load before it can start.</p>
     <p data-step="1">The second: keep the file on the drive and read only each record's bytes with pread, the way we read images. Memory stays small, as you can see. But every record is a separate trip to the drive, at a median of 297.6 microseconds for a 300-byte record. Training makes millions of these, all from the same drive, and they queue behind each other. The drive becomes the bottleneck.</p>
     <p>What we want is the small reads of the second approach, answered from memory, with one copy of the file for the whole machine. It turns out Linux already has the piece that makes this possible.</p>

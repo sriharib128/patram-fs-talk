@@ -1,8 +1,16 @@
-<section class="slide dark" id="dv3" data-section="3 · The daemon" data-time="0.2" data-title="Part 3 · The daemon">
+<section class="slide dark" id="dv3" data-section="3 · Keep them local" data-time="0.3" data-title="Part 3 · Keep them local">
   <div class="dv-num">3</div>
   <div class="dv-eb">Part 3</div>
-  <div class="dv-h">The daemon</div>
+  <div class="dv-h">Keep them local</div>
   <div class="dv-line"></div>
-  <div class="dv-q">What happens when many processes want the same shard?</div>
-  <aside class="notes"><p>Shards fixed the file count. But fetching from the object store on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the next problem.</p></aside>
+  <div class="dv-q">How is each shard downloaded only once on a machine?</div>
+  <div class="abs pf-trk" style="left:1060px;top:196px;width:740px">
+    <small>The story so far</small>
+    <div class="ok"><i>✓</i><span>Too many small files</span></div>
+    <div class="ok"><i>✓</i><span>Too many requests</span></div>
+    <div class="now"><i>→</i><span>Every process fetches its own copy</span></div>
+    <div class="todo"><i>·</i><span>Reads must stay as fast as the local drive</span></div>
+    <div class="todo"><i>·</i><span>The local disk fills up</span></div>
+  </div>
+  <aside class="notes"><p>The first two are fixed: few files, few requests. But the shards are still far away in the object store, and fetching from there on every read would bring the request problem straight back. So each machine keeps the shards it uses on its own disk, and that creates the third problem on our list.</p></aside>
 </section>

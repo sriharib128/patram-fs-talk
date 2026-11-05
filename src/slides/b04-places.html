@@ -1,0 +1,35 @@
+<section class="slide light" id="places" data-steps="2" data-section="1 · The problem" data-time="1.5" data-title="The files can live in three places">
+  <div class="hd">
+    <div class="eyebrow">Where it can live</div>
+    <h2>The files can live in three places</h2>
+  </div>
+  <div class="abs card pf-pl" style="left:120px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl1"></div>
+    <h3>Local drive</h3>
+    <p>A 30 TB NVMe drive attached directly to each machine.</p>
+    <dl><dt>Speed</dt><dd class="good">Tens of microseconds</dd><dt>The catch</dt><dd>Only that machine can see it</dd></dl>
+    <div class="lk"><b>Think of it as</b>the shelf in your own office</div>
+  </div>
+  <div class="abs card pf-pl" data-s="1" style="left:690px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl2"></div>
+    <h3>Shared filesystem</h3>
+    <p>A network filesystem every machine mounts, so all of them see the same files.</p>
+    <dl><dt>Speed</dt><dd class="bad">Milliseconds, over the network</dd><dt>The catch</dt><dd>Keeps an entry for every file, and everyone shares it</dd></dl>
+    <div class="lk"><b>Think of it as</b>one records room for the whole building</div>
+  </div>
+  <div class="abs card pf-pl" data-s="2" style="left:1260px;top:226px;width:540px;height:680px">
+    <div class="pf-pl-d" id="pf-pl3"></div>
+    <h3>Object store</h3>
+    <p>Where datasets live long term. We use Amazon S3.</p>
+    <dl><dt>Speed</dt><dd class="bad">Milliseconds, over the network</dd><dt>The catch</dt><dd>Charged and limited by the number of requests</dd></dl>
+    <div class="lk"><b>Think of it as</b>a warehouse across town</div>
+  </div>
+  <div class="src">Source: Patram-FS engineering post. The drawings are illustrative.</div>
+  <aside class="notes">
+    <p>There are three places these files can live, and it helps to picture an office building. Each machine is one office.</p>
+    <p>First, the local drive. Each machine has a 30 terabyte NVMe drive attached directly to it. It is the shelf in your own office: reads take tens of microseconds. The catch is that only that machine can see it.</p>
+    <p data-step="1">Second, the shared filesystem. Every machine mounts it and sees the same files. It is one records room for the whole building. Reaching it crosses the network, which costs milliseconds, and it keeps an entry for every single file.</p>
+    <p data-step="2">Third, the object store, which for us is Amazon S3. It holds everything, long term. It is a warehouse across town: also milliseconds away, and it charges and limits you by the number of requests.</p>
+    <p>Notice the gap in speed: microseconds on the machine, milliseconds across the network. So the local drive is fast but private, and the two shared places are slow. Let us try putting ten million files in each of the shared ones, and see what happens.</p>
+  </aside>
+</section>

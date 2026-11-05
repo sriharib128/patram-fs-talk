@@ -1,0 +1,18 @@
+<section class="slide light" id="gpuwait" data-steps="0" data-section="1 · The problem" data-time="1.5" data-title="A GPU can only learn when data has arrived">
+  <div class="abs pf-like" style="right:120px;top:92px"><b>Think of it as</b>an expert who needs a helper to bring each page</div>
+  <div class="hd">
+    <div class="eyebrow">Why it matters</div>
+    <h2>A GPU can only learn when data has arrived</h2>
+  </div>
+  <div class="abs" id="pf-gw" style="left:120px;top:226px;width:1680px;height:540px"></div>
+  <p class="abs t" style="left:120px;top:790px;width:1680px;font-size:29px">Same GPU, same model. The only difference is how quickly the next sample arrives.</p>
+  <div class="abs pf-nx" style="left:120px;top:860px;width:1680px"><b>So the question is</b>How do we get samples to the GPU on time?</div>
+  <div class="abs" id="pf-gw-pl" style="left:120px;top:962px;width:560px"></div>
+  <div class="abs note" style="left:720px;top:958px;font-size:21px">Illustrative: speeds and counts are simulated.</div>
+  <aside class="notes">
+    <p>Here is one GPU. Think of it as a very expensive expert who reads pages and learns from them, and of the program feeding it as a helper who fetches each page from storage.</p>
+    <p>In the top row, the pages arrive on time. The GPU is green the whole way along: it finishes one sample and the next is already there.</p>
+    <p>In the bottom row, nothing about the GPU or the model has changed. The pages just take longer to arrive. Most of the bar is grey, which means the GPU is sitting idle, waiting. We are paying for a GPU that is doing nothing, and the run takes far longer.</p>
+    <p>So the job is to keep the GPU fed. That sounds easy for one GPU and one file. Let us look at how much there is to read.</p>
+  </aside>
+</section>

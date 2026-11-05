@@ -138,7 +138,7 @@
     for (const b of [$('#brandtl')]) if (b) b.classList.toggle('hide', el.hasAttribute('data-nobrand'));   // the title and thank-you slides carry the logo themselves
     const acts = $('#acts');
     if (acts) {
-      if (!acts.children.length) { const sp = document.createElement('span'); sp.dataset.part = 'title'; sp.className = 'ttl'; sp.title = 'Go to the title slide'; sp.innerHTML = '<b>Title</b>'; acts.appendChild(sp); } if (acts.children.length === 1) ['The problem', 'Shards', 'The daemon', 'Reads and memory', 'In production'].forEach((n, k) => { const sp = document.createElement('span'); sp.dataset.part = k + 1; sp.title = 'Go to part ' + (k + 1) + ': ' + n; sp.innerHTML = '<b>' + (k + 1) + '</b><u>' + n + '</u>'; acts.appendChild(sp); });
+      if (!acts.children.length) { const sp = document.createElement('span'); sp.dataset.part = 'title'; sp.className = 'ttl'; sp.title = 'Go to the title slide'; sp.innerHTML = '<b>Title</b>'; acts.appendChild(sp); } if (acts.children.length === 1) ['The problem', 'Pack the files', 'Keep them local', 'Read them fast', 'Run it'].forEach((n, k) => { const sp = document.createElement('span'); sp.dataset.part = k + 1; sp.title = 'Go to part ' + (k + 1) + ': ' + n; sp.innerHTML = '<b>' + (k + 1) + '</b><u>' + n + '</u>'; acts.appendChild(sp); });
       const m = /^(\d) ·/.exec(el.dataset.section || ''), n = m ? +m[1] : -1;   // the number in data-section picks the part
       acts.classList.toggle('hide', state.i === 0); [...acts.children].forEach(c => c.classList.toggle('on', c.dataset.part === String(n)));
     }

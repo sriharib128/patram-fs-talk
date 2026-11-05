@@ -1,9 +1,9 @@
-<section class="slide light" id="whyit" data-steps="0" data-section="Introduction" data-time="1.2" data-title="Patram learns from document images and text">
+<section class="slide light" id="whyit" data-steps="0" data-section="Introduction" data-time="1.5" data-title="We train Patram, a model that reads documents">
   <div class="hd">
     <div class="eyebrow">What we do</div>
-    <h2>Patram learns from document images and text</h2>
+    <h2>We train Patram, a model that reads documents</h2>
   </div>
-  <div class="abs card pf-wy" style="left:120px;top:236px;width:760px;height:620px">
+  <div class="abs card pf-wy" style="left:120px;top:236px;width:800px;height:620px">
     <small>One training sample</small>
     <div class="pf-wy-s">
       <div class="pf-pg" aria-hidden="true"><i class="h"></i><i></i><i></i><i class="s"></i><u></u><i></i><i></i><i class="s"></i></div>
@@ -16,21 +16,21 @@
 }</code>
       </div>
     </div>
-    <div class="pf-wy-l"><div><b>Image of a page</b><span>50 to 500 KB</span></div><div><b>Annotation, a JSON record</b><span>about 300 bytes</span></div></div>
+    <div class="pf-wy-l"><div><b>An image of a page</b></div><div><b>An annotation that says what is on it</b></div></div>
   </div>
-  <div class="abs card pf-wy" style="left:920px;top:236px;width:880px;height:620px">
-    <small>Where it is read</small>
-    <div class="pf-lat" id="pf-lat" aria-hidden="true"></div>
-    <div class="pf-wy-f">
-      <div><b>30</b><span>machines</span></div><div><b>8</b><span>GPUs each</span></div><div><b>240</b><span>GPUs</span></div>
-    </div>
-    <p class="pf-wy-p">Tens of millions of samples, read many times over, by several reader processes for every GPU.</p>
+  <div class="abs card pf-ag" style="left:960px;top:236px;width:840px;height:620px">
+    <ol>
+      <li><i>1</i><div><b>Show the model a sample</b><span>A page, and a question about it</span></div></li>
+      <li><i>2</i><div><b>Compare its answer</b><span>Against the right answer in the annotation</span></div></li>
+      <li><i>3</i><div><b>Adjust the model</b><span>So it does a little better next time</span></div></li>
+      <li><i>4</i><div><b>Take the next sample</b><span>And repeat, many millions of times</span></div></li>
+    </ol>
   </div>
-  <p class="abs t" style="left:120px;top:880px;width:1680px;font-size:29px">If reading is slow, training waits for its data.</p>
+  <p class="abs t" style="left:120px;top:884px;width:1680px;font-size:29px">This loop runs on GPUs, and it needs a new sample every time it comes round.</p>
   <div class="abs note" style="left:120px;top:940px;font-size:21px">The sample shown is illustrative.</div>
   <aside class="notes">
-    <p>A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents. Patram 1.5 learns from document images and the text that goes with them. So one training sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.</p>
-    <p>Both are small. The image is 50 to 500 kilobytes. The annotation is a JSON record of about 300 bytes. But a training dataset holds tens of millions of them, and a training run reads them many times over.</p>
-    <p>On the right is where that reading happens. Each square is one GPU: 30 machines with 8 GPUs each, 240 GPUs. Every GPU is fed by several reader processes. Why does this matter? Because the GPU only does useful work when the data has arrived. If reading is slow, training waits, and that is the problem this talk is about.</p>
+    <p>A few words on what we do. We are BharatGen, and on the vision team we train Patram, a family of vision-language models that read documents.</p>
+    <p>Training data for a model like this is simple. One sample is two things: an image of a page, and an annotation that says what is on it, such as a transcription, or a question about the page and its answer.</p>
+    <p>Training itself is a loop. Show the model a sample. Compare its answer with the right one. Adjust the model a little. Take the next sample. That loop runs on GPUs, and every time it comes round it needs a new sample. Keep that in mind, because this whole talk is about getting that next sample to the GPU on time.</p>
   </aside>
 </section>

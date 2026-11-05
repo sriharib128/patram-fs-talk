@@ -31,6 +31,7 @@
         const imgs = bars.filter(b => !b.kind), anns = bars.filter(b => b.kind), tiles = [], cols = 32, rows = 18, sz = 13, gap = 5;
         for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
           const ann = (r + c * 3) % 2 === 1, x = 30 + c * (sz + gap), y = 78 + r * (sz + 5);
+          D.rect(x, y, sz, sz, { fill: C.free, r: 2 });
           const tgt = ann ? anns[Math.floor(R() * anns.length)] : imgs[Math.floor(R() * imgs.length)]; tgt.n++;
           tiles.push({ x, y, tgt, ann, t0: 300 + R() * 3700, e: D.rect(x, y, sz, sz, { fill: ann ? C.orange : C.mid, r: 2 }), tx: tgt.x + 10 + R() * (tgt.w - 20), ty: tgt.y + R() * (tgt.h - sz) });
         }
@@ -73,7 +74,7 @@
           const m = MEM[k];
           cells.forEach((c, j) => c.classList.toggle('pf-sel', j === k));
           let before = 0; for (let j = 0; j < k; j++) before += KB[j];
-          head.style.left = (32 + before / TOTAL * W) + 'px';
+          head.style.left = (32 + before / TOTAL * W) + 'px'; head.firstElementChild.style.display = 'inline-block'; head.firstElementChild.style.transform = before / TOTAL > .8 ? 'translateX(-100%)' : '';
           o.textContent = m.off.toLocaleString('en-US'); l.textContent = m.len.toLocaleString('en-US') + ' bytes';
           u.innerHTML = `patram://img/${String(m.id).padStart(6, '0')}?shard=shard_0042.tar&amp;offset=<span class="o">${m.off}</span>&amp;length=<span class="l">${m.len}</span>`;
         },
